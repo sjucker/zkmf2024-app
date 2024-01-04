@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/screens/home.dart';
 import 'package:zkmf2024_app/screens/location.dart';
@@ -54,10 +55,10 @@ class _MyAppState extends State<MyApp> {
             surface: silber,
             onSurface: Colors.black,
           ),
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: Colors.white,
-                displayColor: Colors.white,
-              ),
+          textTheme: GoogleFonts.poppinsTextTheme().apply(
+            bodyColor: Colors.white,
+            displayColor: Colors.white,
+          ),
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.white, foregroundColor: rot),
           filledButtonTheme: FilledButtonThemeData(

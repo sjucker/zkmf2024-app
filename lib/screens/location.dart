@@ -84,7 +84,8 @@ class _LocationScreenState extends State<LocationScreen> {
       return ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: Image.network(
-              '$cloudFlareUrl${requireData.cloudflareId!}/public'));
+            '$cloudFlareUrl${requireData.cloudflareId!}/public',
+          ));
     } else {
       return Container();
     }

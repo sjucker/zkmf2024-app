@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zkmf2024_app/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,13 +8,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("ZKMF2024")),
+      appBar: AppBar(
+        title: const Text("ZKMF2024 - Festführer"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+        child: Container(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo-home.png',
+              fit: BoxFit.fitWidth,
+            ),
+            const Expanded(
+                child: RotationTransition(
+                    turns: AlwaysStoppedAnimation(-12 / 360),
+                    child: Text("Musik\nbewegt",
+                        style: TextStyle(height: 1,
+                            fontSize: 70, fontWeight: FontWeight.bold)))),
+            Image.asset(
+              'assets/hauptsponsoren.png',
+              fit: BoxFit.fitWidth,
+            ),
+          ],
+        )),
+      ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
@@ -44,9 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIcon: Icon(Icons.info),
             label: 'Informationen',
           ),
-        ],),
+        ],
+      ),
     );
   }
-
-
 }

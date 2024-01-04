@@ -6,5 +6,5 @@ const Color silber = Color.fromARGB(255, 213, 215, 217);
 const Color gruen = Color.fromARGB(255, 12, 195, 141);
 const Color gelb = Color.fromARGB(255, 255, 198, 0);
 
-const baseUrl = 'https://zkmf2024-server.herokuapp.co';
+const baseUrl = 'https://zkmf2024-server.herokuapp.com';
 const cloudFlareUrl = 'https://imagedelivery.net/b5PKQi-eHYmFXihh4Gjd5g/';
