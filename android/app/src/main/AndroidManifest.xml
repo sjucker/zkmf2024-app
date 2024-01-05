@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
-        android:label="zkmf2024_app"
+        android:label="Zürcher Kantonalmusikfest 2024"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

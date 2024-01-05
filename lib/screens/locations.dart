@@ -53,7 +53,6 @@ class _LocationsScreenState extends State<LocationsScreen> {
                     );
                   },
                 );
-                return Text(snapshot.data!.length as String);
               } else if (snapshot.hasError) {
                 return const GeneralErrorWidget();
               }

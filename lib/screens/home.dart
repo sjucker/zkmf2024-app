@@ -18,8 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-        child: Container(
-            child: Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -31,14 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: RotationTransition(
                     turns: AlwaysStoppedAnimation(-12 / 360),
                     child: Text("Musik\nbewegt",
-                        style: TextStyle(height: 1,
-                            fontSize: 70, fontWeight: FontWeight.bold)))),
+                        style: TextStyle(
+                            height: 1,
+                            fontSize: 70,
+                            fontWeight: FontWeight.bold)))),
             Image.asset(
               'assets/hauptsponsoren.png',
               fit: BoxFit.fitWidth,
             ),
           ],
-        )),
+        ),
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
