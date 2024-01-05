@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zkmf2024_app/constants.dart';
+import 'package:zkmf2024_app/screens/locations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,11 +14,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("ZKMF2024 - Festführer"),
-      ),
-      body: Padding(
+    List<Widget> _screens = [
+      Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,6 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      HomeScreen(),
+      LocationsScreen(),
+      HomeScreen()
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("ZKMF2024 - Festführer"),
+      ),
+      body: _screens[currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
@@ -50,9 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedIndex: currentPageIndex,
         destinations: const [
           NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+            selectedIcon: Icon(Icons.announcement),
+            icon: Icon(Icons.announcement_outlined),
+            label: 'News',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.music_note),
