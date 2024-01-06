@@ -25,6 +25,15 @@ class _LocationsScreenState extends State<LocationsScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Wettspiellokale'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.home),
+              tooltip: 'Home',
+              onPressed: () {
+                context.go('/');
+              },
+            ),
+          ],
         ),
         body: Center(
           child: FutureBuilder<List<LocationDTO>>(
@@ -37,7 +46,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
                     return ListTile(
                       title: TextButton(
                         onPressed: () {
-                          context.go(
+                          context.push(
                               '/wettspiellokale/${snapshot.requireData[index].identifier}');
                         },
                         child: Text(
