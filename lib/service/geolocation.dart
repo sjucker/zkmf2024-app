@@ -57,3 +57,22 @@ double calculateDistanceInMeters(Position pointA, Position pointB) {
 
   return c * radiusOfEarthInKm * 1000;
 }
+
+String getDistanceToLocation(
+    Position currentPosition, Position locationPosition) {
+  var distanceInMeters =
+      calculateDistanceInMeters(currentPosition, locationPosition);
+
+  var distance = '';
+  if (distanceInMeters < 100) {
+    distance = 'weniger als 100 Meter entfernt';
+  } else if (distanceInMeters < 1000) {
+    distance = 'ca. ${(distanceInMeters / 100).round() * 100} Meter entfernt';
+  } else if (distanceInMeters < 10000) {
+    distance = 'ca. ${(distanceInMeters / 1000).round()} Kilometer entfernt';
+  } else {
+    distance = 'mehr als 10 Kilometer entfernt';
+  }
+
+  return distance;
+}

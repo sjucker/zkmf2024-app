@@ -59,11 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 10,
                   ),
                   children: [
-                    buildCard(context, Icons.announcement_outlined, "News"),
-                    buildCard(context, Icons.music_note_outlined, "Vereine"),
-                    buildCard(
-                        context, Icons.view_timeline_outlined, "Zeitplan"),
-                    buildCard(context, Icons.info_outline, "Informationen"),
+                    buildCard(context, Icons.announcement_outlined, "News",
+                        '/wettspiellokale'),
+                    buildCard(context, Icons.music_note_outlined, "Vereine",
+                        '/wettspiellokale'),
+                    buildCard(context, Icons.view_timeline_outlined, "Zeitplan",
+                        '/wettspiellokale'),
+                    buildCard(context, Icons.info_outline, "Informationen",
+                        '/wettspiellokale'),
                   ],
                 ),
               ),
@@ -74,13 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Card buildCard(BuildContext context, IconData icon, String label) {
+  Card buildCard(
+      BuildContext context, IconData icon, String label, String location) {
     return Card(
       color: silberTransparent,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          context.push('/wettspiellokale');
+          context.push(location);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
