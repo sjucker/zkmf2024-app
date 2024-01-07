@@ -64,6 +64,10 @@ class _MyAppState extends State<MyApp> {
           filledButtonTheme: FilledButtonThemeData(
             style: TextButton.styleFrom(
                 backgroundColor: rot, foregroundColor: Colors.white),
+          ),
+          listTileTheme: const ListTileThemeData(
+            textColor: Colors.white,
+            iconColor: gruen,
           )),
     );
   }

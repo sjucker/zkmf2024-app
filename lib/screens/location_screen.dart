@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/service/geolocation.dart';
+import 'package:zkmf2024_app/widgets/distance_to_location.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -46,28 +48,48 @@ class _LocationScreenState extends State<LocationScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var requireData = snapshot.requireData;
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+            return ListView(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.maps_home_work),
+                  title: Text(
                     requireData.address,
                   ),
-                  FutureBuilder(
+                ),
+                ListTile(
+                  leading: const Icon(Icons.map_sharp),
+                  onTap: () {
+                    MapsLauncher.launchCoordinates(requireData.latitude,
+                        requireData.longitude, requireData.name);
+                  },
+                  title: const Text(
+                    "Karte öffnen",
+                  ),
+                  trailing: const Icon(
+                    Icons.navigate_next_sharp,
+                    color: Colors.white,
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.my_location,
+                  ),
+                  title: FutureBuilder(
                     future: _currentPosition,
                     builder: (innerContext, innerSnapshot) {
-                      if (innerSnapshot.hasData) {
-                        return Text(getDistanceToLocation(innerSnapshot.requireData,
-                            requireData.getPosition()));
-                      } else {
-                        return Container();
-                      }
+                      return DistanceToLocationWidget(
+                          innerSnapshot, requireData.getPosition());
                     },
                   ),
-                  getLocationImage(requireData),
-                ],
-              ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.info_outlined),
+                  title: Text(
+                    "Module: ${requireData.modules}",
+                  ),
+                ),
+                getLocationImage(requireData),
+              ],
             );
           } else if (snapshot.hasError) {
             return const GeneralErrorWidget();
@@ -81,11 +103,20 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Widget getLocationImage(LocationDTO requireData) {
     if (requireData.cloudflareId != null) {
-      return ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: Image.network(
-            '$cloudFlareUrl${requireData.cloudflareId!}/public',
-          ));
+      return ListTile(
+        title: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.network(
+              '$cloudFlareUrl${requireData.cloudflareId!}/public',
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                 return Center(child: const LinearProgressIndicator());
+                }
+              },
+            )),
+      );
     } else {
       return Container();
     }

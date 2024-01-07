@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/service/geolocation.dart';
+import 'package:zkmf2024_app/widgets/distance_to_location.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 
 class LocationsScreen extends StatefulWidget {
@@ -54,7 +55,10 @@ class _LocationsScreenState extends State<LocationsScreen> {
                         Icons.location_on,
                         color: Colors.white,
                       ),
-                      trailing: const Icon(Icons.navigate_next_sharp, color: Colors.white,),
+                      trailing: const Icon(
+                        Icons.navigate_next_sharp,
+                        color: Colors.white,
+                      ),
                       onTap: () {
                         context
                             .push('/wettspiellokale/${requireData.identifier}');
@@ -67,18 +71,8 @@ class _LocationsScreenState extends State<LocationsScreen> {
                       subtitle: FutureBuilder(
                         future: _currentPosition,
                         builder: (innerContext, innerSnapshot) {
-                          if (innerSnapshot.hasData) {
-                            return Text(
-                              getDistanceToLocation(innerSnapshot.requireData,
-                                  requireData.getPosition()),
-                              style: const TextStyle(color: silber),
-                            );
-                          } else if (innerSnapshot.hasError) {
-                            return const Text(
-                                "Entfernung konnte nicht bestimmt werden...");
-                          } else {
-                            return const LinearProgressIndicator();
-                        }
+                          return DistanceToLocationWidget(
+                              innerSnapshot, requireData.getPosition());
                         },
                       ),
                     );

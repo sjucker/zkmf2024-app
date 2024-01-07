@@ -10,6 +10,7 @@ class LocationDTO {
   final String googleMapsAddress;
   final String googleMapsCoordinates;
   final int sortOrder;
+  final String modules;
   final String? cloudflareId;
   final String? kuulaId;
 
@@ -22,6 +23,7 @@ class LocationDTO {
     required this.googleMapsAddress,
     required this.googleMapsCoordinates,
     required this.sortOrder,
+    required this.modules,
     this.cloudflareId,
     this.kuulaId});
 
@@ -36,6 +38,7 @@ class LocationDTO {
         googleMapsAddress: json["googleMapsAddress"],
         googleMapsCoordinates: json["googleMapsCoordinates"],
         sortOrder: json["sortOrder"],
+        modules: json["modules"],
         cloudflareId: json["cloudflareId"],
         kuulaId: json["kuulaId"],
       );
