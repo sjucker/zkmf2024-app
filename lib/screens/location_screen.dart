@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/service/geolocation.dart';
+import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/distance_to_location.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 
@@ -82,13 +82,8 @@ class _LocationScreenState extends State<LocationScreen> {
                     },
                   ),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.info_outlined),
-                  title: Text(
-                    "Module: ${requireData.modules}",
-                  ),
-                ),
-                getLocationImage(requireData),
+                buildModulesTile(requireData),
+                CloudflareImage(cloudflareId: requireData.cloudflareId),
               ],
             );
           } else if (snapshot.hasError) {
@@ -101,21 +96,13 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 
-  Widget getLocationImage(LocationDTO requireData) {
-    if (requireData.cloudflareId != null) {
+  Widget buildModulesTile(LocationDTO requireData) {
+    if (requireData.modules != null) {
       return ListTile(
-        title: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(
-              '$cloudFlareUrl${requireData.cloudflareId!}/public',
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                } else {
-                 return Center(child: const LinearProgressIndicator());
-                }
-              },
-            )),
+        leading: const Icon(Icons.info_outlined),
+        title: Text(
+          "Module: ${requireData.modules}",
+        ),
       );
     } else {
       return Container();

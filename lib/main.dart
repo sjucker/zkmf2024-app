@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
 import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
+import 'package:zkmf2024_app/screens/verein_screen.dart';
+import 'package:zkmf2024_app/screens/vereine_screen.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -21,6 +25,17 @@ final _router = GoRouter(
               path: ':identifier',
               builder: (context, state) {
                 return LocationScreen(
+                    identifier: state.pathParameters['identifier']!);
+              })
+        ]),
+    GoRoute(
+        path: '/vereine',
+        builder: (context, state) => const VereineScreen(),
+        routes: [
+          GoRoute(
+              path: ':identifier',
+              builder: (context, state) {
+                return VereinScreen(
                     identifier: state.pathParameters['identifier']!);
               })
         ])

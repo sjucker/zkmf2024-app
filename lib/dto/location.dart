@@ -10,7 +10,7 @@ class LocationDTO {
   final String googleMapsAddress;
   final String googleMapsCoordinates;
   final int sortOrder;
-  final String modules;
+  final String? modules;
   final String? cloudflareId;
   final String? kuulaId;
 
@@ -24,8 +24,8 @@ class LocationDTO {
     required this.googleMapsCoordinates,
     required this.sortOrder,
     required this.modules,
-    this.cloudflareId,
-    this.kuulaId});
+    required this.cloudflareId,
+    required this.kuulaId});
 
   factory LocationDTO.fromJson(Map<String, dynamic> json) =>
       LocationDTO(
