@@ -20,15 +20,14 @@ class VereinOverviewDTO {
       required this.instagram,
       required this.websiteText});
 
-  factory VereinOverviewDTO.fromJson(Map<String, dynamic> json) =>
-      VereinOverviewDTO(
-          id: json["id"],
-          identifier: json["identifier"],
-          name: json["name"],
-          logoImgId: json["logoImgId"],
-          bildImgId: json["bildImgId"],
-          homepage: json["homepage"],
-          facebook: json["facebook"],
-          instagram: json["instagram"],
-          websiteText: json["websiteText"]);
+  factory VereinOverviewDTO.fromJson(Map<String, dynamic> json) => VereinOverviewDTO(
+      id: json["id"],
+      identifier: json["identifier"],
+      name: json["name"],
+      logoImgId: json["logoImgId"],
+      bildImgId: json["bildImgId"],
+      homepage: json["homepage"],
+      facebook: json["facebook"],
+      instagram: json["instagram"],
+      websiteText: json["websiteText"]);
 }

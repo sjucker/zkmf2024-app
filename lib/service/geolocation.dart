@@ -30,8 +30,7 @@ Future<Position> determineCurrentPosition() async {
 
   if (permission == LocationPermission.deniedForever) {
     // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+    return Future.error('Location permissions are permanently denied, we cannot request permissions.');
   }
 
   // When we reach here, permissions are granted and we can
@@ -50,18 +49,15 @@ double calculateDistanceInMeters(Position pointA, Position pointB) {
 
   var deltaLongitude = longitudeB - longitudeA;
   var deltaLatitude = latitudeB - latitudeA;
-  var a = pow(sin(deltaLatitude / 2), 2) +
-      cos(latitudeA) * cos(latitudeB) * pow(sin(deltaLongitude / 2), 2);
+  var a = pow(sin(deltaLatitude / 2), 2) + cos(latitudeA) * cos(latitudeB) * pow(sin(deltaLongitude / 2), 2);
 
   var c = 2 * asin(sqrt(a));
 
   return c * radiusOfEarthInKm * 1000;
 }
 
-String getDistanceToLocation(
-    Position currentPosition, Position locationPosition) {
-  var distanceInMeters =
-      calculateDistanceInMeters(currentPosition, locationPosition);
+String getDistanceToLocation(Position currentPosition, Position locationPosition) {
+  var distanceInMeters = calculateDistanceInMeters(currentPosition, locationPosition);
 
   var distance = '';
   if (distanceInMeters < 100) {

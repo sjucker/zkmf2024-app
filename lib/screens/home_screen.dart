@@ -33,10 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: RotationTransition(
                       turns: AlwaysStoppedAnimation(-12 / 360),
                       child: Text("Musik\nbewegt",
-                          style: TextStyle(
-                              height: 1,
-                              fontSize: 70,
-                              fontWeight: FontWeight.bold)))),
+                          style: TextStyle(height: 1, fontSize: 70, fontWeight: FontWeight.bold)))),
               Image.asset(
                 'assets/hauptsponsoren.png',
                 fit: BoxFit.fitWidth,
@@ -59,14 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 10,
                   ),
                   children: [
-                    buildCard(context, Icons.announcement_outlined, "News",
-                        '/wettspiellokale'),
-                    buildCard(context, Icons.music_note_outlined, "Vereine",
-                        '/vereine'),
-                    buildCard(context, Icons.view_timeline_outlined, "Zeitplan",
-                        '/wettspiellokale'),
-                    buildCard(context, Icons.info_outline, "Informationen",
-                        '/wettspiellokale'),
+                    buildCard(context, Icons.announcement_outlined, "News", '/news'),
+                    buildCard(context, Icons.music_note_outlined, "Vereine", '/vereine'),
+                    buildCard(context, Icons.view_timeline_outlined, "Zeitplan", '/zeitplan'),
+                    buildCard(context, Icons.info_outline, "Informationen", '/wettspiellokale'),
                   ],
                 ),
               ),
@@ -77,8 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Card buildCard(
-      BuildContext context, IconData icon, String label, String location) {
+  Card buildCard(BuildContext context, IconData icon, String label, String location) {
     return Card(
       color: silberTransparent,
       clipBehavior: Clip.hardEdge,
@@ -96,8 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Text(
               label,
-              style: const TextStyle(
-                  color: blau, fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(color: blau, fontWeight: FontWeight.bold, fontSize: 20),
             )
           ],
         ),

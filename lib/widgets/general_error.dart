@@ -10,10 +10,7 @@ class GeneralErrorWidget extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         '😵 da ist was schiefgelaufen...',
-        style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
+        style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       FilledButton(
         onPressed: () => {context.go('/')},

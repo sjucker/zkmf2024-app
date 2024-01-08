@@ -34,8 +34,7 @@ class _LocationScreenState extends State<LocationScreen> {
       appBar: AppBar(
         title: FutureBuilder(
             future: _location,
-            builder:
-                (BuildContext context, AsyncSnapshot<LocationDTO> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<LocationDTO> snapshot) {
               if (snapshot.hasData) {
                 return Text(snapshot.requireData.name);
               } else {
@@ -59,8 +58,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ListTile(
                   leading: const Icon(Icons.map_sharp),
                   onTap: () {
-                    MapsLauncher.launchCoordinates(requireData.latitude,
-                        requireData.longitude, requireData.name);
+                    MapsLauncher.launchCoordinates(requireData.latitude, requireData.longitude, requireData.name);
                   },
                   title: const Text(
                     "Karte öffnen",
@@ -77,8 +75,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   title: FutureBuilder(
                     future: _currentPosition,
                     builder: (innerContext, innerSnapshot) {
-                      return DistanceToLocationWidget(
-                          innerSnapshot, requireData.getPosition());
+                      return DistanceToLocationWidget(innerSnapshot, requireData.getPosition());
                     },
                   ),
                 ),

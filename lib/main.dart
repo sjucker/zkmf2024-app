@@ -6,6 +6,8 @@ import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
 import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
+import 'package:zkmf2024_app/screens/news_screen.dart';
+import 'package:zkmf2024_app/screens/timetable_screen.dart';
 import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
 
@@ -17,28 +19,28 @@ void main() async {
 final _router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+    GoRoute(path: '/wettspiellokale', builder: (context, state) => const LocationsScreen(), routes: [
+      GoRoute(
+          path: ':identifier',
+          builder: (context, state) {
+            return LocationScreen(identifier: state.pathParameters['identifier']!);
+          })
+    ]),
+    GoRoute(path: '/vereine', builder: (context, state) => const VereineScreen(), routes: [
+      GoRoute(
+          path: ':identifier',
+          builder: (context, state) {
+            return VereinScreen(identifier: state.pathParameters['identifier']!);
+          })
+    ]),
     GoRoute(
-        path: '/wettspiellokale',
-        builder: (context, state) => const LocationsScreen(),
-        routes: [
-          GoRoute(
-              path: ':identifier',
-              builder: (context, state) {
-                return LocationScreen(
-                    identifier: state.pathParameters['identifier']!);
-              })
-        ]),
+      path: '/zeitplan',
+      builder: (context, state) => const TimetableScreen(),
+    ),
     GoRoute(
-        path: '/vereine',
-        builder: (context, state) => const VereineScreen(),
-        routes: [
-          GoRoute(
-              path: ':identifier',
-              builder: (context, state) {
-                return VereinScreen(
-                    identifier: state.pathParameters['identifier']!);
-              })
-        ])
+      path: '/news',
+      builder: (context, state) => const NewsScreen(),
+    )
   ],
 );
 
@@ -74,11 +76,9 @@ class _MyAppState extends State<MyApp> {
             bodyColor: Colors.white,
             displayColor: Colors.white,
           ),
-          appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white, foregroundColor: rot),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.white, foregroundColor: rot),
           filledButtonTheme: FilledButtonThemeData(
-            style: TextButton.styleFrom(
-                backgroundColor: rot, foregroundColor: Colors.white),
+            style: TextButton.styleFrom(backgroundColor: rot, foregroundColor: Colors.white),
           ),
           listTileTheme: const ListTileThemeData(
             textColor: Colors.white,

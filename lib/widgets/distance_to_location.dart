@@ -6,8 +6,7 @@ class DistanceToLocationWidget extends StatelessWidget {
   final AsyncSnapshot<Position> _currentPosition;
   final Position _locationPosition;
 
-  const DistanceToLocationWidget(this._currentPosition, this._locationPosition,
-      {super.key});
+  const DistanceToLocationWidget(this._currentPosition, this._locationPosition, {super.key});
 
   @override
   Widget build(BuildContext context) {

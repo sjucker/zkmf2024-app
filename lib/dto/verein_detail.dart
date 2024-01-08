@@ -33,8 +33,7 @@ class VereinDetailDTO {
         instagram: json["instagram"],
         websiteText: json["websiteText"],
         timetableEntries: (json["timetableEntries"] as List)
-            .map((e) =>
-                VereinTimetableEntryDTO.fromJson(e as Map<String, dynamic>))
+            .map((e) => VereinTimetableEntryDTO.fromJson(e as Map<String, dynamic>))
             .toList());
   }
 }

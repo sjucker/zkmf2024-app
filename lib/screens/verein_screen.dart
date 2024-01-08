@@ -84,6 +84,7 @@ class _VereinScreenState extends State<VereinScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   )),
                   ListTile(
+                    // TODO add to calendar functionality?
                     leading: const Icon(Icons.access_time),
                     title: Text(dto.dateTime),
                   ),
@@ -94,8 +95,7 @@ class _VereinScreenState extends State<VereinScreen> {
                         color: Colors.white,
                       ),
                       onTap: () {
-                        context.push(
-                            '/wettspiellokale/${dto.location.identifier}');
+                        context.push('/wettspiellokale/${dto.location.identifier}');
                       },
                       title: Text(dto.location.name)),
                   const Divider(),

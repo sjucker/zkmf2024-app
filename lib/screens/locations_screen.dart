@@ -60,19 +60,16 @@ class _LocationsScreenState extends State<LocationsScreen> {
                         color: Colors.white,
                       ),
                       onTap: () {
-                        context
-                            .push('/wettspiellokale/${requireData.identifier}');
+                        context.push('/wettspiellokale/${requireData.identifier}');
                       },
                       title: Text(
                         requireData.name,
-                        style: const TextStyle(
-                            color: gruen, fontWeight: FontWeight.bold),
+                        style: const TextStyle(color: gruen, fontWeight: FontWeight.bold),
                       ),
                       subtitle: FutureBuilder(
                         future: _currentPosition,
                         builder: (innerContext, innerSnapshot) {
-                          return DistanceToLocationWidget(
-                              innerSnapshot, requireData.getPosition());
+                          return DistanceToLocationWidget(innerSnapshot, requireData.getPosition());
                         },
                       ),
                     );

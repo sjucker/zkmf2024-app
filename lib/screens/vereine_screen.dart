@@ -72,8 +72,7 @@ class _VereineScreenState extends State<VereineScreen> {
                           ),
                         );
                       },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(),
+                      separatorBuilder: (BuildContext context, int index) => const Divider(),
                     ),
                   ),
                 ],

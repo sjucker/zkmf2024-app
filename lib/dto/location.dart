@@ -14,21 +14,21 @@ class LocationDTO {
   final String? cloudflareId;
   final String? kuulaId;
 
-  const LocationDTO({required this.id,
-    required this.identifier,
-    required this.name,
-    required this.address,
-    required this.latitude,
-    required this.longitude,
-    required this.googleMapsAddress,
-    required this.googleMapsCoordinates,
-    required this.sortOrder,
-    required this.modules,
-    required this.cloudflareId,
-    required this.kuulaId});
+  const LocationDTO(
+      {required this.id,
+      required this.identifier,
+      required this.name,
+      required this.address,
+      required this.latitude,
+      required this.longitude,
+      required this.googleMapsAddress,
+      required this.googleMapsCoordinates,
+      required this.sortOrder,
+      required this.modules,
+      required this.cloudflareId,
+      required this.kuulaId});
 
-  factory LocationDTO.fromJson(Map<String, dynamic> json) =>
-      LocationDTO(
+  factory LocationDTO.fromJson(Map<String, dynamic> json) => LocationDTO(
         id: json["id"],
         identifier: json["identifier"],
         name: json["name"],
@@ -44,7 +44,8 @@ class LocationDTO {
       );
 
   Position getPosition() {
-    return Position(longitude: longitude,
+    return Position(
+        longitude: longitude,
         latitude: latitude,
         timestamp: DateTime.timestamp(),
         accuracy: 0.0,

@@ -5,14 +5,8 @@ class VereinTimetableEntryDTO {
   final LocationDTO location;
   final String dateTime;
 
-  VereinTimetableEntryDTO(
-      {required this.competition,
-      required this.location,
-      required this.dateTime});
+  VereinTimetableEntryDTO({required this.competition, required this.location, required this.dateTime});
 
-  factory VereinTimetableEntryDTO.fromJson(Map<String, dynamic> json) =>
-      VereinTimetableEntryDTO(
-          competition: json["competition"],
-          location: LocationDTO.fromJson(json["location"]),
-          dateTime: json["dateTime"]);
+  factory VereinTimetableEntryDTO.fromJson(Map<String, dynamic> json) => VereinTimetableEntryDTO(
+      competition: json["competition"], location: LocationDTO.fromJson(json["location"]), dateTime: json["dateTime"]);
 }
