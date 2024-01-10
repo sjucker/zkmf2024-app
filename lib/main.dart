@@ -15,7 +15,7 @@ import 'package:zkmf2024_app/screens/vereine_screen.dart';
 void main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -60,6 +60,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       routerConfig: _router,
       title: 'ZKMF2024',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: const ColorScheme(
