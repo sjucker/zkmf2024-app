@@ -113,7 +113,7 @@ class _VereinScreenState extends State<VereinScreen> {
   Widget buildWebsiteText(VereinDetailDTO dto) {
     if (dto.websiteText != null) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Text(dto.websiteText!),
       );
     } else {
