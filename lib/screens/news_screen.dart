@@ -14,7 +14,7 @@ class _NewsScreenState extends State<NewsScreen> {
       appBar: AppBar(
         title: const Text("News"),
       ),
-      body: const Text("News"),
+      body: const Center(child: Text("News")),
     );
   }
 }

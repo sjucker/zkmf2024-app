@@ -4,10 +4,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zkmf2024_app/constants.dart';
+import 'package:zkmf2024_app/screens/changelog_screen.dart';
+import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
 import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
 import 'package:zkmf2024_app/screens/news_screen.dart';
+import 'package:zkmf2024_app/screens/settings_screen.dart';
 import 'package:zkmf2024_app/screens/timetable_screen.dart';
 import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
@@ -43,8 +46,16 @@ final _router = GoRouter(
     GoRoute(
       path: '/news',
       builder: (context, state) => const NewsScreen(),
-    )
+    ),
+    GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen(), routes: [
+      GoRoute(
+          path: 'changelog',
+          builder: (context, state) {
+            return const ChangelogScreen();
+          })
+    ])
   ],
+  errorBuilder: (context, state) => const GeneralErrorScreen(),
 );
 
 class MyApp extends StatefulWidget {

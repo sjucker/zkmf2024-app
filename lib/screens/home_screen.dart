@@ -17,6 +17,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("ZKMF2024 - Festführer"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Einstellungen',
+            onPressed: () {
+              context.push('/settings');
+            },
+          )
+        ],
       ),
       body: Stack(children: [
         Padding(
