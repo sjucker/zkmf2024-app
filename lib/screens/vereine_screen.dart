@@ -42,9 +42,49 @@ class _VereineScreenState extends State<VereineScreen> {
           future: _vereine,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              late TextEditingController fieldTextEditingController;
               return Column(
                 children: [
-                  // TODO add search field
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Autocomplete<VereinOverviewDTO>(
+                      optionsBuilder: (textEditingValue) {
+                        if (textEditingValue.text.isEmpty) {
+                          return [];
+                        } else {
+                          return snapshot.requireData
+                              .where(
+                                  (element) => element.name.toLowerCase().contains(textEditingValue.text.toLowerCase()))
+                              .toList();
+                        }
+                      },
+                      displayStringForOption: (option) => option.name,
+                      onSelected: (option) {
+                        context.push('/vereine/${option.identifier}');
+                        fieldTextEditingController.text = '';
+                      },
+                      fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
+                        fieldTextEditingController = textEditingController;
+                        return TextField(
+                          controller: fieldTextEditingController,
+                          focusNode: focusNode,
+                          decoration: const InputDecoration(
+                            suffixIcon: Icon(
+                              Icons.search,
+                              color: gruen,
+                            ),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: gruen)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: gruen, width: 2)),
+                            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                            filled: true,
+                            fillColor: blau,
+                            hintStyle: TextStyle(color: silber),
+                            hintText: "Suchen",
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   Expanded(
                     child: ListView.separated(
                       itemCount: snapshot.requireData.length,
