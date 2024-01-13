@@ -7,3 +7,4 @@
 - Cached network image
 - Settings screen with version number
 - Changelog screen displaying this changelog
+- Add search in Vereine screen
