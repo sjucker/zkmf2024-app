@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "837135810763",
+    "project_id": "zkmf2024-app",
+    "storage_bucket": "zkmf2024-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837135810763:android:f0dbbfada251c0824a1b4e",
+        "android_client_info": {
+          "package_name": "ch.zkmf2024.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZRV_v7Jb5j7-ewMt92E5dylaM7LfxC3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
