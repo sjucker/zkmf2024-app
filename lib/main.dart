@@ -1,5 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +34,27 @@ Future<void> initFirebase() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+
+  var notificationSettings = await FirebaseMessaging.instance.getNotificationSettings();
+  if (notificationSettings.authorizationStatus == AuthorizationStatus.notDetermined) {
+    final notificationSettings = await FirebaseMessaging.instance.requestPermission(provisional: true);
+    if (notificationSettings.authorizationStatus == AuthorizationStatus.authorized) {
+      await FirebaseMessaging.instance.subscribeToTopic("emergency");
+      await FirebaseMessaging.instance.subscribeToTopic("general");
+
+      final box = GetStorage();
+      box.write("topic-emergency", true);
+      box.write("topic-general", true);
+
+      FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: authorized");
+    }
+  }
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: onTokenRefresh");
+  }).onError((error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack);
+  });
 }
 
 void main() async {

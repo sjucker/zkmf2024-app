@@ -94,8 +94,7 @@ class _VereineScreenState extends State<VereineScreen> {
                           leading: FavoriteButton(
                             identifier: requireData.identifier,
                             valueChanged: (v) {
-                              // TODO write to backend
-                              // TODO schedule some notifications
+                              // TODO subscribe to topic
                             },
                             offColor: Colors.white,
                             onColor: gelb,
