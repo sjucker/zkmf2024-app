@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -18,9 +19,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool _emergency;
   late bool _general;
 
+  var _notificationSettings = FirebaseMessaging.instance.getNotificationSettings();
+
   @override
   void initState() {
     super.initState();
+
     _emergency = _box.read("topic-emergency") ?? false;
     _general = _box.read("topic-general") ?? false;
   }
@@ -36,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           FutureBuilder(
-            future: FirebaseMessaging.instance.getNotificationSettings(),
+            future: _notificationSettings,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.requireData.authorizationStatus == AuthorizationStatus.authorized) {
@@ -61,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           FutureBuilder(
-              future: FirebaseMessaging.instance.getNotificationSettings(),
+              future: _notificationSettings,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.requireData.authorizationStatus == AuthorizationStatus.authorized) {
@@ -76,11 +80,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           value: _general,
                           onChanged: (value) {
                             if (value) {
-                              FirebaseMessaging.instance.subscribeToTopic("general");
-                              _box.write("topic-general", true);
+                              subscribeTo("general");
                             } else {
-                              FirebaseMessaging.instance.unsubscribeFromTopic("general");
-                              _box.write("topic-general", false);
+                              unsubscribeFrom("general");
                             }
                             setState(() {
                               _general = value;
@@ -90,15 +92,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     ));
                   } else {
-                    return TextButton.icon(
-                        onPressed: () async {
-                          await FirebaseMessaging.instance.requestPermission(provisional: true);
-                          setState(() {
-
-                          });
-                        },
-                        icon: Icon(Icons.notification_add),
-                        label: Text("aktivieren"));
+                    return Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: TextButton.icon(
+                                onPressed: () async {
+                                  var authorized = await requestPermissionAndSubscribe();
+                                  if (authorized) {
+                                    // reload page
+                                    setState(() {
+                                      _emergency = true;
+                                      _general = true;
+                                    });
+                                  }
+                                },
+                                icon: const Icon(Icons.notification_add),
+                                label: const Text("aktivieren")),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                 } else {
                   return const LinearProgressIndicator();
