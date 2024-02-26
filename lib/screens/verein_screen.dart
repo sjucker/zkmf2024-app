@@ -75,33 +75,31 @@ class _VereinScreenState extends State<VereinScreen> {
 
   List<Widget> buildContent(VereinDetailDTO requireData) {
     return [
-      ...requireData.timetableEntries
-          .map((dto) => Column(
-                children: [
-                  ListTile(
-                      title: Text(
-                    dto.competition,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  )),
-                  ListTile(
-                    // TODO add to calendar functionality?
-                    leading: const Icon(Icons.access_time),
-                    title: Text(dto.dateTime),
+      ...requireData.timetableEntries.map((dto) => Column(
+            children: [
+              ListTile(
+                  title: Text(
+                dto.competition,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              )),
+              ListTile(
+                // TODO add to calendar functionality?
+                leading: const Icon(Icons.access_time),
+                title: Text(dto.dateTime),
+              ),
+              ListTile(
+                  leading: const Icon(Icons.location_on),
+                  trailing: const Icon(
+                    Icons.navigate_next_sharp,
+                    color: Colors.white,
                   ),
-                  ListTile(
-                      leading: const Icon(Icons.location_on),
-                      trailing: const Icon(
-                        Icons.navigate_next_sharp,
-                        color: Colors.white,
-                      ),
-                      onTap: () {
-                        context.push('/wettspiellokale/${dto.location.identifier}');
-                      },
-                      title: Text(dto.location.name)),
-                  const Divider(),
-                ],
-              ))
-          .toList(),
+                  onTap: () {
+                    context.push('/wettspiellokale/${dto.location.identifier}');
+                  },
+                  title: Text(dto.location.name)),
+              const Divider(),
+            ],
+          )),
       CloudflareImage(
         cloudflareId: requireData.bildImgId,
       ),

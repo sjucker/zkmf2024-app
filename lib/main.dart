@@ -13,6 +13,7 @@ import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
 import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
+import 'package:zkmf2024_app/screens/map_screen.dart';
 import 'package:zkmf2024_app/screens/news_screen.dart';
 import 'package:zkmf2024_app/screens/settings_screen.dart';
 import 'package:zkmf2024_app/screens/timetable_screen.dart';
@@ -77,7 +78,11 @@ final _router = GoRouter(
           builder: (context, state) {
             return const ChangelogScreen();
           })
-    ])
+    ]),
+    GoRoute(
+      path: '/map',
+      builder: (context, state) => const MapScreen(),
+    )
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );

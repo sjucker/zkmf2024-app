@@ -5,7 +5,8 @@
 ### Added
 
 - Firebase Crashlytics
-- Firebase Messaging
+- Firebase Messaging (initial setup)
+- Map embedded as WebView
 
 ## [1.0.0+7]
 

@@ -19,7 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool _emergency;
   late bool _general;
 
-  var _notificationSettings = FirebaseMessaging.instance.getNotificationSettings();
+  final _notificationSettings = FirebaseMessaging.instance.getNotificationSettings();
 
   @override
   void initState() {

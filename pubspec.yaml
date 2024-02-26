@@ -1,7 +1,7 @@
 name: zkmf2024_app
 description: "ZKMF2024 App"
 publish_to: 'none'
-version: 1.0.0+8
+version: 1.0.0+9
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -26,6 +26,7 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_crashlytics: ^3.4.9
   firebase_messaging: ^14.7.10
+  webview_flutter: ^4.7.0
 
 dev_dependencies:
   flutter_test:
