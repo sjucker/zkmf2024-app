@@ -16,6 +16,7 @@ import 'package:zkmf2024_app/screens/locations_screen.dart';
 import 'package:zkmf2024_app/screens/map_screen.dart';
 import 'package:zkmf2024_app/screens/news_screen.dart';
 import 'package:zkmf2024_app/screens/settings_screen.dart';
+import 'package:zkmf2024_app/screens/sponsoring_screen.dart';
 import 'package:zkmf2024_app/screens/timetable_screen.dart';
 import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
@@ -82,6 +83,10 @@ final _router = GoRouter(
     GoRoute(
       path: '/map',
       builder: (context, state) => const MapScreen(),
+    ),
+    GoRoute(
+      path: '/sponsoring',
+      builder: (context, state) => const SponsoringScreen(),
     )
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),

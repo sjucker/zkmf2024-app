@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
-                height: 300,
+                height: 290,
                 child: GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     buildCard(context, Icons.view_timeline_outlined, "Zeitplan", '/zeitplan'),
                     buildCard(context, Icons.info_outline, "Informationen", '/wettspiellokale'),
                     buildCard(context, Icons.map_outlined, "Karte", '/map'),
+                    buildCard(context, Icons.handshake_outlined, "Sponsoring", '/sponsoring'),
                   ],
                 ),
               ),

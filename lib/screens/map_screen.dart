@@ -27,10 +27,8 @@ class MapScreenState extends State<MapScreen> {
       appBar: AppBar(
         title: const Text("Karte Festareal"),
       ),
-      body: Expanded(
-        child: WebViewWidget(
-          controller: _controller,
-        ),
+      body: WebViewWidget(
+        controller: _controller,
       ),
     );
   }
