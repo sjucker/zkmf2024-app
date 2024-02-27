@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -137,7 +138,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 context.push('/settings/changelog');
               },
-              child: const Text("Changelog"))
+              child: const Text("Changelog")),
+          const Divider(
+            indent: 20,
+            endIndent: 20,
+            color: gruen,
+          ),
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text("built by"),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
+                child: Image.asset(
+                  'assets/logo-mp.png',
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
