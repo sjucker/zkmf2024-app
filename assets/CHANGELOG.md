@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0+12]
+
+### Added
+- Karte Festareal
+- Interaktive Karte
+- Sponsoring
+
 ## [1.0.0+9]
 
 ### Added

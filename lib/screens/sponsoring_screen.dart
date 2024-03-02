@@ -17,9 +17,9 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
       ),
       body: Center(
           child: ResponsiveGridRow(children: [
-        ResponsiveGridCol(xs: 6, sm: 3, md: 6, lg: 3, child: Container(child: const Text("1"))),
-        ResponsiveGridCol(xs: 6, sm: 3, md: 6, lg: 3, child: Container(child: const Text("2"))),
-        ResponsiveGridCol(xs: 6, sm: 3, md: 6, lg: 3, child: Container(child: const Text("3"))),
+        ResponsiveGridCol(xs: 6, sm: 3, md: 6, lg: 3, child: const Text("1")),
+        ResponsiveGridCol(xs: 6, sm: 3, md: 6, lg: 3, child: const Text("2")),
+        ResponsiveGridCol(xs: 6, sm: 3, md: 6, lg: 3, child: const Text("3")),
       ])),
     );
   }

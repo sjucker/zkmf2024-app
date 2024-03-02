@@ -11,6 +11,10 @@ import 'package:zkmf2024_app/firebase_options.dart';
 import 'package:zkmf2024_app/screens/changelog_screen.dart';
 import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
+import 'package:zkmf2024_app/screens/informationen_screen.dart';
+import 'package:zkmf2024_app/screens/karte_schlieren_screen.dart';
+import 'package:zkmf2024_app/screens/karte_screen.dart';
+import 'package:zkmf2024_app/screens/karte_urdorf_screen.dart';
 import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
 import 'package:zkmf2024_app/screens/map_screen.dart';
@@ -51,19 +55,19 @@ void main() async {
 final _router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+    GoRoute(
+      path: '/informationen',
+      builder: (context, state) => const InformationenScreen(),
+    ),
     GoRoute(path: '/wettspiellokale', builder: (context, state) => const LocationsScreen(), routes: [
       GoRoute(
           path: ':identifier',
-          builder: (context, state) {
-            return LocationScreen(identifier: state.pathParameters['identifier']!);
-          })
+          builder: (context, state) => LocationScreen(identifier: state.pathParameters['identifier']!))
     ]),
     GoRoute(path: '/vereine', builder: (context, state) => const VereineScreen(), routes: [
       GoRoute(
           path: ':identifier',
-          builder: (context, state) {
-            return VereinScreen(identifier: state.pathParameters['identifier']!);
-          })
+          builder: (context, state) => VereinScreen(identifier: state.pathParameters['identifier']!))
     ]),
     GoRoute(
       path: '/zeitplan',
@@ -73,12 +77,19 @@ final _router = GoRouter(
       path: '/news',
       builder: (context, state) => const NewsScreen(),
     ),
-    GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen(), routes: [
+    GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
+        routes: [GoRoute(path: 'changelog', builder: (context, state) => const ChangelogScreen())]),
+    GoRoute(path: '/karte', builder: (context, state) => const KarteScreen(), routes: [
       GoRoute(
-          path: 'changelog',
-          builder: (context, state) {
-            return const ChangelogScreen();
-          })
+        path: 'schlieren',
+        builder: (context, state) => const KarteSchlierenScreen(),
+      ),
+      GoRoute(
+        path: 'urdorf',
+        builder: (context, state) => const KarteUrdorfScreen(),
+      ),
     ]),
     GoRoute(
       path: '/map',

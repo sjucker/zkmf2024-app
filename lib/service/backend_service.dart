@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/location.dart';
+import 'package:zkmf2024_app/dto/sponsoring.dart';
 import 'package:zkmf2024_app/dto/timetable_overview.dart';
 import 'package:zkmf2024_app/dto/verein_detail.dart';
 import 'package:zkmf2024_app/dto/verein_overview.dart';
@@ -57,5 +58,15 @@ Future<List<TimetableDayOverviewDTO>> fetchTimetable() async {
     return body.map((e) => TimetableDayOverviewDTO.fromJson(e as Map<String, dynamic>)).toList();
   } else {
     throw Exception('Failed to load timetable');
+  }
+}
+
+Future<SponsoringDTO> fetchSponsoring() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/sponsoring'));
+
+  if (response.statusCode == 200) {
+    return SponsoringDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load sponsoring');
   }
 }
