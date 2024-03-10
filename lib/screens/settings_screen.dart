@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
@@ -20,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool _emergency;
   late bool _general;
 
-  final _notificationSettings = FirebaseMessaging.instance.getNotificationSettings();
+  final _notificationSettings = Permission.notification.status;
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             future: _notificationSettings,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.requireData.authorizationStatus == AuthorizationStatus.authorized) {
+                if (snapshot.requireData.isGranted) {
                   return const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
@@ -69,7 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               future: _notificationSettings,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  if (snapshot.requireData.authorizationStatus == AuthorizationStatus.authorized) {
+                  if (snapshot.requireData.isGranted) {
                     return Expanded(
                         child: ListView(
                       children: [

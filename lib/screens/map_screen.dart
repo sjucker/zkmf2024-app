@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -9,16 +10,14 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
-  late final WebViewController _controller;
-
   @override
   void initState() {
     super.initState();
-    _controller = WebViewController()
-      ..loadRequest(
-        Uri.parse('https://zkmf2024.ch/map'),
-      )
-      ..setJavaScriptMode(JavaScriptMode.unrestricted);
+    requestLocationPermission();
+  }
+
+  Future<void> requestLocationPermission() async {
+    await Permission.location.request();
   }
 
   @override
@@ -27,8 +26,11 @@ class MapScreenState extends State<MapScreen> {
       appBar: AppBar(
         title: const Text("Karte Festareal"),
       ),
-      body: WebViewWidget(
-        controller: _controller,
+      body: InAppWebView(
+        initialUrlRequest: URLRequest(url: WebUri('https://zkmf2024.ch/map')),
+        onGeolocationPermissionsShowPrompt: (controller, origin) async {
+          return GeolocationPermissionShowPromptResponse(origin: origin, allow: true, retain: true);
+        },
       ),
     );
   }
