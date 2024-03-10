@@ -143,7 +143,12 @@ class _MyAppState extends State<MyApp> {
           listTileTheme: const ListTileThemeData(
             textColor: Colors.white,
             iconColor: gruen,
-          )),
+          ),
+          expansionTileTheme: const ExpansionTileThemeData(
+              textColor: Colors.white,
+              collapsedTextColor: Colors.white,
+              iconColor: Colors.white,
+              collapsedIconColor: Colors.white)),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/verein_detail.dart';
+import 'package:zkmf2024_app/dto/verein_timetable_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/favorite_button.dart';
@@ -88,15 +89,37 @@ class _VereinScreenState extends State<VereinScreen> {
                 title: Text(dto.dateTime),
               ),
               ListTile(
-                  leading: const Icon(Icons.location_on),
-                  trailing: const Icon(
-                    Icons.navigate_next_sharp,
-                    color: Colors.white,
-                  ),
-                  onTap: () {
-                    context.push('/wettspiellokale/${dto.location.identifier}');
-                  },
-                  title: Text(dto.location.name)),
+                leading: const Icon(Icons.location_on),
+                trailing: const Icon(
+                  Icons.navigate_next_sharp,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  context.push('/wettspiellokale/${dto.location.identifier}');
+                },
+                title: Text(dto.location.name),
+              ),
+              ExpansionTile(
+                leading: const Icon(
+                  Icons.music_note,
+                  color: gruen,
+                ),
+                title: Text(
+                  dto.titel != null ? "\"${dto.titel}\"" : "Komposition",
+                ),
+                expandedAlignment: Alignment.topLeft,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(dto.programm
+                          .map((e) => "${e.titelName} (${e.composer})")
+                          .join(dto.modul == "D" ? " oder\n" : "\n")),
+                      description(dto)
+                    ]),
+                  )
+                ],
+              ),
               const Divider(),
             ],
           )),
@@ -107,6 +130,13 @@ class _VereinScreenState extends State<VereinScreen> {
       buildSocialMedia(requireData),
     ];
   }
+
+  Widget description(VereinTimetableEntryDTO dto) => dto.description != null
+      ? Padding(
+          padding: const EdgeInsets.only(top: 32),
+          child: Text(dto.description!),
+        )
+      : Container();
 
   Widget buildWebsiteText(VereinDetailDTO dto) {
     if (dto.websiteText != null) {
