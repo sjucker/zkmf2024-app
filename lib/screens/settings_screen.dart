@@ -20,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool _emergency;
   late bool _general;
 
-  final _notificationSettings = Permission.notification.status;
+  late Future<PermissionStatus> _notificationSettings;
 
   @override
   void initState() {
@@ -28,6 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     _emergency = _box.read("topic-emergency") ?? false;
     _general = _box.read("topic-general") ?? false;
+    _notificationSettings = Permission.notification.status;
   }
 
   @override
@@ -101,12 +102,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             padding: const EdgeInsets.all(16.0),
                             child: TextButton.icon(
                                 onPressed: () async {
-                                  var authorized = await requestPermissionAndSubscribe();
+                                  var authorized = await requestPermissionAndSubscribe(true);
                                   if (authorized) {
                                     // reload page
                                     setState(() {
                                       _emergency = true;
                                       _general = true;
+                                      _notificationSettings = Permission.notification.status;
                                     });
                                   }
                                 },

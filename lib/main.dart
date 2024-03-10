@@ -40,7 +40,7 @@ Future<void> initFirebase() async {
     return true;
   };
 
-  await requestPermissionAndSubscribe();
+  await requestPermissionAndSubscribe(false);
 }
 
 void main() async {

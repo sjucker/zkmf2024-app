@@ -66,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   children: [
                     buildCard(context, Icons.announcement_outlined, "News", '/news'),
+                    buildCard(context, Icons.info_outline, "Informationen", '/informationen'),
                     buildCard(context, Icons.music_note_outlined, "Vereine", '/vereine'),
                     buildCard(context, Icons.view_timeline_outlined, "Zeitplan", '/zeitplan'),
-                    buildCard(context, Icons.info_outline, "Informationen", '/informationen'),
                     buildCard(context, Icons.map_outlined, "Karte", '/map'),
                     buildCard(context, Icons.handshake_outlined, "Sponsoring", '/sponsoring'),
                   ],

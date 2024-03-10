@@ -6,8 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 final _box = GetStorage();
 
-Future<bool> requestPermissionAndSubscribe() async {
-  if (await Permission.notification.isPermanentlyDenied) {
+Future<bool> requestPermissionAndSubscribe(bool force) async {
+  if (await Permission.notification.isPermanentlyDenied && !force) {
     return false;
   }
 
