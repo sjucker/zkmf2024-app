@@ -21,3 +21,8 @@
 ## Icons
 * See [flutter_launcher_icons.yaml](flutter_launcher_icons.yaml)
 * Run `dart run flutter_launcher_icons`
+
+# Firebase
+
+* `flutterfire configure --project=zkmf2024-app-test`
+* `flutterfire configure --project=zkmf2024-app`

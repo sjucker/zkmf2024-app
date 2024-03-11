@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
+import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 
 class UnterhaltungScreen extends StatefulWidget {
@@ -13,13 +14,16 @@ class UnterhaltungScreen extends StatefulWidget {
 }
 
 class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
-  Map<UnterhaltungEntryType, bool> typeFilter = {for (var element in UnterhaltungEntryType.values) element: true};
-  List<UnterhaltungEntryType> availableTypes = UnterhaltungEntryType.values;
+  Map<String, bool> dayFilter = {
+    for (var element in UnterhaltungEntryType.values.map((e) => e.labelShort)) element: true
+  };
+  List<String> availableDays = UnterhaltungEntryType.values.map((e) => e.labelShort).toList();
+
   Map<String, bool> locationFilter = {};
   List<String> availableLocations = [];
 
   List<UnterhaltungTypeDTO> allData = [];
-  List<UnterhaltungTypeDTO> filterdData = [];
+  List<UnterhaltungTypeDTO> filteredData = [];
 
   final Future<List<UnterhaltungTypeDTO>> unterhaltung = fetchUnterhaltung();
 
@@ -63,54 +67,16 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
         onPressed: () {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
-              return StatefulBuilder(
-                builder: (context, setStateDialog) {
-                  return SimpleDialog(
-                    title: const Text("Filter"),
-                    backgroundColor: blau,
-                    contentPadding: const EdgeInsets.all(10),
-                    children: [
-                      const ListTile(
-                        title: Text("Tag"),
-                      ),
-                      ...availableTypes.map((e) => CheckboxListTile(
-                            dense: true,
-                            title: Text(e.labelShort, overflow: TextOverflow.ellipsis),
-                            value: typeFilter[e],
-                            onChanged: (value) {
-                              setStateDialog(() {
-                                typeFilter[e] = value ?? false;
-                              });
-                            },
-                          )),
-                      const Divider(),
-                      const ListTile(
-                        title: Text("Ort"),
-                      ),
-                      ...availableLocations.map((e) => CheckboxListTile(
-                            dense: true,
-                            title: Text(
-                              e,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            value: locationFilter[e],
-                            onChanged: (value) {
-                              setStateDialog(() {
-                                locationFilter[e] = value ?? false;
-                              });
-                            },
-                          )),
-                      FilledButton(
-                          onPressed: () {
-                            setState(() {});
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("OK"))
-                    ],
-                  );
-                },
-              );
+              return FilterDialog(
+                  categories: [
+                    FilterCategory("Tag", availableDays, dayFilter),
+                    FilterCategory("Ort", availableLocations, locationFilter),
+                  ],
+                  callback: () {
+                    setState(() {});
+                  });
             },
           );
         },
@@ -120,19 +86,19 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
 
   void filterData() {
     List<UnterhaltungTypeDTO> result = List.empty(growable: true);
-    var filteredTypes = allData.where((element) => typeFilter[element.type] ?? false);
+    var filteredTypes = allData.where((element) => dayFilter[element.type.labelShort] ?? false);
     for (var value in filteredTypes) {
       var filteredEntries = value.entries.where((element) => locationFilter[element.location.name] ?? false).toList();
       if (filteredEntries.isNotEmpty) {
         result.add(UnterhaltungTypeDTO(type: value.type, entries: filteredEntries));
       }
     }
-    filterdData = result;
+    filteredData = result;
   }
 
   List<Widget> buildUnterhaltung() {
     List<Widget> result = List.empty(growable: true);
-    for (var value in filterdData) {
+    for (var value in filteredData) {
       result.add(const Divider());
       result.add(ListTile(
           title: Text(
@@ -173,7 +139,7 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
   }
 
   bool hasActiveFilter() {
-    return typeFilter.entries.any((element) => !element.value) ||
+    return dayFilter.entries.any((element) => !element.value) ||
         locationFilter.entries.any((element) => !element.value);
   }
 }

@@ -93,9 +93,6 @@ class _VereineScreenState extends State<VereineScreen> {
                         return ListTile(
                           leading: FavoriteButton(
                             identifier: requireData.identifier,
-                            valueChanged: (v) {
-                              // TODO subscribe to topic
-                            },
                             offColor: Colors.white,
                             onColor: gelb,
                           ),

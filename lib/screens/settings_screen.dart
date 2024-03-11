@@ -82,9 +82,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           value: _general,
                           onChanged: (value) {
                             if (value) {
-                              subscribeTo("general");
+                              subscribeTo(generalTopic);
                             } else {
-                              unsubscribeFrom("general");
+                              unsubscribeFrom(generalTopic);
                             }
                             setState(() {
                               _general = value;

@@ -15,3 +15,6 @@ const Color violettTransparent = Color.fromARGB(200, 170, 109, 211);
 
 const baseUrl = 'https://zkmf2024-server.herokuapp.com';
 const cloudFlareUrl = 'https://imagedelivery.net/b5PKQi-eHYmFXihh4Gjd5g/';
+
+const emergencyTopic = "emergency";
+const generalTopic = "general";

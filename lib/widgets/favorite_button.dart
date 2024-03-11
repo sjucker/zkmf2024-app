@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
 class FavoriteButton extends StatefulWidget {
   final String identifier;
-  final Function valueChanged;
   final Color offColor;
   final Color onColor;
 
   const FavoriteButton({
     super.key,
     required this.identifier,
-    required this.valueChanged,
     required this.offColor,
     required this.onColor,
   });
@@ -36,7 +35,11 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           setState(() {
             _favorite = !_favorite;
             _setFavorite(widget.identifier, _favorite);
-            widget.valueChanged(_favorite);
+            if (_favorite) {
+              favorite(widget.identifier);
+            } else {
+              unfavorite(widget.identifier);
+            }
           });
         },
         icon: Icon(
@@ -46,10 +49,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   }
 
   bool _isFavorite(String identifier) {
-    return box.read('favorite-$identifier}') ?? false;
+    return box.read('favorite-$identifier') ?? false;
   }
 
   void _setFavorite(String identifier, bool favorite) {
-    box.write(('favorite-$identifier}'), favorite);
+    box.write(('favorite-$identifier'), favorite);
   }
 }

@@ -39,11 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 'assets/logo-home.png',
                 fit: BoxFit.fitWidth,
               ),
-              const Expanded(
-                  child: RotationTransition(
-                      turns: AlwaysStoppedAnimation(-12 / 360),
-                      child: Text("Musik\nbewegt",
-                          style: TextStyle(height: 1, fontSize: 70, fontWeight: FontWeight.bold)))),
               Image.asset(
                 'assets/hauptsponsoren.png',
                 fit: BoxFit.fitWidth,
