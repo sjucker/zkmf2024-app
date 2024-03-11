@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/dto/timetable_overview.dart';
 import 'package:zkmf2024_app/dto/timetable_overview_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
+import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 
 class TimetableScreen extends StatefulWidget {
@@ -118,72 +119,16 @@ class _TimetableScreenState extends State<TimetableScreen> {
         onPressed: () {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
-              return StatefulBuilder(
-                builder: (context, setStateDialog) {
-                  return SimpleDialog(
-                    title: const Text("Filter"),
-                    backgroundColor: blau,
-                    contentPadding: const EdgeInsets.all(10.0),
-                    children: [
-                      const ListTile(
-                        title: Text("Tag"),
-                      ),
-                      ...availableDays.map((e) => CheckboxListTile(
-                            value: dayFilter[e],
-                            onChanged: (value) {
-                              setStateDialog(() {
-                                dayFilter[e] = value ?? false;
-                              });
-                            },
-                            dense: true,
-                            title: Text(
-                              e,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )),
-                      const Divider(),
-                      const ListTile(
-                        title: Text("Ort"),
-                      ),
-                      ...availableLocations.map((e) => CheckboxListTile(
-                            dense: true,
-                            title: Text(
-                              e,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            value: locationFilter[e],
-                            onChanged: (value) {
-                              setStateDialog(() {
-                                locationFilter[e] = value ?? false;
-                              });
-                            },
-                          )),
-                      const Divider(),
-                      const ListTile(
-                        title: Text("Modul"),
-                      ),
-                      ...availableCompetitions.map((e) => CheckboxListTile(
-                            dense: true,
-                            title: Text(
-                              e,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            value: competitionFilter[e],
-                            onChanged: (value) {
-                              setStateDialog(() {
-                                competitionFilter[e] = value ?? false;
-                              });
-                            },
-                          )),
-                      FilledButton(
-                          onPressed: () {
-                            setState(() {});
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("OK"))
-                    ],
-                  );
+              return FilterDialog(
+                categories: [
+                  FilterCategory("Tag", availableDays, dayFilter),
+                  FilterCategory("Ort", availableLocations, locationFilter),
+                  FilterCategory("Modul", availableCompetitions, competitionFilter)
+                ],
+                callback: () {
+                  setState(() {});
                 },
               );
             },

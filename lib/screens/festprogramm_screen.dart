@@ -3,6 +3,7 @@ import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/festprogramm_day.dart';
 import 'package:zkmf2024_app/dto/festprogramm_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
+import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 
 class FestprogrammScreen extends StatefulWidget {
@@ -71,52 +72,15 @@ class _FestprogrammScreenState extends State<FestprogrammScreen> {
           onPressed: () {
             showDialog(
               context: context,
+              barrierDismissible: false,
               builder: (context) {
-                return StatefulBuilder(
-                  builder: (context, setStateDialog) {
-                    return SimpleDialog(
-                      title: const Text("Filter"),
-                      backgroundColor: blau,
-                      contentPadding: const EdgeInsets.all(10),
-                      children: [
-                        const ListTile(
-                          title: Text("Tag"),
-                        ),
-                        ...availableDays.map((e) => CheckboxListTile(
-                              dense: true,
-                              title: Text(e, overflow: TextOverflow.ellipsis),
-                              value: dayFilter[e],
-                              onChanged: (value) {
-                                setStateDialog(() {
-                                  dayFilter[e] = value ?? false;
-                                });
-                              },
-                            )),
-                        const Divider(),
-                        const ListTile(
-                          title: Text("Ort"),
-                        ),
-                        ...availableLocations.map((e) => CheckboxListTile(
-                              dense: true,
-                              title: Text(
-                                e,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              value: locationFilter[e],
-                              onChanged: (value) {
-                                setStateDialog(() {
-                                  locationFilter[e] = value ?? false;
-                                });
-                              },
-                            )),
-                        FilledButton(
-                            onPressed: () {
-                              setState(() {});
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("OK")),
-                      ],
-                    );
+                return FilterDialog(
+                  categories: [
+                    FilterCategory("Tag", availableDays, dayFilter),
+                    FilterCategory("Ort", availableLocations, locationFilter),
+                  ],
+                  callback: () {
+                    setState(() {});
                   },
                 );
               },

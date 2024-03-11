@@ -48,7 +48,6 @@ class _VereinScreenState extends State<VereinScreen> {
         actions: [
           FavoriteButton(
             identifier: widget.identifier,
-            valueChanged: (v) {},
             offColor: rot,
             onColor: gelb,
           )

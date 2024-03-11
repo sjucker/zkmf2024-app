@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/firebase_options.dart';
 import 'package:zkmf2024_app/screens/changelog_screen.dart';
+import 'package:zkmf2024_app/screens/dynamic_page_screen.dart';
 import 'package:zkmf2024_app/screens/festprogramm_screen.dart';
 import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
@@ -31,6 +33,8 @@ import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> initFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -45,7 +49,60 @@ Future<void> initFirebase() async {
     return true;
   };
 
+  setupMessaging();
+
   await requestPermissionAndSubscribe(false);
+}
+
+Future<void> setupMessaging() async {
+  var initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+  if (initialMessage != null) {
+    navigate(initialMessage);
+  }
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    displayNotificationMessage(message);
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    navigate(message);
+  });
+}
+
+void displayNotificationMessage(RemoteMessage message) {
+  if (navigatorKey.currentContext == null) {
+    return;
+  }
+  showDialog(
+    context: navigatorKey.currentContext!,
+    barrierDismissible: false,
+    builder: (context) {
+      return SimpleDialog(
+        title: Text(message.notification?.title ?? ''),
+        backgroundColor: blau,
+        contentPadding: const EdgeInsets.all(10),
+        children: [
+          ListTile(
+            title: Text(message.notification?.body ?? ""),
+          ),
+          FilledButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (message.data.containsKey("route")) {
+                  context.push(message.data["route"]);
+                }
+              },
+              child: const Text("weiter"))
+        ],
+      );
+    },
+  );
+}
+
+void navigate(RemoteMessage message) {
+  if (message.data.containsKey("route")) {
+    navigatorKey.currentContext?.push(message.data["route"]);
+  }
 }
 
 void main() async {
@@ -58,6 +115,7 @@ void main() async {
 }
 
 final _router = GoRouter(
+  navigatorKey: navigatorKey,
   routes: [
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
     GoRoute(
@@ -112,6 +170,8 @@ final _router = GoRouter(
     GoRoute(path: '/festprogramm', builder: (context, state) => const FestprogrammScreen()),
     GoRoute(path: '/jurymitglieder', builder: (context, state) => const JuryScreen()),
     GoRoute(path: '/impressum', builder: (context, state) => const ImpressumScreen()),
+    GoRoute(
+        path: '/page/:id', builder: (context, state) => DynamicPageScreen(id: int.parse(state.pathParameters['id']!))),
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );
