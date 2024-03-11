@@ -9,3 +9,6 @@ const Color gelb = Color.fromARGB(255, 255, 198, 0);
 
 const baseUrl = 'https://zkmf2024-server.herokuapp.com';
 const cloudFlareUrl = 'https://imagedelivery.net/b5PKQi-eHYmFXihh4Gjd5g/';
+
+const emergencyTopic = "emergency";
+const generalTopic = "general";

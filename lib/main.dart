@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +27,11 @@ import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
+
 Future<void> initFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -41,6 +47,24 @@ Future<void> initFirebase() async {
   };
 
   await requestPermissionAndSubscribe(false);
+}
+
+Future<void> setupMessaging() async {
+  RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+  if (initialMessage != null) {
+    // TODO
+    print("app opened due to message");
+  }
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print("Handling a foreground message: ${message.messageId}");
+  });
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    print("app on background: ${event.messageId}");
+  });
 }
 
 void main() async {

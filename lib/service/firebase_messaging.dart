@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:zkmf2024_app/constants.dart';
 
 final _box = GetStorage();
 
@@ -17,8 +18,8 @@ Future<bool> requestPermissionAndSubscribe(bool force) async {
 
   var status = await Permission.notification.request();
   if (status.isGranted) {
-    subscribeTo("emergency");
-    subscribeTo("general");
+    subscribeTo(emergencyTopic);
+    subscribeTo(generalTopic);
 
     await FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: authorized");
 
