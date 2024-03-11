@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ZKMF2024 - Festführer"),
+        title: const Text("ZKMF2024 - Festprogramm"),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
