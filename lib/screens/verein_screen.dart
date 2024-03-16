@@ -74,9 +74,12 @@ class _VereinScreenState extends State<VereinScreen> {
     );
   }
 
-  List<Widget> buildContent(VereinDetailDTO requireData) {
+  List<Widget> buildContent(VereinDetailDTO vereinDetail) {
     return [
-      ...requireData.timetableEntries.map((dto) => Column(
+      ListTile(
+          title:
+              Text("Dirigent/in: ${vereinDetail.direktionName}", style: const TextStyle(fontWeight: FontWeight.bold))),
+      ...vereinDetail.timetableEntries.map((dto) => Column(
             children: [
               ListTile(
                   title: Text(
@@ -124,10 +127,10 @@ class _VereinScreenState extends State<VereinScreen> {
             ],
           )),
       CloudflareImage(
-        cloudflareId: requireData.bildImgId,
+        cloudflareId: vereinDetail.bildImgId,
       ),
-      buildWebsiteText(requireData),
-      buildSocialMedia(requireData),
+      buildWebsiteText(vereinDetail),
+      buildSocialMedia(vereinDetail),
     ];
   }
 
