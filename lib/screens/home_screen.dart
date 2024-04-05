@@ -59,10 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 290,
                 child: GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 3,
                     mainAxisExtent: 90.0,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2,
                   ),
                   children: [
                     buildCard(context, Icons.announcement_outlined, "News", '/news'),
@@ -71,6 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     buildCard(context, Icons.view_timeline_outlined, "Zeitplan", '/zeitplan'),
                     buildCard(context, Icons.map_outlined, "Karte", '/map'),
                     buildCard(context, Icons.handshake_outlined, "Sponsoring", '/sponsoring'),
+                    buildCard(context, Icons.celebration_outlined, "Unterhaltung", '/unterhaltung'),
+                    buildCard(context, Icons.list_alt_outlined, "Festprogramm", '/festprogramm'),
+                    buildCard(context, Icons.volunteer_activism_outlined, "Helfen", '/festprogramm'),
                   ],
                 ),
               ),
@@ -95,11 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Icon(
               icon,
               color: blau,
-              size: 40,
+              size: 32,
             ),
             Text(
               label,
-              style: const TextStyle(color: blau, fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(color: blau, fontSize: 14),
             )
           ],
         ),

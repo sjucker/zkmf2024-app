@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/firebase_options.dart';
 import 'package:zkmf2024_app/screens/changelog_screen.dart';
+import 'package:zkmf2024_app/screens/festprogramm_screen.dart';
 import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
 import 'package:zkmf2024_app/screens/informationen_screen.dart';
@@ -22,6 +23,7 @@ import 'package:zkmf2024_app/screens/news_screen.dart';
 import 'package:zkmf2024_app/screens/settings_screen.dart';
 import 'package:zkmf2024_app/screens/sponsoring_screen.dart';
 import 'package:zkmf2024_app/screens/timetable_screen.dart';
+import 'package:zkmf2024_app/screens/unterhaltung_screen.dart';
 import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
@@ -98,7 +100,9 @@ final _router = GoRouter(
     GoRoute(
       path: '/sponsoring',
       builder: (context, state) => const SponsoringScreen(),
-    )
+    ),
+    GoRoute(path: '/unterhaltung', builder: (context, state) => const UnterhaltungScreen()),
+    GoRoute(path: '/festprogramm', builder: (context, state) => const FestprogrammScreen())
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );
