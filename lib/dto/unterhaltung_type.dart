@@ -13,4 +13,15 @@ class UnterhaltungTypeDTO {
 
 }
 
-enum UnterhaltungEntryType { FREITAG_ABEND, SAMSTAG_TAG, SAMSTAG_ABEND, SONNTAG }
+enum UnterhaltungEntryType {
+  FREITAG_ABEND("Freitag, 21. Juni 2024", "Freitag"),
+  SAMSTAG_TAG("Samstag, 22. Juni 2024 – tagsüber", "Samstag tagsüber"),
+  SAMSTAG_ABEND("Samstag, 22. Juni 2024 – Abendprogramm", "Samstagabend"),
+  SONNTAG("Sonntag, 23. Juni 2024", "Sonntag");
+
+  final String label;
+  final String labelShort;
+
+  const UnterhaltungEntryType(this.label, this.labelShort);
+
+}
