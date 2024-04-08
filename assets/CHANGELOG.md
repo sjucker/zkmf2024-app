@@ -1,8 +1,14 @@
 # Changelog
 
+## [1.0.0+14]
+
+- Unterhaltungsprogramm
+- Link to Helfereinsatz
+
 ## [1.0.0+12]
 
 ### Added
+
 - Karte Festareal
 - Interaktive Karte
 - Sponsoring

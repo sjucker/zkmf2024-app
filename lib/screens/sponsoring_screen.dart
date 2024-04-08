@@ -31,7 +31,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
                       padding: EdgeInsets.only(top: 8.0),
                       child: Text(
                         "Hauptsponsorin",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     image(requireData.hauptsponsor.first.cloudflareId),
@@ -39,7 +39,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
                       padding: EdgeInsets.only(top: 16.0),
                       child: Text(
                         "Premium-Partner",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ResponsiveGridRow(
@@ -50,7 +50,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
                       padding: EdgeInsets.only(top: 16.0),
                       child: Text(
                         "Deluxe-Partner",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ResponsiveGridRow(
@@ -61,7 +61,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
                       padding: EdgeInsets.only(top: 16.0),
                       child: Text(
                         "Sponsor",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ResponsiveGridRow(
@@ -72,7 +72,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
                       padding: EdgeInsets.only(top: 16.0),
                       child: Text(
                         "Musikfan",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ResponsiveGridRow(
@@ -85,13 +85,13 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
                       padding: EdgeInsets.only(top: 16.0),
                       child: Text(
                         "Gönner",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: ResponsiveGridRow(
-                          children: requireData.goenner.map((e) => ResponsiveGridCol(child: Text(e.name))).toList()),
+                          children: requireData.goenner.map((e) => ResponsiveGridCol(child: Text(e.name, textAlign: TextAlign.center,))).toList()),
                     )
                   ],
                 ),

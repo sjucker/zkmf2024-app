@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -65,15 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 2,
                   ),
                   children: [
-                    buildCard(context, Icons.announcement_outlined, "News", '/news'),
-                    buildCard(context, Icons.info_outline, "Informationen", '/informationen'),
-                    buildCard(context, Icons.music_note_outlined, "Vereine", '/vereine'),
-                    buildCard(context, Icons.view_timeline_outlined, "Zeitplan", '/zeitplan'),
-                    buildCard(context, Icons.map_outlined, "Karte", '/map'),
-                    buildCard(context, Icons.handshake_outlined, "Sponsoring", '/sponsoring'),
-                    buildCard(context, Icons.celebration_outlined, "Unterhaltung", '/unterhaltung'),
-                    buildCard(context, Icons.list_alt_outlined, "Festprogramm", '/festprogramm'),
-                    buildCard(context, Icons.volunteer_activism_outlined, "Helfen", '/festprogramm'),
+                    buildCard(context, Icons.announcement_outlined, "News", internalLink: '/news'),
+                    buildCard(context, Icons.info_outline, "Informationen", internalLink: '/informationen'),
+                    buildCard(context, Icons.music_note_outlined, "Vereine", internalLink: '/vereine'),
+                    buildCard(context, Icons.view_timeline_outlined, "Zeitplan", internalLink: '/zeitplan'),
+                    buildCard(context, Icons.map_outlined, "Karte", internalLink: '/map'),
+                    buildCard(context, Icons.handshake_outlined, "Sponsoring", internalLink: '/sponsoring'),
+                    buildCard(context, Icons.celebration_outlined, "Unterhaltung", internalLink: '/unterhaltung'),
+                    buildCard(context, Icons.list_alt_outlined, "Festprogramm", internalLink: '/festprogramm'),
+                    buildCard(context, Icons.volunteer_activism_outlined, "Helfen",
+                        externalLink: 'https://portal.helfereinsatz.ch/zkmf2024'),
                   ],
                 ),
               ),
@@ -84,13 +86,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Card buildCard(BuildContext context, IconData icon, String label, String location) {
+  Card buildCard(BuildContext context, IconData icon, String label, {String? internalLink, String? externalLink}) {
     return Card(
       color: silberTransparent,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          context.push(location);
+          if (internalLink != null) {
+            context.push(internalLink);
+          } else if (externalLink != null) {
+            launchUrl(Uri.parse(externalLink));
+          }
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
