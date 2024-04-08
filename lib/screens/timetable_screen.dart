@@ -55,7 +55,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               initFilters(snapshot.requireData);
-              var data = _transform(snapshot);
+              var data = _filterAndTransform(snapshot.requireData);
 
               List<Widget> widgets = [];
               for (var day in data.days) {
@@ -112,13 +112,85 @@ class _TimetableScreenState extends State<TimetableScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(
-            hasActiveFilter() ? Icons.filter_alt : Icons.filter_alt_outlined,
-            color: gruen,
-          ),
-          onPressed: () {
-            // TODO open dialog
-          }),
+        child: Icon(
+          hasActiveFilter() ? Icons.filter_alt : Icons.filter_alt_outlined,
+          color: gruen,
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return StatefulBuilder(
+                builder: (context, setStateDialog) {
+                  return SimpleDialog(
+                    title: const Text("Filter"),
+                    backgroundColor: blau,
+                    contentPadding: const EdgeInsets.all(10.0),
+                    children: [
+                      const ListTile(
+                        title: Text("Tag"),
+                      ),
+                      ...availableDays.map((e) => CheckboxListTile(
+                            value: dayFilter[e],
+                            onChanged: (value) {
+                              setStateDialog(() {
+                                dayFilter[e] = value ?? false;
+                              });
+                            },
+                            dense: true,
+                            title: Text(
+                              e,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )),
+                      const Divider(),
+                      const ListTile(
+                        title: Text("Ort"),
+                      ),
+                      ...availableLocations.map((e) => CheckboxListTile(
+                            dense: true,
+                            title: Text(
+                              e,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            value: locationFilter[e],
+                            onChanged: (value) {
+                              setStateDialog(() {
+                                locationFilter[e] = value ?? false;
+                              });
+                            },
+                          )),
+                      const Divider(),
+                      const ListTile(
+                        title: Text("Modul"),
+                      ),
+                      ...availableCompetitions.map((e) => CheckboxListTile(
+                            dense: true,
+                            title: Text(
+                              e,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            value: competitionFilter[e],
+                            onChanged: (value) {
+                              setStateDialog(() {
+                                competitionFilter[e] = value ?? false;
+                              });
+                            },
+                          )),
+                      FilledButton(
+                          onPressed: () {
+                            setState(() {});
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("OK"))
+                    ],
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -143,22 +215,29 @@ class _TimetableScreenState extends State<TimetableScreen> {
     }
   }
 
-  _TimetableDayOverviewData _transform(AsyncSnapshot<List<TimetableDayOverviewDTO>> snapshot) {
-    var days = snapshot.requireData.map((e) => e.day).toList();
+  _TimetableDayOverviewData _filterAndTransform(List<TimetableDayOverviewDTO> requireData) {
+    List<String> days = List.empty(growable: true);
 
     var entriesPerDayAndLocation = <String, Map<int, List<TimetableOverviewEntryDTO>>>{};
     var availableLocations = <int, LocationDTO>{};
 
-    for (var v in snapshot.requireData) {
-      var perDay = entriesPerDayAndLocation.putIfAbsent(v.day, () => <int, List<TimetableOverviewEntryDTO>>{});
-      for (var entry in v.entries) {
-        perDay.putIfAbsent(entry.location.id, () => []).add(entry);
-        availableLocations[entry.location.id] = entry.location;
+    for (var v in requireData) {
+      if (dayFilter[v.day] ?? false) {
+        var perDay = entriesPerDayAndLocation.putIfAbsent(v.day, () => <int, List<TimetableOverviewEntryDTO>>{});
+        for (var entry in v.entries) {
+          if ((locationFilter[entry.location.name] ?? false) && (competitionFilter[entry.competition] ?? false)) {
+            perDay.putIfAbsent(entry.location.id, () => []).add(entry);
+            availableLocations[entry.location.id] = entry.location;
+            days.add(v.day);
+          }
+        }
       }
     }
 
     return _TimetableDayOverviewData(
-        days: days, entriesPerDayAndLocation: entriesPerDayAndLocation, availableLocations: availableLocations);
+        days: days.toSet().toList(),
+        entriesPerDayAndLocation: entriesPerDayAndLocation,
+        availableLocations: availableLocations);
   }
 
   List<LocationDTO> _locations(String day, _TimetableDayOverviewData data) {
@@ -174,8 +253,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
   }
 
   bool hasActiveFilter() {
-    return false;
-    // TODO
+    return dayFilter.entries.any((element) => !element.value) ||
+        locationFilter.entries.any((element) => !element.value) ||
+        competitionFilter.entries.any((element) => !element.value);
   }
 }
 
