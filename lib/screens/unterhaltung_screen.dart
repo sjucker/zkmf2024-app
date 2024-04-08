@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
@@ -153,12 +154,17 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
             ),
           ),
           onTap: () {
-            // TODO
+            if (entry.vereinIdentifier != null) {
+              context.push('/vereine/${entry.vereinIdentifier}');
+            } else if (entry.unterhaltungIdentifier != null) {
+              context.push('/unterhaltung/${entry.unterhaltungIdentifier}');
+            }
           },
-          trailing: const Icon(
-            // TODO conditional
-            Icons.navigate_next_sharp,
-          ),
+          trailing: entry.vereinIdentifier != null || entry.unterhaltungIdentifier != null
+              ? const Icon(
+                  Icons.navigate_next_sharp,
+                )
+              : null,
         ));
       }
     }

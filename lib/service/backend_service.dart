@@ -6,6 +6,7 @@ import 'package:zkmf2024_app/dto/festprogramm_day.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/dto/sponsoring.dart';
 import 'package:zkmf2024_app/dto/timetable_overview.dart';
+import 'package:zkmf2024_app/dto/unterhaltung_entry.dart';
 import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/dto/verein_detail.dart';
 import 'package:zkmf2024_app/dto/verein_overview.dart';
@@ -81,6 +82,16 @@ Future<List<UnterhaltungTypeDTO>> fetchUnterhaltung() async {
     return body.map((e) => UnterhaltungTypeDTO.fromJson(e as Map<String, dynamic>)).toList();
   } else {
     throw Exception('Failed to load unterhaltung');
+  }
+}
+
+Future<UnterhaltungsEntryDTO> fetchUnterhaltungDetail(String identifier) async {
+  final response = await http.get(Uri.parse('$baseUrl/public/unterhaltung/band/$identifier'));
+
+  if (response.statusCode == 200) {
+    return UnterhaltungsEntryDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load unterhaltung detail for $identifier');
   }
 }
 

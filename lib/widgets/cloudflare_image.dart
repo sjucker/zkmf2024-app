@@ -5,22 +5,29 @@ import 'package:zkmf2024_app/constants.dart';
 class CloudflareImage extends StatelessWidget {
   final String? cloudflareId;
   final Color? backgroundColor;
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry paddingOuter;
+  final EdgeInsetsGeometry paddingInner;
+  final BorderRadius borderRadius;
 
   const CloudflareImage(
-      {super.key, this.cloudflareId, this.backgroundColor = Colors.transparent, this.padding = EdgeInsets.zero});
+      {super.key,
+      this.cloudflareId,
+      this.backgroundColor = Colors.transparent,
+      this.paddingOuter = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      this.paddingInner = EdgeInsets.zero,
+      this.borderRadius = const BorderRadius.all(Radius.circular(10))});
 
   @override
   Widget build(BuildContext context) {
     if (cloudflareId != null) {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: paddingOuter,
         child: Center(
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: borderRadius,
               child: Container(
                 color: backgroundColor,
-                padding: padding,
+                padding: paddingInner,
                 child: CachedNetworkImage(
                     imageUrl: '$cloudFlareUrl${cloudflareId!}/public',
                     progressIndicatorBuilder: (context, url, progress) =>

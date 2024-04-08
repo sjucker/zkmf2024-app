@@ -110,7 +110,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
     return CloudflareImage(
       cloudflareId: cloudflareId,
       backgroundColor: Colors.white,
-      padding: padding,
+      paddingInner: padding,
     );
   }
 }

@@ -23,6 +23,7 @@ import 'package:zkmf2024_app/screens/news_screen.dart';
 import 'package:zkmf2024_app/screens/settings_screen.dart';
 import 'package:zkmf2024_app/screens/sponsoring_screen.dart';
 import 'package:zkmf2024_app/screens/timetable_screen.dart';
+import 'package:zkmf2024_app/screens/unterhaltung_detail_screen.dart';
 import 'package:zkmf2024_app/screens/unterhaltung_screen.dart';
 import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
@@ -101,7 +102,11 @@ final _router = GoRouter(
       path: '/sponsoring',
       builder: (context, state) => const SponsoringScreen(),
     ),
-    GoRoute(path: '/unterhaltung', builder: (context, state) => const UnterhaltungScreen()),
+    GoRoute(path: '/unterhaltung', builder: (context, state) => const UnterhaltungScreen(), routes: [
+      GoRoute(
+          path: ':identifier',
+          builder: (context, state) => UnterhaltungDetailScreen(identifier: state.pathParameters['identifier']!))
+    ]),
     GoRoute(path: '/festprogramm', builder: (context, state) => const FestprogrammScreen())
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
