@@ -17,6 +17,17 @@ class TimetableScreen extends StatefulWidget {
 class _TimetableScreenState extends State<TimetableScreen> {
   late Future<List<TimetableDayOverviewDTO>> _timetable;
 
+  Map<String, bool> dayFilter = {};
+  List<String> availableDays = [];
+
+  Map<String, bool> locationFilter = {};
+  List<String> availableLocations = [];
+
+  Map<String, bool> competitionFilter = {};
+  List<String> availableCompetitions = [];
+
+  bool favoriteOnlyFilter = false;
+
   @override
   void initState() {
     super.initState();
@@ -43,8 +54,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
           future: _timetable,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              // TODO add search
-
+              initFilters(snapshot.requireData);
               var data = _transform(snapshot);
 
               List<Widget> widgets = [];
@@ -101,7 +111,36 @@ class _TimetableScreenState extends State<TimetableScreen> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(
+            hasActiveFilter() ? Icons.filter_alt : Icons.filter_alt_outlined,
+            color: gruen,
+          ),
+          onPressed: () {
+            // TODO open dialog
+          }),
     );
+  }
+
+  void initFilters(List<TimetableDayOverviewDTO> requireData) {
+    if (availableDays.isEmpty) {
+      availableDays = requireData.map((e) => e.day).toList();
+      dayFilter = {for (var element in availableDays) element: true};
+    }
+
+    if (availableLocations.isEmpty) {
+      availableLocations =
+          requireData.expand((element) => element.entries.map((e) => e.location.name)).toSet().toList();
+      availableLocations.sort((a, b) => a.compareTo(b));
+      locationFilter = {for (var element in availableLocations) element: true};
+    }
+
+    if (availableCompetitions.isEmpty) {
+      availableCompetitions =
+          requireData.expand((element) => element.entries.map((e) => e.competition)).toSet().toList();
+      availableCompetitions.sort((a, b) => a.compareTo(b));
+      competitionFilter = {for (var element in availableCompetitions) element: true};
+    }
   }
 
   _TimetableDayOverviewData _transform(AsyncSnapshot<List<TimetableDayOverviewDTO>> snapshot) {
@@ -132,6 +171,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   List<TimetableOverviewEntryDTO> _entries(String day, int locationId, _TimetableDayOverviewData data) {
     return data.entriesPerDayAndLocation[day]![locationId]!;
+  }
+
+  bool hasActiveFilter() {
+    return false;
+    // TODO
   }
 }
 
