@@ -38,7 +38,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Zeitplan'),
+        title: const Text('Spielplan'),
         actions: [
           IconButton(
             icon: const Icon(Icons.home),

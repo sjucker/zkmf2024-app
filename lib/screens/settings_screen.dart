@@ -153,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Text("built by"),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
+                padding: const EdgeInsets.fromLTRB(100, 0, 100, 10),
                 child: Image.asset(
                   'assets/logo-mp.png',
                   fit: BoxFit.fitWidth,

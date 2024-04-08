@@ -66,15 +66,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 2,
                   ),
                   children: [
-                    buildCard(context, Icons.announcement_outlined, "News", internalLink: '/news'),
-                    buildCard(context, Icons.info_outline, "Informationen", internalLink: '/informationen'),
-                    buildCard(context, Icons.music_note_outlined, "Vereine", internalLink: '/vereine'),
-                    buildCard(context, Icons.view_timeline_outlined, "Zeitplan", internalLink: '/zeitplan'),
-                    buildCard(context, Icons.map_outlined, "Karte", internalLink: '/map'),
-                    buildCard(context, Icons.handshake_outlined, "Sponsoring", internalLink: '/sponsoring'),
-                    buildCard(context, Icons.celebration_outlined, "Unterhaltung", internalLink: '/unterhaltung'),
-                    buildCard(context, Icons.list_alt_outlined, "Festprogramm", internalLink: '/festprogramm'),
-                    buildCard(context, Icons.volunteer_activism_outlined, "Helfen",
+                    buildCard(context, Icons.announcement_outlined, "News", silberTransparent, blau,
+                        internalLink: '/news'),
+                    buildCard(context, Icons.info_outline, "Informationen", silberTransparent, blau,
+                        internalLink: '/informationen'),
+                    buildCard(context, Icons.list_alt_outlined, "Festprogramm", silberTransparent, blau,
+                        internalLink: '/festprogramm'),
+                    buildCard(context, Icons.music_note_outlined, "Vereine", silberTransparent, blau,
+                        internalLink: '/vereine'),
+                    buildCard(context, Icons.view_timeline_outlined, "Spielplan", silberTransparent, blau,
+                        internalLink: '/zeitplan'),
+                    buildCard(context, Icons.celebration_outlined, "Unterhaltung", silberTransparent, blau,
+                        internalLink: '/unterhaltung'),
+                    buildCard(context, Icons.map_outlined, "Karte", silberTransparent, blau, internalLink: '/map'),
+                    buildCard(context, Icons.handshake_outlined, "Sponsoring", silberTransparent, blau,
+                        internalLink: '/sponsoring'),
+                    buildCard(context, Icons.volunteer_activism_outlined, "Helfen", silberTransparent, blau,
                         externalLink: 'https://portal.helfereinsatz.ch/zkmf2024'),
                   ],
                 ),
@@ -86,9 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Card buildCard(BuildContext context, IconData icon, String label, {String? internalLink, String? externalLink}) {
+  Card buildCard(BuildContext context, IconData icon, String label, Color backgroundColor, Color color,
+      {String? internalLink, String? externalLink}) {
     return Card(
-      color: silberTransparent,
+      color: backgroundColor,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
@@ -103,12 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               icon,
-              color: blau,
+              color: color,
               size: 32,
             ),
             Text(
               label,
-              style: const TextStyle(color: blau, fontSize: 14),
+              style: TextStyle(color: color, fontSize: 14),
             )
           ],
         ),

@@ -3,6 +3,8 @@
 ## [1.0.0+14]
 
 - Unterhaltungsprogramm
+- Festprogramm
+- Filter für Spielplan
 - Link to Helfereinsatz
 
 ## [1.0.0+12]
