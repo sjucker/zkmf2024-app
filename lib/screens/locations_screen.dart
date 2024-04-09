@@ -53,7 +53,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
                     return ListTile(
                       leading: const Icon(
                         Icons.location_on,
-                        color: Colors.white,
+                        color: gruen,
                       ),
                       trailing: const Icon(
                         Icons.navigate_next_sharp,
@@ -64,7 +64,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
                       },
                       title: Text(
                         requireData.name,
-                        style: const TextStyle(color: gruen, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: FutureBuilder(
                         future: _currentPosition,
