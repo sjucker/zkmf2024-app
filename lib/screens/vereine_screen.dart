@@ -120,7 +120,6 @@ class _VereineScreenState extends State<VereineScreen> {
               return const GeneralErrorWidget();
             }
 
-            // By default, show a loading spinner.
             return const CircularProgressIndicator();
           },
         ),

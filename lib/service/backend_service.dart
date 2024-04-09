@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/festprogramm_day.dart';
+import 'package:zkmf2024_app/dto/judge.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/dto/sponsoring.dart';
 import 'package:zkmf2024_app/dto/timetable_overview.dart';
@@ -103,5 +104,16 @@ Future<List<FestprogrammDayDTO>> fetchFestprogramm() async {
     return body.map((e) => FestprogrammDayDTO.fromJson(e as Map<String, dynamic>)).toList();
   } else {
     throw Exception('Failed to load unterhaltung');
+  }
+}
+
+Future<List<JudgeDTO>> fetchJudges() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/judge'));
+
+  if (response.statusCode == 200) {
+    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+    return body.map((e) => JudgeDTO.fromJson(e as Map<String, dynamic>)).toList();
+  } else {
+    throw Exception('Failed to load judges');
   }
 }

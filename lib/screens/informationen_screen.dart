@@ -32,6 +32,16 @@ class InformationenScreen extends StatelessWidget {
             },
             title: const Text("Wettspiellokale"),
           ),
+          ListTile(
+            leading: const Icon(Icons.scoreboard_outlined),
+            trailing: const Icon(
+              Icons.navigate_next_sharp,
+            ),
+            onTap: () {
+              context.push('/jurymitglieder');
+            },
+            title: const Text("Jurymitglieder"),
+          )
         ],
       ),
     );

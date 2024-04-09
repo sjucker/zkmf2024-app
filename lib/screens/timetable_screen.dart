@@ -106,7 +106,6 @@ class _TimetableScreenState extends State<TimetableScreen> {
               return const GeneralErrorWidget();
             }
 
-            // By default, show a loading spinner.
             return const CircularProgressIndicator();
           },
         ),

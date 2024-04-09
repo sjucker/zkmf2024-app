@@ -82,7 +82,6 @@ class _LocationsScreenState extends State<LocationsScreen> {
                 return const GeneralErrorWidget();
               }
 
-              // By default, show a loading spinner.
               return const CircularProgressIndicator();
             },
           ),
