@@ -10,6 +10,7 @@ import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/favorite_button.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 import 'package:zkmf2024_app/widgets/location_tile.dart';
+import 'package:zkmf2024_app/widgets/random_sponsor.dart';
 
 class VereinScreen extends StatefulWidget {
   final String identifier;
@@ -76,6 +77,12 @@ class _VereinScreenState extends State<VereinScreen> {
 
   List<Widget> buildContent(VereinDetailDTO vereinDetail) {
     return [
+      CloudflareImage(
+        cloudflareId: vereinDetail.bildImgId,
+        paddingOuter: EdgeInsets.zero,
+        paddingInner: EdgeInsets.zero,
+        borderRadius: BorderRadius.zero,
+      ),
       ListTile(
           title:
               Text("Dirigent/in: ${vereinDetail.direktionName}", style: const TextStyle(fontWeight: FontWeight.bold))),
@@ -118,11 +125,9 @@ class _VereinScreenState extends State<VereinScreen> {
               const Divider(),
             ],
           )),
-      CloudflareImage(
-        cloudflareId: vereinDetail.bildImgId,
-      ),
       buildWebsiteText(vereinDetail),
       buildSocialMedia(vereinDetail),
+      const RandomSponsor(),
     ];
   }
 

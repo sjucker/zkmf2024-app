@@ -117,3 +117,13 @@ Future<List<JudgeDTO>> fetchJudges() async {
     throw Exception('Failed to load judges');
   }
 }
+
+Future<SponsorDTO> fetchRandomSponsor() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/sponsoring/random'));
+
+  if (response.statusCode == 200) {
+    return SponsorDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load random sponsor');
+  }
+}
