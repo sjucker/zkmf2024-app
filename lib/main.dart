@@ -12,6 +12,7 @@ import 'package:zkmf2024_app/screens/changelog_screen.dart';
 import 'package:zkmf2024_app/screens/festprogramm_screen.dart';
 import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
+import 'package:zkmf2024_app/screens/impressum_screen.dart';
 import 'package:zkmf2024_app/screens/informationen_screen.dart';
 import 'package:zkmf2024_app/screens/jury_screen.dart';
 import 'package:zkmf2024_app/screens/karte_schlieren_screen.dart';
@@ -110,6 +111,7 @@ final _router = GoRouter(
     ]),
     GoRoute(path: '/festprogramm', builder: (context, state) => const FestprogrammScreen()),
     GoRoute(path: '/jurymitglieder', builder: (context, state) => const JuryScreen()),
+    GoRoute(path: '/impressum', builder: (context, state) => const ImpressumScreen()),
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );

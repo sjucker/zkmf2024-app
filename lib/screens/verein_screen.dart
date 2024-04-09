@@ -154,7 +154,7 @@ class _VereinScreenState extends State<VereinScreen> {
     if (dto.facebook != null) {
       widgets.add(IconButton(
         onPressed: () {
-          launchUrl(Uri.parse(dto.facebook!));
+          launchUrl(Uri.parse(dto.facebook!), mode: LaunchMode.externalApplication);
         },
         icon: const FaIcon(
           FontAwesomeIcons.facebook,
@@ -165,7 +165,7 @@ class _VereinScreenState extends State<VereinScreen> {
     if (dto.instagram != null) {
       widgets.add(IconButton(
         onPressed: () {
-          launchUrl(Uri.parse(dto.instagram!));
+          launchUrl(Uri.parse(dto.instagram!), mode: LaunchMode.externalApplication);
         },
         icon: const FaIcon(
           FontAwesomeIcons.instagram,
