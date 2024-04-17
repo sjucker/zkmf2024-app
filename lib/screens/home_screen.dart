@@ -112,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               label,
               style: TextStyle(color: color, fontSize: 14),
+              textAlign: TextAlign.center,
             )
           ],
         ),
