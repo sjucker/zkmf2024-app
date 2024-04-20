@@ -13,6 +13,7 @@ Future<bool> requestPermissionAndSubscribe(bool force) async {
   }
 
   if (await Permission.notification.isGranted) {
+    subscribeTo(emergencyTopic);
     return true;
   }
 
