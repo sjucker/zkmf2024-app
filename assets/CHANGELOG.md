@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.0+18]
+- Favoriten-Filter im Spielplan
+
 ## [1.0.0+16]
 - Notifications
 - News Screen

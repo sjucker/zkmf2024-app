@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/location.dart';
@@ -17,6 +18,8 @@ class TimetableScreen extends StatefulWidget {
 }
 
 class _TimetableScreenState extends State<TimetableScreen> {
+  final box = GetStorage();
+
   late Future<List<TimetableDayOverviewDTO>> _timetable;
 
   Map<String, bool> dayFilter = {};
@@ -28,7 +31,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   Map<String, bool> competitionFilter = {};
   List<String> availableCompetitions = [];
 
-  bool favoriteOnlyFilter = false;
+  List<bool> favoritesOnly = [false];
 
   @override
   void initState() {
@@ -43,66 +46,64 @@ class _TimetableScreenState extends State<TimetableScreen> {
         title: const Text('Spielplan'),
         actions: homeAction(context),
       ),
-      body: Center(
-        child: FutureBuilder<List<TimetableDayOverviewDTO>>(
-          future: _timetable,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              initFilters(snapshot.requireData);
-              var data = _filterAndTransform(snapshot.requireData);
+      body: FutureBuilder<List<TimetableDayOverviewDTO>>(
+        future: _timetable,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            initFilters(snapshot.requireData);
+            var data = _filterAndTransform(snapshot.requireData);
 
-              List<Widget> widgets = [];
-              for (var day in data.days) {
-                widgets.add(Text(
-                  day,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            List<Widget> widgets = [];
+            for (var day in data.days) {
+              widgets.add(Text(
+                day,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ));
+
+              for (var location in _locations(day, data)) {
+                widgets.add(ListTile(
+                  leading: const Icon(Icons.location_on),
+                  title: Text(
+                    location.name,
+                    style: const TextStyle(color: gruen),
+                  ),
+                  onTap: () {
+                    context.push('/wettspiellokale/${location.identifier}');
+                  },
                 ));
 
-                for (var location in _locations(day, data)) {
+                for (var entry in _entries(day, location.id, data)) {
                   widgets.add(ListTile(
-                    leading: const Icon(Icons.location_on),
-                    title: Text(
-                      location.name,
-                      style: const TextStyle(color: gruen),
+                    trailing: const Icon(
+                      Icons.navigate_next_sharp,
+                      color: Colors.white,
                     ),
+                    dense: true,
+                    title: Text(entry.vereinsname),
+                    subtitle: Text("${day.substring(0, 4)} ${entry.time}"),
                     onTap: () {
-                      context.push('/wettspiellokale/${location.identifier}');
+                      context.push('/vereine/${entry.vereinIdentifier}');
                     },
                   ));
-
-                  for (var entry in _entries(day, location.id, data)) {
-                    widgets.add(ListTile(
-                      trailing: const Icon(
-                        Icons.navigate_next_sharp,
-                        color: Colors.white,
-                      ),
-                      dense: true,
-                      title: Text(entry.vereinsname),
-                      subtitle: Text("${day.substring(0, 4)} ${entry.time}"),
-                      onTap: () {
-                        context.push('/vereine/${entry.vereinIdentifier}');
-                      },
-                    ));
-                  }
                 }
-                widgets.add(const Divider());
               }
-
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: widgets,
-                  ),
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return const GeneralErrorWidget();
+              widgets.add(const Divider());
             }
 
-            return const CircularProgressIndicator();
-          },
-        ),
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: widgets,
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return const GeneralErrorWidget();
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
@@ -123,6 +124,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 callback: () {
                   setState(() {});
                 },
+                favoritesOnly: favoritesOnly,
               );
             },
           );
@@ -163,9 +165,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
         var perDay = entriesPerDayAndLocation.putIfAbsent(v.day, () => <int, List<TimetableOverviewEntryDTO>>{});
         for (var entry in v.entries) {
           if ((locationFilter[entry.location.name] ?? false) && (competitionFilter[entry.competition] ?? false)) {
-            perDay.putIfAbsent(entry.location.id, () => []).add(entry);
-            availableLocations[entry.location.id] = entry.location;
-            days.add(v.day);
+            if (!favoritesOnly.first || (box.read('favorite-${entry.vereinIdentifier}') ?? false)) {
+              perDay.putIfAbsent(entry.location.id, () => []).add(entry);
+              availableLocations[entry.location.id] = entry.location;
+              days.add(v.day);
+            }
           }
         }
       }
@@ -192,7 +196,8 @@ class _TimetableScreenState extends State<TimetableScreen> {
   bool hasActiveFilter() {
     return dayFilter.entries.any((element) => !element.value) ||
         locationFilter.entries.any((element) => !element.value) ||
-        competitionFilter.entries.any((element) => !element.value);
+        competitionFilter.entries.any((element) => !element.value) ||
+        favoritesOnly.first;
   }
 }
 

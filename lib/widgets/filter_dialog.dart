@@ -4,8 +4,9 @@ import 'package:zkmf2024_app/constants.dart';
 class FilterDialog extends StatefulWidget {
   final List<FilterCategory> categories;
   final VoidCallback callback;
+  final List<bool>? favoritesOnly;
 
-  const FilterDialog({super.key, required this.categories, required this.callback});
+  const FilterDialog({super.key, required this.categories, required this.callback, this.favoritesOnly});
 
   @override
   State<StatefulWidget> createState() => FilterDialogState();
@@ -19,6 +20,7 @@ class FilterDialogState extends State<FilterDialog> {
       backgroundColor: blau,
       contentPadding: const EdgeInsets.all(10),
       children: [
+        favoritesOnly(),
         ...widget.categories.map((e) => ExpansionTile(title: Text(e.name), children: [
               ...e.all.map((val) => CheckboxListTile(
                     dense: true,
@@ -56,6 +58,24 @@ class FilterDialogState extends State<FilterDialog> {
             ))
       ],
     );
+  }
+
+  StatelessWidget favoritesOnly() {
+    var favoritesOnly = widget.favoritesOnly;
+    if (favoritesOnly != null) {
+      return CheckboxListTile(
+        dense: true,
+        title: const Text("Nur Favoriten"),
+        value: favoritesOnly.first,
+        onChanged: (value) {
+          setState(() {
+            favoritesOnly[0] = value ?? false;
+          });
+        },
+      );
+    }
+
+    return Container();
   }
 }
 
