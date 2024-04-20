@@ -30,8 +30,15 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Diese App braucht Zugriff auf Ihren Standort um auf dem Festareal navigieren zu können.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Diese App braucht Zugriff auf Ihren Standort um auf dem Festareal navigieren zu können.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

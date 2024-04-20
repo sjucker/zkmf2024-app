@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCMPZxi0j3RKVgoopDJkmehPgNYGYpBuzo',
-    appId: '1:837135810763:ios:30c7b40dfe6c51b74a1b4e',
+    appId: '1:837135810763:ios:02c26a47bf59e8604a1b4e',
     messagingSenderId: '837135810763',
     projectId: 'zkmf2024-app',
     storageBucket: 'zkmf2024-app.appspot.com',
-    iosBundleId: 'ch.zkmf2024.app',
+    iosBundleId: 'ch.mptechnology.zkmf2024',
   );
 
 }
