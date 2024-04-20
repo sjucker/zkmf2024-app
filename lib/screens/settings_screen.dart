@@ -110,6 +110,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       _general = true;
                                       _notificationSettings = Permission.notification.status;
                                     });
+                                  } else {
+                                    if (!context.mounted) {
+                                      return;
+                                    }
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text('Benachrichtigungen konnten nicht aktiviert werden'),
+                                    ));
                                   }
                                 },
                                 icon: const Icon(Icons.notification_add),
