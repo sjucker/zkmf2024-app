@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.0+20]
+- Favoriten-Filter in Vereinsliste
+
 ## [1.0.0+18]
 - Favoriten-Filter im Spielplan
 
