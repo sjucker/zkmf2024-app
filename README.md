@@ -1,6 +1,8 @@
 # zkmf2024_app
 
 ## Build and Release
+First, make sure the right firebase project is configured.
+
 ### Android
 * Make sure you have to `upload-keystore.jks` available in `[project]/android`
 * Add file `[project]/android/key.properties`
@@ -24,5 +26,5 @@
 
 # Firebase
 
-* `flutterfire configure --project=zkmf2024-app-test`
-* `flutterfire configure --project=zkmf2024-app`
+* `$HOME/.pub-cache/bin/flutterfire configure --project=zkmf2024-app-test`
+* `$HOME/.pub-cache/bin/flutterfire configure --project=zkmf2024-app`

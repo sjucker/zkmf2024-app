@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0+16]
+- Notifications
+- News Screen
+- Dynamic Pages
+- Verbesserung Filter
+- Small Fixes, Improvements
+
 ## [1.0.0+14]
 
 - Unterhaltungsprogramm
