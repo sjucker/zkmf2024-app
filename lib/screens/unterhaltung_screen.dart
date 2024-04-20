@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class UnterhaltungScreen extends StatefulWidget {
   const UnterhaltungScreen({super.key});
@@ -32,6 +33,7 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Unterhaltungsprogramm"),
+        actions: homeAction(context),
       ),
       body: FutureBuilder(
           future: unterhaltung,

@@ -3,6 +3,7 @@ import 'package:zkmf2024_app/dto/judge.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class JuryScreen extends StatefulWidget {
   const JuryScreen({super.key});
@@ -25,6 +26,7 @@ class _JuryScreenState extends State<JuryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Jurymitglieder"),
+        actions: homeAction(context),
       ),
       body: Center(
         child: FutureBuilder<List<JudgeDTO>>(

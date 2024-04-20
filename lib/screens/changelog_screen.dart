@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class ChangelogScreen extends StatefulWidget {
   const ChangelogScreen({super.key});
@@ -16,6 +17,7 @@ class _ChangelogScreenState extends State<ChangelogScreen> {
       return Scaffold(
         appBar: AppBar(
           title: const Text("Changelog"),
+          actions: homeAction(context),
         ),
         body: FutureBuilder(
           future: changelog,

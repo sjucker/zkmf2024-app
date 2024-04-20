@@ -7,6 +7,7 @@ import 'package:zkmf2024_app/service/geolocation.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/distance_to_location.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class LocationScreen extends StatefulWidget {
   final String identifier;
@@ -41,6 +42,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 return const Text('');
               }
             }),
+        actions: homeAction(context),
       ),
       body: FutureBuilder<LocationDTO>(
         future: _location,

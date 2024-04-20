@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class KarteScreen extends StatelessWidget {
   const KarteScreen({super.key});
@@ -9,6 +10,7 @@ class KarteScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Karte Festareal"),
+        actions: homeAction(context),
       ),
       body: ListView(
         children: [

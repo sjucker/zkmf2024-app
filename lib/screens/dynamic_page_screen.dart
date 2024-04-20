@@ -6,6 +6,7 @@ import 'package:zkmf2024_app/dto/app_page.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class DynamicPageScreen extends StatefulWidget {
   final int id;
@@ -39,6 +40,7 @@ class _DynamicPageScreenState extends State<DynamicPageScreen> {
             }
           },
         ),
+        actions: homeAction(context),
       ),
       body: FutureBuilder<AppPageDTO>(
         future: _appPage,

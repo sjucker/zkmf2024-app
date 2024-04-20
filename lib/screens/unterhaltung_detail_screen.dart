@@ -6,6 +6,7 @@ import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 import 'package:zkmf2024_app/widgets/location_tile.dart';
 import 'package:zkmf2024_app/widgets/random_sponsor.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class UnterhaltungDetailScreen extends StatefulWidget {
   final String identifier;
@@ -36,6 +37,7 @@ class _UnterhaltungDetailScreenState extends State<UnterhaltungDetailScreen> {
             return const Text("Info");
           },
         ),
+        actions: homeAction(context),
       ),
       body: FutureBuilder<UnterhaltungsEntryDTO>(
         future: _entry,

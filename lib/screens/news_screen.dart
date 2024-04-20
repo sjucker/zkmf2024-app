@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:zkmf2024_app/dto/app_page.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -26,6 +27,7 @@ class _NewsScreenState extends State<NewsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("News"),
+        actions: homeAction(context),
       ),
       body: Center(
         child: FutureBuilder<List<AppPageDTO>>(

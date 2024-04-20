@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class InformationenScreen extends StatelessWidget {
   const InformationenScreen({super.key});
@@ -12,6 +13,7 @@ class InformationenScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Informationen'),
+        actions: homeAction(context),
       ),
       body: ListView(
         children: [

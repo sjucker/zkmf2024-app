@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/dto/verein_overview.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/favorite_button.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class VereineScreen extends StatefulWidget {
   const VereineScreen({super.key});
@@ -27,15 +28,7 @@ class _VereineScreenState extends State<VereineScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vereine'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            tooltip: 'Home',
-            onPressed: () {
-              context.go('/');
-            },
-          ),
-        ],
+        actions: homeAction(context),
       ),
       body: Center(
         child: FutureBuilder<List<VereinOverviewDTO>>(

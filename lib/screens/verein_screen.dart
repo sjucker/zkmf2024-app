@@ -11,6 +11,7 @@ import 'package:zkmf2024_app/widgets/favorite_button.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 import 'package:zkmf2024_app/widgets/location_tile.dart';
 import 'package:zkmf2024_app/widgets/random_sponsor.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class VereinScreen extends StatefulWidget {
   final String identifier;
@@ -45,13 +46,7 @@ class _VereinScreenState extends State<VereinScreen> {
             }
           },
         ),
-        actions: [
-          FavoriteButton(
-            identifier: widget.identifier,
-            offColor: rot,
-            onColor: gelb,
-          )
-        ],
+        actions: homeAction(context),
       ),
       body: FutureBuilder<VereinDetailDTO>(
         future: _verein,
@@ -81,6 +76,18 @@ class _VereinScreenState extends State<VereinScreen> {
         paddingOuter: EdgeInsets.zero,
         paddingInner: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
+      ),
+      ListTile(
+        leading: FavoriteButton(
+          identifier: widget.identifier,
+          offColor: Colors.white,
+          onColor: gelb,
+        ),
+        title: const Text("Favoriten"),
+        subtitle: const Text(
+          "Benachrichtigungen zu diesem Verein erhalten",
+          style: TextStyle(fontSize: 10),
+        ),
       ),
       ListTile(
           title:

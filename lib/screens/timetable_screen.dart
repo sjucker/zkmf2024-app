@@ -7,6 +7,7 @@ import 'package:zkmf2024_app/dto/timetable_overview_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class TimetableScreen extends StatefulWidget {
   const TimetableScreen({super.key});
@@ -40,15 +41,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Spielplan'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            tooltip: 'Home',
-            onPressed: () {
-              context.go('/');
-            },
-          ),
-        ],
+        actions: homeAction(context),
       ),
       body: Center(
         child: FutureBuilder<List<TimetableDayOverviewDTO>>(

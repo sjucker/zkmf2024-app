@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -36,6 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Einstellungen'),
+        actions: homeAction(context),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -25,6 +26,7 @@ class MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Karte Festareal"),
+        actions: homeAction(context),
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(url: WebUri('https://zkmf2024.ch/map')),

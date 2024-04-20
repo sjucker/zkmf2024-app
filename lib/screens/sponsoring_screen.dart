@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/dto/sponsoring.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class SponsoringScreen extends StatefulWidget {
   const SponsoringScreen({super.key});
@@ -19,6 +20,7 @@ class _SponsoringScreenState extends State<SponsoringScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sponsoring"),
+        actions: homeAction(context),
       ),
       body: FutureBuilder(
           future: fetchSponsoring(),
