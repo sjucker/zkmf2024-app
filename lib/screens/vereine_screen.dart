@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/verein_overview.dart';
@@ -15,7 +16,11 @@ class VereineScreen extends StatefulWidget {
 }
 
 class _VereineScreenState extends State<VereineScreen> {
+  final box = GetStorage();
+
   late Future<List<VereinOverviewDTO>> _vereine;
+
+  bool favoritesOnly = false;
 
   @override
   void initState() {
@@ -36,73 +41,90 @@ class _VereineScreenState extends State<VereineScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               late TextEditingController fieldTextEditingController;
+              var requireData = snapshot.requireData;
+              var filteredData = _filter(requireData);
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Autocomplete<VereinOverviewDTO>(
-                      optionsBuilder: (textEditingValue) {
-                        if (textEditingValue.text.isEmpty) {
-                          return [];
-                        } else {
-                          return snapshot.requireData
-                              .where(
-                                  (element) => element.name.toLowerCase().contains(textEditingValue.text.toLowerCase()))
-                              .toList();
-                        }
-                      },
-                      displayStringForOption: (option) => option.name,
-                      onSelected: (option) {
-                        context.push('/vereine/${option.identifier}');
-                        fieldTextEditingController.text = '';
-                      },
-                      fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
-                        fieldTextEditingController = textEditingController;
-                        return TextField(
-                          controller: fieldTextEditingController,
-                          focusNode: focusNode,
-                          decoration: const InputDecoration(
-                            suffixIcon: Icon(
-                              Icons.search,
-                              color: gruen,
-                            ),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: gruen)),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: gruen, width: 2)),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                            filled: true,
-                            fillColor: blau,
-                            hintStyle: TextStyle(color: silber),
-                            hintText: "Suchen",
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Autocomplete<VereinOverviewDTO>(
+                            optionsBuilder: (textEditingValue) {
+                              if (textEditingValue.text.isEmpty) {
+                                return [];
+                              } else {
+                                return requireData
+                                    .where((element) =>
+                                        element.name.toLowerCase().contains(textEditingValue.text.toLowerCase()))
+                                    .toList();
+                              }
+                            },
+                            displayStringForOption: (option) => option.name,
+                            onSelected: (option) {
+                              context.push('/vereine/${option.identifier}');
+                              fieldTextEditingController.text = '';
+                            },
+                            fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
+                              fieldTextEditingController = textEditingController;
+                              return TextField(
+                                controller: fieldTextEditingController,
+                                focusNode: focusNode,
+                                decoration: const InputDecoration(
+                                  suffixIcon: Icon(
+                                    Icons.search,
+                                    color: gruen,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: silber)),
+                                  focusedBorder:
+                                      OutlineInputBorder(borderSide: BorderSide(color: Colors.white, width: 2)),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                  filled: true,
+                                  fillColor: blau,
+                                  hintStyle: TextStyle(color: gruen),
+                                  hintText: "Suchen",
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              setState(() {
+                                favoritesOnly = !favoritesOnly;
+                              });
+                            },
+                            icon: Icon(
+                              favoritesOnly ? Icons.star : Icons.star_outline,
+                              color: gelb,
+                            ))
+                      ],
                     ),
                   ),
                   Expanded(
-                    child: ListView.separated(
-                      itemCount: snapshot.requireData.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var requireData = snapshot.requireData[index];
-                        return ListTile(
-                          leading: FavoriteButton(
-                            identifier: requireData.identifier,
-                            offColor: Colors.white,
-                            onColor: gelb,
-                          ),
-                          trailing: const Icon(
-                            Icons.navigate_next_sharp,
-                            color: Colors.white,
-                          ),
-                          onTap: () {
-                            context.push('/vereine/${requireData.identifier}');
-                          },
-                          title: Text(
-                            requireData.name,
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) => const Divider(),
-                    ),
+                    child: ListView(
+                        children: filteredData
+                            .map((dto) => ListTile(
+                                  key: Key('list-tile-${dto.identifier}'),
+                                  leading: FavoriteButton(
+                                    key: Key('favorite-${dto.identifier}'),
+                                    identifier: dto.identifier,
+                                    offColor: Colors.white,
+                                    onColor: gelb,
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.navigate_next_sharp,
+                                    color: Colors.white,
+                                  ),
+                                  onTap: () {
+                                    context.push('/vereine/${dto.identifier}');
+                                  },
+                                  title: Text(
+                                    dto.name,
+                                  ),
+                                ))
+                            .toList()),
                   ),
                 ],
               );
@@ -115,5 +137,13 @@ class _VereineScreenState extends State<VereineScreen> {
         ),
       ),
     );
+  }
+
+  List<VereinOverviewDTO> _filter(List<VereinOverviewDTO> data) {
+    if (!favoritesOnly) {
+      return data;
+    } else {
+      return data.where((element) => box.read('favorite-${element.identifier}') ?? false).toList();
+    }
   }
 }

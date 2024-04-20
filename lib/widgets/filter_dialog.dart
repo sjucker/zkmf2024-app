@@ -40,6 +40,9 @@ class FilterDialogState extends State<FilterDialog> {
                 category.selected.forEach((key, value) {
                   category.selected[key] = true;
                 });
+                if (widget.favoritesOnly != null) {
+                  widget.favoritesOnly![0] = false;
+                }
               }
             });
           },
