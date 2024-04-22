@@ -101,7 +101,7 @@ void displayNotificationMessage(RemoteMessage message) {
 
 void navigate(RemoteMessage message) {
   if (message.data.containsKey("route")) {
-    navigatorKey.currentContext?.push(message.data["route"]);
+    navigatorKey.currentContext?.go(message.data["route"]);
   }
 }
 
