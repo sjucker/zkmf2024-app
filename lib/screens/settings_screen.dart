@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
@@ -162,10 +163,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Text("built by"),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(100, 0, 100, 10),
-                child: Image.asset(
-                  'assets/logo-mp.png',
-                  fit: BoxFit.fitWidth,
+                padding: const EdgeInsets.fromLTRB(100, 0, 100, 20),
+                child: InkWell(
+                  onTap: () {
+                    launchUrl(Uri.parse('https://www.mptechnology.ch'));
+                  },
+                  child: Image.asset(
+                    'assets/logo-mp.png',
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
             ],
