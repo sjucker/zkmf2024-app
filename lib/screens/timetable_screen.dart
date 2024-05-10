@@ -8,6 +8,7 @@ import 'package:zkmf2024_app/dto/timetable_overview_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/random_sponsor.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class TimetableScreen extends StatefulWidget {
@@ -87,6 +88,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                   ));
                 }
               }
+              widgets.add(const RandomSponsor());
               widgets.add(const Divider());
             }
 

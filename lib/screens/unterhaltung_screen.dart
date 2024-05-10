@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/random_sponsor.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class UnterhaltungScreen extends StatefulWidget {
@@ -135,6 +136,9 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
               : null,
         ));
       }
+    }
+    if (result.isNotEmpty) {
+      result.add(const RandomSponsor());
     }
 
     return result;

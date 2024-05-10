@@ -83,7 +83,7 @@ class _VereinScreenState extends State<VereinScreen> {
           offColor: Colors.white,
           onColor: gelb,
         ),
-        title: const Text("Favoriten"),
+        title: const Text("zu Favoriten hinzufügen"),
         subtitle: const Text(
           "Benachrichtigungen zu diesem Verein erhalten",
           style: TextStyle(fontSize: 10),

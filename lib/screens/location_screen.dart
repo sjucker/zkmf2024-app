@@ -7,6 +7,7 @@ import 'package:zkmf2024_app/service/geolocation.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/distance_to_location.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/random_sponsor.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -83,6 +84,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
                 buildModulesTile(requireData),
                 CloudflareImage(cloudflareId: requireData.cloudflareId),
+                const RandomSponsor()
               ],
             );
           } else if (snapshot.hasError) {

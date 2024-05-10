@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 
@@ -15,10 +16,17 @@ class RandomSponsor extends StatelessWidget {
             children: [
               const Divider(),
               const Text("Sponsor"),
-              CloudflareImage(
-                cloudflareId: snapshot.requireData.cloudflareId,
-                backgroundColor: Colors.white,
-                paddingInner: const EdgeInsets.symmetric(vertical: 0, horizontal: 80),
+              InkWell(
+                child: CloudflareImage(
+                  cloudflareId: snapshot.requireData.cloudflareId,
+                  backgroundColor: Colors.white,
+                  paddingInner: const EdgeInsets.symmetric(vertical: 0, horizontal: 80),
+                ),
+                onTap: () {
+                  if (snapshot.requireData.url != null) {
+                    launchUrl(Uri.parse(snapshot.requireData.url!));
+                  }
+                },
               ),
             ],
           );

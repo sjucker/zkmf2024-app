@@ -5,6 +5,7 @@ import 'package:zkmf2024_app/dto/festprogramm_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/filter_dialog.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
+import 'package:zkmf2024_app/widgets/random_sponsor.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class FestprogrammScreen extends StatefulWidget {
@@ -119,6 +120,10 @@ class _FestprogrammScreenState extends State<FestprogrammScreen> {
           ),
         ));
       }
+    }
+
+    if (result.isNotEmpty) {
+      result.add(const RandomSponsor());
     }
 
     return result;
