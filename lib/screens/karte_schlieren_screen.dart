@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:zkmf2024_app/constants.dart';
@@ -15,7 +16,8 @@ class KarteSchlierenScreen extends StatelessWidget {
       ),
       body: ClipRect(
         child: PhotoView(
-          imageProvider: const AssetImage("assets/karte-schlieren.jpg"),
+          imageProvider:
+              const CachedNetworkImageProvider('${cloudFlareUrl}c5103f8a-75a3-4e1f-d6e0-169d30049e00/public'),
           backgroundDecoration: const BoxDecoration(color: blau),
         ),
       ),

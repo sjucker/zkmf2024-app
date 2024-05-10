@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:zkmf2024_app/constants.dart';
@@ -15,7 +16,8 @@ class KarteUrdorfScreen extends StatelessWidget {
       ),
       body: ClipRect(
         child: PhotoView(
-          imageProvider: const AssetImage("assets/karte-urdorf.jpg"),
+          imageProvider:
+              const CachedNetworkImageProvider('${cloudFlareUrl}e9b37972-3cb2-46f7-118b-cd6c780eda00/public'),
           backgroundDecoration: const BoxDecoration(color: blau),
         ),
       ),

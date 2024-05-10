@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 2,
                   ),
                   children: [
-                    buildCard(context, Icons.announcement_outlined, "News", silberTransparent, blau,
+                    buildCard(context, Icons.announcement_outlined, "Aktuelles", silberTransparent, blau,
                         internalLink: '/news'),
                     buildCard(context, Icons.info_outline, "Informationen", silberTransparent, blau,
                         internalLink: '/informationen'),

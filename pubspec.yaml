@@ -50,7 +50,5 @@ flutter:
     - assets/logo-home.png
     - assets/hauptsponsoren.png
     - assets/logo-mp.png
-    - assets/karte-schlieren.jpg
-    - assets/karte-urdorf.jpg
     - assets/CHANGELOG.md
 # TODO https://flutter.dev/assets-and-images/#resolution-aware

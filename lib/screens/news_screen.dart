@@ -26,7 +26,7 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("News"),
+        title: const Text("Aktuelles"),
         actions: homeAction(context),
       ),
       body: Center(
