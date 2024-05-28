@@ -208,7 +208,7 @@
 				526353D86959D2730A8194F7 /* [CP] Embed Pods Frameworks */,
 				9021ED5B676A00FE77899A15 /* [CP] Copy Pods Resources */,
 				4B8677FD72E3BA0B20D34B99 /* [firebase_crashlytics] Crashlytics Upload Symbols */,
-				2881B8C8EAC3D3B8D2AD641F /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
+				39BC73FE89B893BE5515EF8F /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
 			);
 			buildRules = (
 			);
@@ -304,7 +304,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2881B8C8EAC3D3B8D2AD641F /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
+		39BC73FE89B893BE5515EF8F /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

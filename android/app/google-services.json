@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:837135810763:android:f0dbbfada251c0824a1b4e",
+        "mobilesdk_app_id": "1:837135810763:android:69603ddb33d214584a1b4e",
         "android_client_info": {
-          "package_name": "ch.zkmf2024.app"
+          "package_name": "ch.mptechnology.zkmf2024"
         }
       },
       "oauth_client": [],
