@@ -2,7 +2,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -141,7 +140,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               if (snapshot.hasData) {
                 return Center(
                     child: GestureDetector(
-                        onDoubleTap: () async {
+                        onDoubleTap: () {
                           FirebaseMessaging.instance.getToken().then((value) => {
                                 if (value != null) {Clipboard.setData(ClipboardData(text: value))}
                               });
@@ -154,11 +153,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               }
             },
           ),
-          TextButton(
-              onPressed: () {
-                context.push('/settings/changelog');
-              },
-              child: const Text("Changelog")),
           const Divider(
             indent: 20,
             endIndent: 20,
