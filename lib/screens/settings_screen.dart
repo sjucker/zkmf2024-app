@@ -1,4 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -138,7 +140,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Center(
-                    child: Text('Version: ${snapshot.requireData.version}+${snapshot.requireData.buildNumber}'));
+                    child: GestureDetector(
+                        onDoubleTap: () async {
+                          FirebaseMessaging.instance.getToken().then((value) => {
+                                if (value != null) {Clipboard.setData(ClipboardData(text: value))}
+                              });
+                        },
+                        child: Text('Version: ${snapshot.requireData.version}+${snapshot.requireData.buildNumber}')));
               } else if (snapshot.error != null) {
                 return Center(child: Text(snapshot.error!.toString()));
               } else {
