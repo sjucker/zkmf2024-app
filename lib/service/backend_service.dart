@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/app_page.dart';
+import 'package:zkmf2024_app/dto/emergency_message.dart';
 import 'package:zkmf2024_app/dto/festprogramm_day.dart';
 import 'package:zkmf2024_app/dto/judge.dart';
 import 'package:zkmf2024_app/dto/location.dart';
@@ -148,5 +149,22 @@ Future<List<AppPageDTO>> fetchNews() async {
     return body.map((e) => AppPageDTO.fromJson(e as Map<String, dynamic>)).toList();
   } else {
     throw Exception('Failed to load news');
+  }
+}
+
+Future<bool> hasEmergencyMessage() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/emergency'));
+  return response.statusCode == 200;
+}
+
+Future<EmergencyMessageDTO> fetchEmergencyMessage() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/emergency'));
+
+  if (response.statusCode == 200) {
+    return EmergencyMessageDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
+  } else if (response.statusCode == 404) {
+    return EmergencyMessageDTO("keine Nachrichten", "Momentan keine Informationen vorhanden");
+  } else {
+    throw Exception('Failed to load emergency message');
   }
 }

@@ -11,6 +11,7 @@ import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/firebase_options.dart';
 import 'package:zkmf2024_app/screens/changelog_screen.dart';
 import 'package:zkmf2024_app/screens/dynamic_page_screen.dart';
+import 'package:zkmf2024_app/screens/emergency_screen.dart';
 import 'package:zkmf2024_app/screens/festprogramm_screen.dart';
 import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
@@ -172,6 +173,7 @@ final _router = GoRouter(
     GoRoute(path: '/impressum', builder: (context, state) => const ImpressumScreen()),
     GoRoute(
         path: '/page/:id', builder: (context, state) => DynamicPageScreen(id: int.parse(state.pathParameters['id']!))),
+    GoRoute(path: '/emergency', builder: (context, state) => const EmergencyScreen())
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );
