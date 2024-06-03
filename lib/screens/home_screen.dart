@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
-import 'package:zkmf2024_app/service/backend_service.dart';
+import 'package:zkmf2024_app/widgets/emergency_alert.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,12 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<bool> _showEmergencyMessage;
-
   @override
   void initState() {
     super.initState();
-    _showEmergencyMessage = hasEmergencyMessage();
   }
 
   @override
@@ -58,29 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FutureBuilder(
-                // TODO rebuild this periodically
-                future: _showEmergencyMessage,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.requireData) {
-                    return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: TextButton(
-                          onPressed: () {
-                            context.push('/emergency');
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(rot),
-                          ),
-                          child: const Text(
-                            "WICHTIGE NACHRICHT",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ));
-                  } else {
-                    return Container();
-                  }
-                },
+              const EmergencyAlert(
+                key: Key('home-emergency-alert'),
               ),
               SizedBox(
                 height: 290,
