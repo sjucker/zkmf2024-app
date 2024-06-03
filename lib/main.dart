@@ -12,6 +12,7 @@ import 'package:zkmf2024_app/firebase_options.dart';
 import 'package:zkmf2024_app/screens/changelog_screen.dart';
 import 'package:zkmf2024_app/screens/dynamic_page_screen.dart';
 import 'package:zkmf2024_app/screens/emergency_screen.dart';
+import 'package:zkmf2024_app/screens/faq_screen.dart';
 import 'package:zkmf2024_app/screens/festprogramm_screen.dart';
 import 'package:zkmf2024_app/screens/general_error_screen.dart';
 import 'package:zkmf2024_app/screens/home_screen.dart';
@@ -177,10 +178,9 @@ final _router = GoRouter(
         path: '/page/:id', builder: (context, state) => DynamicPageScreen(id: int.parse(state.pathParameters['id']!))),
     GoRoute(path: '/emergency', builder: (context, state) => const EmergencyScreen()),
     GoRoute(path: '/ranglisten', builder: (context, state) => const RankingsScreen(), routes: [
-      GoRoute(
-          path: ':id',
-          builder: (context, state) => RankingScreen(id: int.parse(state.pathParameters['id']!)))
-    ])
+      GoRoute(path: ':id', builder: (context, state) => RankingScreen(id: int.parse(state.pathParameters['id']!)))
+    ]),
+    GoRoute(path: '/faq', builder: (context, state) => const FaqScreen()),
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );
