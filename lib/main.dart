@@ -25,6 +25,8 @@ import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
 import 'package:zkmf2024_app/screens/map_screen.dart';
 import 'package:zkmf2024_app/screens/news_screen.dart';
+import 'package:zkmf2024_app/screens/ranking_screen.dart';
+import 'package:zkmf2024_app/screens/rankings_screen.dart';
 import 'package:zkmf2024_app/screens/settings_screen.dart';
 import 'package:zkmf2024_app/screens/sponsoring_screen.dart';
 import 'package:zkmf2024_app/screens/timetable_screen.dart';
@@ -173,7 +175,12 @@ final _router = GoRouter(
     GoRoute(path: '/impressum', builder: (context, state) => const ImpressumScreen()),
     GoRoute(
         path: '/page/:id', builder: (context, state) => DynamicPageScreen(id: int.parse(state.pathParameters['id']!))),
-    GoRoute(path: '/emergency', builder: (context, state) => const EmergencyScreen())
+    GoRoute(path: '/emergency', builder: (context, state) => const EmergencyScreen()),
+    GoRoute(path: '/ranglisten', builder: (context, state) => const RankingsScreen(), routes: [
+      GoRoute(
+          path: ':id',
+          builder: (context, state) => RankingScreen(id: int.parse(state.pathParameters['id']!)))
+    ])
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );

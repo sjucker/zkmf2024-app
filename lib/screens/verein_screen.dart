@@ -79,6 +79,7 @@ class _VereinScreenState extends State<VereinScreen> {
       ),
       ListTile(
         leading: FavoriteButton(
+          key: Key('favorite-${widget.identifier}'),
           identifier: widget.identifier,
           offColor: Colors.white,
           onColor: gelb,

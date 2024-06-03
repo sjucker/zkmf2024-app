@@ -8,6 +8,7 @@ import 'package:zkmf2024_app/dto/emergency_message.dart';
 import 'package:zkmf2024_app/dto/festprogramm_day.dart';
 import 'package:zkmf2024_app/dto/judge.dart';
 import 'package:zkmf2024_app/dto/location.dart';
+import 'package:zkmf2024_app/dto/ranking_list.dart';
 import 'package:zkmf2024_app/dto/sponsoring.dart';
 import 'package:zkmf2024_app/dto/timetable_overview.dart';
 import 'package:zkmf2024_app/dto/unterhaltung_entry.dart';
@@ -166,5 +167,31 @@ Future<EmergencyMessageDTO> fetchEmergencyMessage() async {
     return EmergencyMessageDTO("keine Nachrichten", "Momentan keine Informationen vorhanden");
   } else {
     throw Exception('Failed to load emergency message');
+  }
+}
+
+Future<bool> hasRankings() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/ranking/available'));
+  return response.statusCode == 200;
+}
+
+Future<List<RankingListDTO>> fetchRankings() async {
+  final response = await http.get(Uri.parse('$baseUrl/public/ranking'));
+
+  if (response.statusCode == 200) {
+    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+    return body.map((e) => RankingListDTO.fromJson(e as Map<String, dynamic>)).toList();
+  } else {
+    throw Exception('Failed to load rankings');
+  }
+}
+
+Future<RankingListDTO> fetchRanking(int id) async {
+  final response = await http.get(Uri.parse('$baseUrl/public/ranking/$id'));
+
+  if (response.statusCode == 200) {
+    return RankingListDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
+  } else {
+    throw Exception('Failed to load ranking for $id');
   }
 }
