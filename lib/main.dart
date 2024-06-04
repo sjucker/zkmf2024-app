@@ -59,11 +59,6 @@ Future<void> initFirebase() async {
 }
 
 Future<void> setupMessaging() async {
-  var initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-  if (initialMessage != null) {
-    navigate(initialMessage);
-  }
-
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     displayNotificationMessage(message);
   });

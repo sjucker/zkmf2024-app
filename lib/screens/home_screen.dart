@@ -1,7 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
+import 'package:zkmf2024_app/main.dart';
 import 'package:zkmf2024_app/widgets/emergency_alert.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,9 +14,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<void> handleInitialMessage() async {
+    var initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      navigate(initialMessage);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    handleInitialMessage();
   }
 
   @override
