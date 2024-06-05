@@ -103,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   }
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                     content: Text(
-                                        'Benachrichtigungen konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellung vornehmen'),
+                                        'Benachrichtigungen konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellungen vornehmen'),
                                     backgroundColor: rot,
                                   ));
                                 }
@@ -161,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 }
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                   content: Text(
-                                      'Ortungsdienste konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellung vornehmen'),
+                                      'Ortungsdienste konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellungen vornehmen'),
                                   backgroundColor: rot,
                                 ));
                               }
