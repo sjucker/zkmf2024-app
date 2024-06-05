@@ -106,15 +106,13 @@ class _VereinScreenState extends State<VereinScreen> {
                 title: Text(dto.dateTime),
               ),
               LocationTileWidget(dto.location),
-              if (dto.modul != "C") ...[
+              if (dto.programm.isNotEmpty) ...[
                 ExpansionTile(
                   leading: const Icon(
                     Icons.music_note,
                     color: gruen,
                   ),
-                  title: Text(
-                    dto.titel != null ? "\"${dto.titel}\"" : "Komposition",
-                  ),
+                  title: Text(getProgrammTitel(dto),),
                   expandedAlignment: Alignment.topLeft,
                   children: [
                     Padding(
@@ -137,6 +135,15 @@ class _VereinScreenState extends State<VereinScreen> {
       buildSocialMedia(vereinDetail),
       const RandomSponsor(),
     ];
+  }
+
+  String getProgrammTitel(VereinTimetableEntryDTO dto) {
+    if (dto.modul == "D"){
+      // Parademusik
+      return "Komposition";
+    } else {
+      return dto.titel != null ? "\"${dto.titel}\"" : "Programm";
+    }
   }
 
   Widget description(VereinTimetableEntryDTO dto) => dto.description != null
