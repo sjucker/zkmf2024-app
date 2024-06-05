@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
+import 'package:zkmf2024_app/dto/titel.dart';
 import 'package:zkmf2024_app/dto/verein_detail.dart';
 import 'package:zkmf2024_app/dto/verein_timetable_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
@@ -112,17 +113,16 @@ class _VereinScreenState extends State<VereinScreen> {
                     Icons.music_note,
                     color: gruen,
                   ),
-                  title: Text(getProgrammTitel(dto),),
+                  title: Text(
+                    getProgrammTitel(dto),
+                  ),
                   expandedAlignment: Alignment.topLeft,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(dto.programm
-                            .map((e) => "${e.titelName} (${e.composer})")
-                            .join(dto.modul == "D" ? " oder\n" : "\n")),
-                        description(dto)
-                      ]),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [...getProgramm(dto), description(dto)]),
                     )
                   ],
                 )
@@ -137,8 +137,27 @@ class _VereinScreenState extends State<VereinScreen> {
     ];
   }
 
+  Iterable<Widget> getProgramm(VereinTimetableEntryDTO dto) {
+    if (dto.modul == "D") {
+      return [Text(dto.programm.map((e) => "${e.titelName} (${e.composer})").join("\noder\n"))];
+    } else {
+      return dto.programm.map((e) {
+        if (e.infoModeration != null) {
+          return ExpansionTile(
+            title: Text(getTitel(e)),
+            children: [Text(e.infoModeration ?? '')],
+          );
+        } else {
+          return ListTile(title: Text(getTitel(e)));
+        }
+      });
+    }
+  }
+
+  String getTitel(TitelDTO e) => "${e.titelName} (${e.composer})${e.pflichtStueck ? '*' : ''}";
+
   String getProgrammTitel(VereinTimetableEntryDTO dto) {
-    if (dto.modul == "D"){
+    if (dto.modul == "D") {
       // Parademusik
       return "Komposition";
     } else {
