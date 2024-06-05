@@ -24,6 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool _general;
 
   late Future<PermissionStatus> _notificationSettings;
+  late Future<PermissionStatus> _locationSettings;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _emergency = _box.read("topic-emergency") ?? false;
     _general = _box.read("topic-general") ?? false;
     _notificationSettings = Permission.notification.status;
+    _locationSettings = Permission.location.status;
   }
 
   @override
@@ -45,38 +47,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          FutureBuilder(
-            future: _notificationSettings,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.requireData.isGranted) {
-                  return const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      "Benachrichtigungen",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  );
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      "Benachrichtigungen deaktiviert",
-                    ),
-                  );
-                }
-              } else {
-                return const LinearProgressIndicator();
-              }
-            },
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              "Benachrichtigungen",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
           ),
           FutureBuilder(
               future: _notificationSettings,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.requireData.isGranted) {
-                    return Expanded(
-                        child: ListView(
+                    return Column(
                       children: [
                         SwitchListTile.adaptive(
                             title: const Text("Notfall"), value: _emergency, onChanged: null // disabled
@@ -96,44 +79,116 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           },
                         )
                       ],
-                    ));
+                    );
                   } else {
-                    return Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: TextButton.icon(
-                                onPressed: () async {
-                                  var authorized = await requestPermissionAndSubscribe(true);
-                                  if (authorized) {
-                                    // reload page
-                                    setState(() {
-                                      _emergency = true;
-                                      _general = true;
-                                      _notificationSettings = Permission.notification.status;
-                                    });
-                                  } else {
-                                    if (!context.mounted) {
-                                      return;
-                                    }
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                      content: Text('Benachrichtigungen konnten nicht aktiviert werden'),
-                                    ));
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                          child: TextButton.icon(
+                              style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.white)),
+                              onPressed: () async {
+                                var authorized = await requestPermissionAndSubscribe(true);
+                                if (authorized) {
+                                  // reload page
+                                  setState(() {
+                                    _emergency = true;
+                                    _general = true;
+                                    _notificationSettings = Permission.notification.status;
+                                  });
+                                } else {
+                                  if (!context.mounted) {
+                                    return;
                                   }
-                                },
-                                icon: const Icon(Icons.notification_add),
-                                label: const Text("aktivieren")),
-                          ),
-                        ],
-                      ),
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                        'Benachrichtigungen konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellung vornehmen'),
+                                    backgroundColor: rot,
+                                  ));
+                                }
+                              },
+                              icon: const Icon(
+                                Icons.notification_add,
+                                color: blau,
+                              ),
+                              label: const Text(
+                                "aktivieren",
+                                style: TextStyle(color: blau),
+                              )),
+                        ),
+                      ],
                     );
                   }
                 } else {
                   return const LinearProgressIndicator();
                 }
               }),
+          const Divider(
+            indent: 20,
+            endIndent: 20,
+            color: gruen,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              "Ortungsdienste",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+          FutureBuilder(
+            future: _locationSettings,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.requireData.isPermanentlyDenied || snapshot.requireData.isDenied) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                        child: TextButton.icon(
+                            style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.white)),
+                            onPressed: () async {
+                              var status = await Permission.location.request();
+                              if (status.isGranted) {
+                                // reload page
+                                setState(() {
+                                  _locationSettings = Permission.location.status;
+                                });
+                              } else {
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text(
+                                      'Ortungsdienste konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellung vornehmen'),
+                                  backgroundColor: rot,
+                                ));
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.location_disabled_outlined,
+                              color: blau,
+                            ),
+                            label: const Text(
+                              "aktivieren",
+                              style: TextStyle(color: blau),
+                            )),
+                      ),
+                    ],
+                  );
+                } else {
+                  return const ListTile(
+                    leading: Icon(Icons.my_location_outlined),
+                    title: Text("aktiviert"),
+                  );
+                }
+              } else {
+                return const LinearProgressIndicator();
+              }
+            },
+          ),
+          Expanded(child: Container()),
           FutureBuilder(
             future: _packeInfo,
             builder: (context, snapshot) {
