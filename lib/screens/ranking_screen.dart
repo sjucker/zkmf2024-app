@@ -54,7 +54,7 @@ class _RankingScreenState extends State<RankingScreen> {
                         style: const TextStyle(
                           fontSize: 16,
                         )),
-                    trailing: Text(entry.score.toString(),
+                    trailing: Text(entry.score.toStringAsFixed(2),
                         style: const TextStyle(
                           fontSize: 16,
                         )),
