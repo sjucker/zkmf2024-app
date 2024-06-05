@@ -132,6 +132,7 @@ class _VereinScreenState extends State<VereinScreen> {
               const Divider(),
             ],
           )),
+      buildWebsiteLink(vereinDetail),
       buildWebsiteText(vereinDetail),
       buildSocialMedia(vereinDetail),
       const RandomSponsor(),
@@ -144,6 +145,24 @@ class _VereinScreenState extends State<VereinScreen> {
           child: Text(dto.description!),
         )
       : Container();
+
+  Widget buildWebsiteLink(VereinDetailDTO dto) {
+    if (dto.homepage != null) {
+      return ListTile(
+        title: const Text("Website"),
+        leading: const Icon(Icons.language_outlined),
+        trailing: const Icon(
+          Icons.arrow_outward_outlined,
+          color: Colors.white,
+        ),
+        onTap: () {
+          launchUrl(Uri.parse(dto.homepage!));
+        },
+      );
+    } else {
+      return Container();
+    }
+  }
 
   Widget buildWebsiteText(VereinDetailDTO dto) {
     if (dto.websiteText != null) {
