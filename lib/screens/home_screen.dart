@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/main.dart';
+import 'package:zkmf2024_app/widgets/countdown.dart';
 import 'package:zkmf2024_app/widgets/emergency_alert.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -68,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const EmergencyAlert(
                 key: Key('home-emergency-alert'),
               ),
+              Countdown(start: DateTime(2024, 6, 21, 17, 30)),
               SizedBox(
                 height: 290,
                 child: GridView(
