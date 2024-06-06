@@ -40,7 +40,7 @@ class _EmergencyAlertState extends State<EmergencyAlert> {
                   context.push('/emergency');
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(rot),
+                  backgroundColor: WidgetStateProperty.all(rot),
                 ),
                 child: const Text(
                   "WICHTIGE NACHRICHT",
