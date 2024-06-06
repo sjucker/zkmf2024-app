@@ -30,7 +30,7 @@ neben Schulhaus Feld 1, [Im Embri 49](https://maps.app.goo.gl/2EH2iJPR5iYxyzxe7)
           title: const Text("Helferbüros"),
           children: [
             textBlock("""
-**Urdorf**: Schulhaus Feld 1, [Im Embri 49](https://maps.app.goo.gl/2EH2iJPR5iYxyzxe7)
+**Urdorf**: Schulhaus Feld 1, [Im Embri 49](https://maps.app.goo.gl/Jnr1LVooRcgsSg1M8)
 
 **Schlieren**: Familienzentrum, [Badenerstrasse 17](https://maps.app.goo.gl/D6akpGYAnvndUPzC8)"""),
           ],
