@@ -35,6 +35,7 @@ import 'package:zkmf2024_app/screens/unterhaltung_detail_screen.dart';
 import 'package:zkmf2024_app/screens/unterhaltung_screen.dart';
 import 'package:zkmf2024_app/screens/verein_screen.dart';
 import 'package:zkmf2024_app/screens/vereine_screen.dart';
+import 'package:zkmf2024_app/screens/verpflegung_screen.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -176,6 +177,7 @@ final _router = GoRouter(
       GoRoute(path: ':id', builder: (context, state) => RankingScreen(id: int.parse(state.pathParameters['id']!)))
     ]),
     GoRoute(path: '/faq', builder: (context, state) => const FaqScreen()),
+    GoRoute(path: '/verpflegung', builder: (context, state) => const VerpflegungScreen()),
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );

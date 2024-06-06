@@ -48,6 +48,16 @@ class InformationenScreen extends StatelessWidget {
             title: const Text("Gut zu wissen"),
           ),
           ListTile(
+            leading: const Icon(Icons.restaurant_outlined),
+            trailing: const Icon(
+              Icons.navigate_next_sharp,
+            ),
+            onTap: () {
+              context.push('/verpflegung');
+            },
+            title: const Text("Verpflegung"),
+          ),
+          ListTile(
             leading: const Icon(Icons.scoreboard_outlined),
             trailing: const Icon(
               Icons.navigate_next_sharp,

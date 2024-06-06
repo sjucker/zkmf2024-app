@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:zkmf2024_app/utils.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
 class FaqScreen extends StatelessWidget {
@@ -159,25 +158,6 @@ Menschen mit Behinderung: Familienzentrum, [Badenerstrasse 17a](https://maps.app
     """)
         ]),
       ])),
-    );
-  }
-
-  Widget textBlock(String content) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-          child: MarkdownBody(
-            data: content,
-            onTapLink: (text, href, title) {
-              if (href != null) {
-                launchUrl(Uri.parse(href));
-              }
-            },
-          ),
-        ),
-      ],
     );
   }
 }
