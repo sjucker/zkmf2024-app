@@ -1,12 +1,20 @@
 # Changelog
 
+## [1.1.0+27]
+
+- Countdown
+- Verpflegung
+
 ## [1.0.0+20]
+
 - Favoriten-Filter in Vereinsliste
 
 ## [1.0.0+18]
+
 - Favoriten-Filter im Spielplan
 
 ## [1.0.0+16]
+
 - Notifications
 - News Screen
 - Dynamic Pages
