@@ -160,6 +160,9 @@ class _VereinScreenState extends State<VereinScreen> {
     if (dto.modul == "D") {
       // Parademusik
       return "Komposition";
+    } else if (dto.modul == "G") {
+      // Tambouren
+      return dto.programm.length > 1 ? "Kompositionen" : "Komposition";
     } else {
       return dto.titel != null ? "\"${dto.titel}\"" : "Programm";
     }
