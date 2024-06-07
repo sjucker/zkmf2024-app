@@ -143,7 +143,7 @@ class _FestprogrammScreenState extends State<FestprogrammScreen> {
     for (var v in filteredDays) {
       var filteredEntries = v.entries.where((element) => locationFilter[element.location] ?? false).toList();
       if (filteredEntries.isNotEmpty) {
-        result.add(FestprogrammDayDTO(day: v.day, entries: filteredEntries));
+        result.add(FestprogrammDayDTO(day: v.day, inPast: v.inPast, entries: filteredEntries));
       }
     }
     filterdData = result;

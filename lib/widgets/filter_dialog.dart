@@ -5,8 +5,10 @@ class FilterDialog extends StatefulWidget {
   final List<FilterCategory> categories;
   final VoidCallback callback;
   final List<bool>? favoritesOnly;
+  final List<bool>? includeInPast;
 
-  const FilterDialog({super.key, required this.categories, required this.callback, this.favoritesOnly});
+  const FilterDialog(
+      {super.key, required this.categories, required this.callback, this.favoritesOnly, this.includeInPast});
 
   @override
   State<StatefulWidget> createState() => FilterDialogState();
@@ -21,6 +23,7 @@ class FilterDialogState extends State<FilterDialog> {
       contentPadding: const EdgeInsets.all(10),
       children: [
         favoritesOnly(),
+        includeInPast(),
         ...widget.categories.map((e) => ExpansionTile(title: Text(e.name), children: [
               ...e.all.map((val) => CheckboxListTile(
                     dense: true,
@@ -63,7 +66,7 @@ class FilterDialogState extends State<FilterDialog> {
     );
   }
 
-  StatelessWidget favoritesOnly() {
+  Widget favoritesOnly() {
     var favoritesOnly = widget.favoritesOnly;
     if (favoritesOnly != null) {
       return CheckboxListTile(
@@ -76,6 +79,23 @@ class FilterDialogState extends State<FilterDialog> {
           });
         },
       );
+    }
+
+    return Container();
+  }
+
+  Widget includeInPast() {
+    var includeInPast = widget.includeInPast;
+    if (includeInPast != null) {
+      return CheckboxListTile(
+          dense: true,
+          title: const Text("Vergangene Einträge"),
+          value: includeInPast.first,
+          onChanged: (value) {
+            setState(() {
+              includeInPast[0] = value ?? false;
+            });
+          });
     }
 
     return Container();

@@ -13,6 +13,7 @@ class UnterhaltungsEntryDTO {
   final String? cloudflareId;
   final String? vereinIdentifier;
   final String? unterhaltungIdentifier;
+  final bool inPast;
 
   UnterhaltungsEntryDTO(
       {required this.type,
@@ -25,7 +26,8 @@ class UnterhaltungsEntryDTO {
       required this.location,
       required this.cloudflareId,
       required this.vereinIdentifier,
-      required this.unterhaltungIdentifier});
+      required this.unterhaltungIdentifier,
+      required this.inPast});
 
   factory UnterhaltungsEntryDTO.fromJson(Map<String, dynamic> json) => UnterhaltungsEntryDTO(
         type: UnterhaltungEntryType.values.byName(json["type"]),
@@ -39,5 +41,6 @@ class UnterhaltungsEntryDTO {
         cloudflareId: json["cloudflareId"],
         vereinIdentifier: json["vereinIdentifier"],
         unterhaltungIdentifier: json["unterhaltungIdentifier"],
+        inPast: json["inPast"],
       );
 }

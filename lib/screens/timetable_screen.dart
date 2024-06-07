@@ -29,10 +29,17 @@ class _TimetableScreenState extends State<TimetableScreen> {
   Map<String, bool> locationFilter = {};
   List<String> availableLocations = [];
 
-  Map<String, bool> competitionFilter = {};
-  List<String> availableCompetitions = [];
+  Map<String, bool> modulFilter = {};
+  List<String> availableModule = [];
+
+  Map<String, bool> klasseFilter = {};
+  List<String> availableKlassen = [];
+
+  Map<String, bool> besetzungFilter = {};
+  List<String> availableBesetzungen = [];
 
   List<bool> favoritesOnly = [false];
+  List<bool>? includeInPast = [false];
 
   @override
   void initState() {
@@ -121,12 +128,15 @@ class _TimetableScreenState extends State<TimetableScreen> {
                 categories: [
                   FilterCategory("Tag", availableDays, dayFilter),
                   FilterCategory("Ort", availableLocations, locationFilter),
-                  FilterCategory("Modul", availableCompetitions, competitionFilter)
+                  FilterCategory("Modul", availableModule, modulFilter),
+                  FilterCategory("Klasse", availableKlassen, klasseFilter),
+                  FilterCategory("Besetzung", availableBesetzungen, besetzungFilter),
                 ],
                 callback: () {
                   setState(() {});
                 },
                 favoritesOnly: favoritesOnly,
+                includeInPast: includeInPast,
               );
             },
           );
@@ -148,12 +158,27 @@ class _TimetableScreenState extends State<TimetableScreen> {
       locationFilter = {for (var element in availableLocations) element: true};
     }
 
-    if (availableCompetitions.isEmpty) {
-      availableCompetitions =
-          requireData.expand((element) => element.entries.map((e) => e.competition)).toSet().toList();
-      availableCompetitions.sort((a, b) => a.compareTo(b));
-      competitionFilter = {for (var element in availableCompetitions) element: true};
+    if (availableModule.isEmpty) {
+      availableModule = requireData.expand((element) => element.entries.map((e) => e.modul)).toSet().toList();
+      availableModule.sort((a, b) => a.compareTo(b));
+      modulFilter = {for (var element in availableModule) element: true};
     }
+
+    if (availableKlassen.isEmpty) {
+      availableKlassen =
+          requireData.expand((element) => element.entries.map((e) => e.klasse)).nonNulls.toSet().toList();
+      availableKlassen.sort((a, b) => a.compareTo(b));
+      klasseFilter = {for (var element in availableKlassen) element: true};
+    }
+
+    if (availableBesetzungen.isEmpty) {
+      availableBesetzungen =
+          requireData.expand((element) => element.entries.map((e) => e.besetzung)).nonNulls.toSet().toList();
+      availableBesetzungen.sort((a, b) => a.compareTo(b));
+      besetzungFilter = {for (var element in availableBesetzungen) element: true};
+    }
+
+    includeInPast = requireData.any((element) => element.entries.any((e) => e.inPast)) ? [false] : null;
   }
 
   _TimetableDayOverviewData _filterAndTransform(List<TimetableDayOverviewDTO> requireData) {
@@ -166,7 +191,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
       if (dayFilter[v.day] ?? false) {
         var perDay = entriesPerDayAndLocation.putIfAbsent(v.day, () => <int, List<TimetableOverviewEntryDTO>>{});
         for (var entry in v.entries) {
-          if ((locationFilter[entry.location.name] ?? false) && (competitionFilter[entry.competition] ?? false)) {
+          if ((locationFilter[entry.location.name] ?? false) &&
+              (modulFilter[entry.modul] ?? false) &&
+              (filterKlasse(entry)) &&
+              (filterBesetzung(entry))) {
             if (!favoritesOnly.first || (box.read('favorite-${entry.vereinIdentifier}') ?? false)) {
               perDay.putIfAbsent(entry.location.id, () => []).add(entry);
               availableLocations[entry.location.id] = entry.location;
@@ -181,6 +209,24 @@ class _TimetableScreenState extends State<TimetableScreen> {
         days: days.toSet().toList(),
         entriesPerDayAndLocation: entriesPerDayAndLocation,
         availableLocations: availableLocations);
+  }
+
+  bool filterKlasse(TimetableOverviewEntryDTO entry) {
+    if (entry.klasse != null) {
+      return klasseFilter[entry.klasse] ?? false;
+    } else {
+      // do not display entry if Klasse-filter is active
+      return klasseFilter.entries.every((element) => element.value);
+    }
+  }
+
+  bool filterBesetzung(TimetableOverviewEntryDTO entry) {
+    if (entry.besetzung != null) {
+      return besetzungFilter[entry.besetzung] ?? false;
+    } else {
+      // do not display entry if Besetzung-filter is active
+      return besetzungFilter.entries.every((element) => element.value);
+    }
   }
 
   List<LocationDTO> _locations(String day, _TimetableDayOverviewData data) {
@@ -198,8 +244,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
   bool hasActiveFilter() {
     return dayFilter.entries.any((element) => !element.value) ||
         locationFilter.entries.any((element) => !element.value) ||
-        competitionFilter.entries.any((element) => !element.value) ||
-        favoritesOnly.first;
+        modulFilter.entries.any((element) => !element.value) ||
+        klasseFilter.entries.any((element) => !element.value) ||
+        besetzungFilter.entries.any((element) => !element.value) ||
+        favoritesOnly.first ||
+        (includeInPast?.first ?? false);
   }
 }
 

@@ -93,7 +93,7 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
     for (var value in filteredTypes) {
       var filteredEntries = value.entries.where((element) => locationFilter[element.location.name] ?? false).toList();
       if (filteredEntries.isNotEmpty) {
-        result.add(UnterhaltungTypeDTO(type: value.type, entries: filteredEntries));
+        result.add(UnterhaltungTypeDTO(type: value.type, inPast: value.inPast, entries: filteredEntries));
       }
     }
     filteredData = result;
