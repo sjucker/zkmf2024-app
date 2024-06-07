@@ -4,6 +4,7 @@
 
 - Countdown
 - Verpflegung
+- Spielplan-Filter verbessern
 
 ## [1.0.0+20]
 
