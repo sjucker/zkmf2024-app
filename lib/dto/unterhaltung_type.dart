@@ -11,8 +11,7 @@ class UnterhaltungTypeDTO {
       type: UnterhaltungEntryType.values.byName(json["type"]),
       inPast: json["inPast"],
       entries:
-      (json["entries"] as List).map((e) => UnterhaltungsEntryDTO.fromJson(e as Map<String, dynamic>)).toList());
-
+          (json["entries"] as List).map((e) => UnterhaltungsEntryDTO.fromJson(e as Map<String, dynamic>)).toList());
 }
 
 enum UnterhaltungEntryType {
@@ -25,5 +24,4 @@ enum UnterhaltungEntryType {
   final String labelShort;
 
   const UnterhaltungEntryType(this.label, this.labelShort);
-
 }

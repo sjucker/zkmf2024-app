@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:zkmf2024_app/constants.dart';
@@ -100,7 +101,7 @@ class _CountdownState extends State<Countdown> {
       child: Container(
         alignment: Alignment.center,
         width: 20,
-        decoration: const BoxDecoration(color: rot),
+        decoration: const BoxDecoration(color: rot, borderRadius: BorderRadius.all(Radius.circular(3))),
         child: Text(
           number.toString(),
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),

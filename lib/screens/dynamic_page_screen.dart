@@ -72,7 +72,7 @@ class _DynamicPageScreenState extends State<DynamicPageScreen> {
         borderRadius: BorderRadius.zero,
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal:  8.0),
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
         child: MarkdownBody(
           data: page.markdown,
           styleSheet: MarkdownStyleSheet(

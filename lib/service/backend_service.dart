@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/app_page.dart';
@@ -16,110 +17,90 @@ import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/dto/verein_detail.dart';
 import 'package:zkmf2024_app/dto/verein_overview.dart';
 
-Future<List<LocationDTO>> fetchLocations() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/location/wettspiel'));
+final _box = GetStorage();
 
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
-    return body.map((e) => LocationDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load locations');
+Future<T> fetch<T>(String endpoint, String cacheKey, T Function(String response) mapper) async {
+  try {
+    final response = await http.get(Uri.parse('$baseUrl$endpoint'));
+    if (response.statusCode == 200) {
+      T result = mapper(utf8.decode(response.bodyBytes));
+      _box.write(cacheKey, result);
+      return result;
+    }
+    throw Exception("could not fetch from backend, try cache");
+  } on Exception {
+    T cachedResult = _box.read(cacheKey);
+    if (cachedResult != null) {
+      return cachedResult;
+    }
+    throw Exception('could not fetch and not in cache either');
   }
+}
+
+Future<List<LocationDTO>> fetchLocations() async {
+  return fetch('/public/location/wettspiel', 'locations', (response) {
+    var body = json.decode(response) as List;
+    return body.map((e) => LocationDTO.fromJson(e as Map<String, dynamic>)).toList();
+  });
 }
 
 Future<LocationDTO> fetchLocation(String identifier) async {
-  final response = await http.get(Uri.parse('$baseUrl/public/location/$identifier'));
-
-  if (response.statusCode == 200) {
-    return LocationDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load location for $identifier');
-  }
+  return fetch('/public/location/$identifier', 'location-$identifier', (response) {
+    return LocationDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
 }
 
 Future<List<VereinOverviewDTO>> fetchVereine() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/verein/overview'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/verein/overview', 'vereine', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => VereinOverviewDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load vereine');
-  }
+  });
 }
 
 Future<VereinDetailDTO> fetchVerein(String identifier) async {
-  final response = await http.get(Uri.parse('$baseUrl/public/verein/$identifier'));
-
-  if (response.statusCode == 200) {
-    return VereinDetailDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load verein for $identifier');
-  }
+  return fetch('/public/verein/$identifier', 'verein-$identifier', (response) {
+    return VereinDetailDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
 }
 
 Future<List<TimetableDayOverviewDTO>> fetchTimetable() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/timetable'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/timetable', 'timetable', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => TimetableDayOverviewDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load timetable');
-  }
+  });
 }
 
 Future<SponsoringDTO> fetchSponsoring() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/sponsoring'));
-
-  if (response.statusCode == 200) {
-    return SponsoringDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load sponsoring');
-  }
+  return fetch('/public/sponsoring', 'sponsoring', (response) {
+    return SponsoringDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
 }
 
 Future<List<UnterhaltungTypeDTO>> fetchUnterhaltung() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/unterhaltung'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/unterhaltung', 'unterhaltung', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => UnterhaltungTypeDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load unterhaltung');
-  }
+  });
 }
 
 Future<UnterhaltungsEntryDTO> fetchUnterhaltungDetail(String identifier) async {
-  final response = await http.get(Uri.parse('$baseUrl/public/unterhaltung/band/$identifier'));
-
-  if (response.statusCode == 200) {
-    return UnterhaltungsEntryDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load unterhaltung detail for $identifier');
-  }
+  return fetch('/public/unterhaltung/band/$identifier', 'unterhaltung-$identifier', (response) {
+    return UnterhaltungsEntryDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
 }
 
 Future<List<FestprogrammDayDTO>> fetchFestprogramm() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/festprogramm'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/festprogramm', 'festprogramm', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => FestprogrammDayDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load unterhaltung');
-  }
+  });
 }
 
 Future<List<JudgeDTO>> fetchJudges() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/judge'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/judge', 'judges', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => JudgeDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load judges');
-  }
+  });
 }
 
 Future<SponsorDTO> fetchRandomSponsor() async {
@@ -133,29 +114,25 @@ Future<SponsorDTO> fetchRandomSponsor() async {
 }
 
 Future<AppPageDTO> fetchAppPage(int id) async {
-  final response = await http.get(Uri.parse('$baseUrl/public/app-page/$id'));
-
-  if (response.statusCode == 200) {
-    return AppPageDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load app-page');
-  }
+  return fetch('/public/app-page/$id', 'page-$id', (response) {
+    return AppPageDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
 }
 
 Future<List<AppPageDTO>> fetchNews() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/app-page/news'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/app-page/news', 'news', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => AppPageDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load news');
-  }
+  });
 }
 
 Future<bool> hasEmergencyMessage() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/emergency'));
-  return response.statusCode == 200;
+  try {
+    final response = await http.get(Uri.parse('$baseUrl/public/emergency'));
+    return response.statusCode == 200;
+  } on Exception {
+    return false;
+  }
 }
 
 Future<EmergencyMessageDTO> fetchEmergencyMessage() async {
@@ -171,27 +148,23 @@ Future<EmergencyMessageDTO> fetchEmergencyMessage() async {
 }
 
 Future<bool> hasRankings() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/ranking/available'));
-  return response.statusCode == 200;
+  try {
+    final response = await http.get(Uri.parse('$baseUrl/public/ranking/available'));
+    return response.statusCode == 200;
+  } on Exception {
+    return false;
+  }
 }
 
 Future<List<RankingListDTO>> fetchRankings() async {
-  final response = await http.get(Uri.parse('$baseUrl/public/ranking'));
-
-  if (response.statusCode == 200) {
-    var body = json.decode(utf8.decode(response.bodyBytes)) as List;
+  return fetch('/public/ranking', 'rankings', (response) {
+    var body = json.decode(response) as List;
     return body.map((e) => RankingListDTO.fromJson(e as Map<String, dynamic>)).toList();
-  } else {
-    throw Exception('Failed to load rankings');
-  }
+  });
 }
 
 Future<RankingListDTO> fetchRanking(int id) async {
-  final response = await http.get(Uri.parse('$baseUrl/public/ranking/$id'));
-
-  if (response.statusCode == 200) {
-    return RankingListDTO.fromJson(json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to load ranking for $id');
-  }
+  return fetch('/public/ranking/$id', 'ranking-$id', (response) {
+    return RankingListDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
 }

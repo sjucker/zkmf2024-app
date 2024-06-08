@@ -42,7 +42,6 @@ class KarteScreen extends StatelessWidget {
               Icons.navigate_next_sharp,
             ),
           ),
-
         ],
       ),
     );

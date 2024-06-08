@@ -32,7 +32,7 @@ class RandomSponsor extends StatelessWidget {
           );
         }
 
-        return const Center(child: CircularProgressIndicator());
+        return Container();
       },
     );
   }
