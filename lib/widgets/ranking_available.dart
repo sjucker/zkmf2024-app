@@ -5,14 +5,14 @@ import 'package:go_router/go_router.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 
-class EmergencyAlert extends StatefulWidget {
-  const EmergencyAlert({super.key});
+class RankingAvailable extends StatefulWidget {
+  const RankingAvailable({super.key});
 
   @override
-  State<StatefulWidget> createState() => _EmergencyAlertState();
+  State<StatefulWidget> createState() => _RankingAvailableState();
 }
 
-class _EmergencyAlertState extends State<EmergencyAlert> {
+class _RankingAvailableState extends State<RankingAvailable> {
   Timer? timer;
 
   @override
@@ -26,21 +26,24 @@ class _EmergencyAlertState extends State<EmergencyAlert> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: hasEmergencyMessage(),
+      future: hasRankings(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.requireData) {
           return Padding(
               padding: const EdgeInsets.all(10),
               child: TextButton(
                 onPressed: () {
-                  context.push('/emergency');
+                  context.push('/ranglisten');
                 },
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(rot),
+                  backgroundColor: WidgetStateProperty.all(gruen),
                 ),
-                child: const Text(
-                  "WICHTIGE NACHRICHT",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                  child: Text(
+                    "zu den Ranglisten",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ));
         } else {
@@ -48,11 +51,5 @@ class _EmergencyAlertState extends State<EmergencyAlert> {
         }
       },
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    timer?.cancel();
   }
 }
