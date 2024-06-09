@@ -22,6 +22,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   final box = GetStorage();
 
   late Future<List<TimetableDayOverviewDTO>> _timetable;
+  late String? _selectedVerein;
 
   Map<String, bool> dayFilter = {};
   List<String> availableDays = [];
@@ -45,6 +46,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   void initState() {
     super.initState();
     _timetable = fetchTimetable();
+    _selectedVerein = box.read(selectedVereinKey);
   }
 
   @override
@@ -82,13 +84,21 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
                 for (var entry in _entries(day, location.id, data)) {
                   widgets.add(ListTile(
-                    trailing: const Icon(
+                    trailing: Icon(
                       Icons.navigate_next_sharp,
-                      color: Colors.white,
+                      color: isSelectedVerein(entry) ? gelb : Colors.white,
                     ),
                     dense: true,
-                    title: Text(entry.vereinsname),
-                    subtitle: Text("${day.substring(0, 4)} ${entry.time}"),
+                    title: Text(
+                      entry.vereinsname,
+                      style: TextStyle(
+                          color: isSelectedVerein(entry) ? gelb : Colors.white,
+                          fontWeight: isSelectedVerein(entry) ? FontWeight.bold : FontWeight.normal),
+                    ),
+                    subtitle: Text("${day.substring(0, 4)} ${entry.time}",
+                        style: TextStyle(
+                            color: isSelectedVerein(entry) ? gelb : Colors.white,
+                            fontWeight: isSelectedVerein(entry) ? FontWeight.bold : FontWeight.normal)),
                     onTap: () {
                       context.push('/vereine/${entry.vereinIdentifier}');
                     },
@@ -144,6 +154,8 @@ class _TimetableScreenState extends State<TimetableScreen> {
       ),
     );
   }
+
+  bool isSelectedVerein(TimetableOverviewEntryDTO entry) => entry.vereinIdentifier == _selectedVerein;
 
   void initFilters(List<TimetableDayOverviewDTO> requireData) {
     if (availableDays.isEmpty) {

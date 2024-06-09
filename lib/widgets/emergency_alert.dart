@@ -38,9 +38,12 @@ class _EmergencyAlertState extends State<EmergencyAlert> {
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(rot),
                 ),
-                child: const Text(
-                  "WICHTIGE NACHRICHT",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                  child: Text(
+                    "WICHTIGE NACHRICHT",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ));
         } else {

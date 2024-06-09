@@ -6,6 +6,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
+import 'package:zkmf2024_app/dto/verein_overview.dart';
+import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/service/firebase_messaging.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
 
@@ -25,6 +27,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   late Future<PermissionStatus> _notificationSettings;
   late Future<PermissionStatus> _locationSettings;
+  late Future<List<VereinOverviewDTO>> _vereine;
+
+  late String? _selectedVerein;
 
   @override
   void initState() {
@@ -34,6 +39,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _general = _box.read("topic-general") ?? false;
     _notificationSettings = Permission.notification.status;
     _locationSettings = Permission.location.status;
+    _vereine = fetchVereine();
+    _selectedVerein = _box.read(selectedVereinKey);
   }
 
   @override
@@ -185,6 +192,75 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
               } else {
                 return const LinearProgressIndicator();
+              }
+            },
+          ),
+          const Divider(
+            indent: 20,
+            endIndent: 20,
+            color: gruen,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Text(
+                  "Vereinszugehörigkeit",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Tooltip(
+                    message:
+                        'Nimmst du als Musikant/in am ZKMF2024 teil? Dann trage hier deinen Verein ein, um detaillierte Informationen zu deinem Programm zu erhalten.',
+                    triggerMode: TooltipTriggerMode.tap,
+                    showDuration: Duration(seconds: 10),
+                    margin: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.info_outline_rounded,
+                      color: gruen,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          FutureBuilder(
+            future: _vereine,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var vereine = snapshot.requireData;
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: DropdownButton<String>(
+                    value: _selectedVerein,
+                    isExpanded: true,
+                    items: [
+                      const DropdownMenuItem<String>(
+                        value: null,
+                        child: Text('---'),
+                      ),
+                      ...vereine.map((e) => DropdownMenuItem<String>(
+                          value: e.identifier,
+                          child: Text(
+                            e.name,
+                          )))
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedVerein = value;
+                        if (value != null) {
+                          _box.write(selectedVereinKey, value);
+                        } else {
+                          _box.remove(selectedVereinKey);
+                        }
+                      });
+                    },
+                    iconEnabledColor: gruen,
+                  ),
+                );
+              } else {
+                return Container();
               }
             },
           ),

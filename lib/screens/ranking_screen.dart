@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/ranking_list.dart';
+import 'package:zkmf2024_app/dto/ranking_list_entry.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
 import 'package:zkmf2024_app/widgets/to_home_action.dart';
@@ -14,12 +17,16 @@ class RankingScreen extends StatefulWidget {
 }
 
 class _RankingScreenState extends State<RankingScreen> {
+  final box = GetStorage();
+
   late Future<RankingListDTO> _ranking;
+  late String? _selectedVerein;
 
   @override
   void initState() {
     super.initState();
     _ranking = fetchRanking(widget.id);
+    _selectedVerein = box.read(selectedVereinKey);
   }
 
   @override
@@ -48,16 +55,11 @@ class _RankingScreenState extends State<RankingScreen> {
                   return ListTile(
                     leading: Text(
                       entry.rank.toString(),
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColor(entry)),
                     ),
-                    title: Text(entry.vereinsName,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )),
-                    trailing: Text(entry.score.toStringAsFixed(2),
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )),
+                    title: Text(entry.vereinsName, style: TextStyle(fontSize: 16, color: getColor(entry))),
+                    trailing:
+                        Text(entry.score.toStringAsFixed(2), style: TextStyle(fontSize: 16, color: getColor(entry))),
                   );
                 },
                 separatorBuilder: (context, index) {
@@ -73,4 +75,6 @@ class _RankingScreenState extends State<RankingScreen> {
       ),
     );
   }
+
+  Color getColor(RankingListEntryDTO entry) => entry.vereinIdentifier == _selectedVerein ? gelb : Colors.white;
 }

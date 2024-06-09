@@ -18,3 +18,5 @@ const cloudFlareUrl = 'https://imagedelivery.net/b5PKQi-eHYmFXihh4Gjd5g/';
 
 const emergencyTopic = "emergency";
 const generalTopic = "general";
+
+const selectedVereinKey = "selected-verein";
