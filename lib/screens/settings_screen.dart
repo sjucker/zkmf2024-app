@@ -212,7 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.only(left: 8.0),
                   child: Tooltip(
                     message:
-                        'Nimmst du als Musikant/in am ZKMF2024 teil? Dann trage hier deinen Verein ein, um detaillierte Informationen zu deinem Programm zu erhalten.',
+                        'Nimmst du als Musikant/in am ZKMF2024 teil? Dann trage hier deinen Verein ein, um detaillierte Informationen und Benachrichtigungen zu deinem Programm zu erhalten.',
                     triggerMode: TooltipTriggerMode.tap,
                     showDuration: Duration(seconds: 10),
                     margin: EdgeInsets.all(10),
@@ -248,12 +248,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ],
                     onChanged: (value) {
                       setState(() {
-                        _selectedVerein = value;
                         if (value != null) {
                           _box.write(selectedVereinKey, value);
+                          member(value);
                         } else {
                           _box.remove(selectedVereinKey);
+                          if (_selectedVerein != null) {
+                            unmember(_selectedVerein!);
+                          }
                         }
+                        _selectedVerein = value;
                       });
                     },
                     iconEnabledColor: gruen,

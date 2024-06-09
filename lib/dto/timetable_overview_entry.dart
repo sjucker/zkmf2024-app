@@ -9,6 +9,7 @@ class TimetableOverviewEntryDTO {
   final String? besetzung;
   final String competition;
   final String type;
+  final String typeDescription;
   final LocationDTO location;
   final DateTime date;
   final String start;
@@ -25,6 +26,7 @@ class TimetableOverviewEntryDTO {
       required this.besetzung,
       required this.competition,
       required this.type,
+      required this.typeDescription,
       required this.location,
       required this.date,
       required this.start,
@@ -41,6 +43,7 @@ class TimetableOverviewEntryDTO {
         besetzung: json["besetzung"],
         competition: json["competition"],
         type: json["type"],
+        typeDescription: json["typeDescription"],
         location: LocationDTO.fromJson(json["location"]),
         date: DateTime.parse(json["date"]),
         start: json["start"],

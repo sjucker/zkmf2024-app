@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/firebase_options.dart';
@@ -25,6 +26,7 @@ import 'package:zkmf2024_app/screens/karte_urdorf_screen.dart';
 import 'package:zkmf2024_app/screens/location_screen.dart';
 import 'package:zkmf2024_app/screens/locations_screen.dart';
 import 'package:zkmf2024_app/screens/map_screen.dart';
+import 'package:zkmf2024_app/screens/member_screen.dart';
 import 'package:zkmf2024_app/screens/news_screen.dart';
 import 'package:zkmf2024_app/screens/ranking_screen.dart';
 import 'package:zkmf2024_app/screens/rankings_screen.dart';
@@ -108,6 +110,7 @@ void navigate(RemoteMessage message) {
 void main() async {
   await GetStorage.init();
   await initFirebase();
+  await initializeDateFormatting('de_CH');
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -178,6 +181,7 @@ final _router = GoRouter(
     ]),
     GoRoute(path: '/faq', builder: (context, state) => const FaqScreen()),
     GoRoute(path: '/verpflegung', builder: (context, state) => const VerpflegungScreen()),
+    GoRoute(path: '/member', builder: (context, state) => const MemberScreen()),
   ],
   errorBuilder: (context, state) => const GeneralErrorScreen(),
 );

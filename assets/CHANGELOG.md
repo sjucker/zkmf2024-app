@@ -2,9 +2,11 @@
 
 ## [1.1.0+27]
 
+- Vereinszugehörigkeit mit detailliertem Ablauf
+- Ranglisten
+- Spielplan-Filter verbessern
 - Countdown
 - Verpflegung
-- Spielplan-Filter verbessern
 
 ## [1.0.0+20]
 

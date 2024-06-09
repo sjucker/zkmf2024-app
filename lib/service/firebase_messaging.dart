@@ -45,6 +45,14 @@ void unfavorite(String identifier) async {
   unsubscribeFrom('favorite-$identifier');
 }
 
+void member(String identifier) async {
+  subscribeTo('member-$identifier');
+}
+
+void unmember(String identifier) async {
+  unsubscribeFrom('member-$identifier');
+}
+
 void subscribeTo(String topic) async {
   // make sure APNs token is available, otherwise wait some time
   if (Platform.isIOS) {

@@ -6,6 +6,7 @@ import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/main.dart';
 import 'package:zkmf2024_app/widgets/countdown.dart';
 import 'package:zkmf2024_app/widgets/emergency_alert.dart';
+import 'package:zkmf2024_app/widgets/member.dart';
 import 'package:zkmf2024_app/widgets/ranking_available.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -73,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const RankingAvailable(
                 key: Key('home-ranking-available'),
               ),
+              const Member(),
               Countdown(start: DateTime(2024, 6, 21, 17, 30)),
               SizedBox(
                 height: 290,

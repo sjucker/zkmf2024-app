@@ -15,6 +15,7 @@ import 'package:zkmf2024_app/dto/timetable_overview.dart';
 import 'package:zkmf2024_app/dto/unterhaltung_entry.dart';
 import 'package:zkmf2024_app/dto/unterhaltung_type.dart';
 import 'package:zkmf2024_app/dto/verein_detail.dart';
+import 'package:zkmf2024_app/dto/verein_member_info.dart';
 import 'package:zkmf2024_app/dto/verein_overview.dart';
 
 final _box = GetStorage();
@@ -166,5 +167,11 @@ Future<List<RankingListDTO>> fetchRankings() async {
 Future<RankingListDTO> fetchRanking(int id) async {
   return fetch('/public/ranking/$id', 'ranking-$id', (response) {
     return RankingListDTO.fromJson(json.decode(response) as Map<String, dynamic>);
+  });
+}
+
+Future<VereinMemberInfoDTO> fetchMemberInfo(String identifier) async {
+  return fetch('/public/verein/member/$identifier', 'member-info-$identifier', (response) {
+    return VereinMemberInfoDTO.fromJson(json.decode(response) as Map<String, dynamic>);
   });
 }

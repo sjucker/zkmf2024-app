@@ -82,6 +82,9 @@ class _LocationScreenState extends State<LocationScreen> {
                     },
                   ),
                 ),
+                ListTile(
+                    leading: const Icon(Icons.explore_outlined),
+                    title: Text("Kennzeichen auf Karte: ${requireData.mapId}")),
                 buildModulesTile(requireData),
                 CloudflareImage(cloudflareId: requireData.cloudflareId),
                 const RandomSponsor()
