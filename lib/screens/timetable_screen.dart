@@ -40,7 +40,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   List<String> availableBesetzungen = [];
 
   List<bool> favoritesOnly = [false];
-  List<bool>? includeInPast = [false];
+  List<bool>? includeInPast;
 
   @override
   void initState() {
@@ -190,7 +190,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
       besetzungFilter = {for (var element in availableBesetzungen) element: true};
     }
 
-    includeInPast = requireData.any((element) => element.entries.any((e) => e.inPast)) ? [false] : null;
+    includeInPast ??= requireData.any((element) => element.entries.any((e) => e.inPast)) ? [false] : null;
   }
 
   _TimetableDayOverviewData _filterAndTransform(List<TimetableDayOverviewDTO> requireData) {
@@ -205,8 +205,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
         for (var entry in v.entries) {
           if ((locationFilter[entry.location.name] ?? false) &&
               (modulFilter[entry.modul] ?? false) &&
-              (filterKlasse(entry)) &&
-              (filterBesetzung(entry))) {
+              filterKlasse(entry) &&
+              filterBesetzung(entry) &&
+              (includeInPast == null || (includeInPast?.first ?? false) || !entry.inPast)) {
             if (!favoritesOnly.first || (box.read('favorite-${entry.vereinIdentifier}') ?? false)) {
               perDay.putIfAbsent(entry.location.id, () => []).add(entry);
               availableLocations[entry.location.id] = entry.location;
