@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.settings),
             tooltip: 'Einstellungen',
             onPressed: () {
-              context.push('/settings').then((value) {
+              context.push('/settings').then((_) {
                 setState(() {
                   memberKey = UniqueKey();
                 });
