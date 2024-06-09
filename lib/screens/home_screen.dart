@@ -17,6 +17,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // used to refresh the member-widget when navigating back from settings-screen
+  var memberKey = UniqueKey();
+
   Future<void> handleInitialMessage() async {
     var initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
@@ -40,7 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.settings),
             tooltip: 'Einstellungen',
             onPressed: () {
-              context.push('/settings');
+              context.push('/settings').then((value) {
+                setState(() {
+                  memberKey = UniqueKey();
+                });
+              });
             },
           )
         ],
@@ -74,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const RankingAvailable(
                 key: Key('home-ranking-available'),
               ),
-              const Member(),
+              Member(key: memberKey),
               Countdown(start: DateTime(2024, 6, 21, 17, 30)),
               SizedBox(
                 height: 290,

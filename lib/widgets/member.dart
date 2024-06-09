@@ -15,20 +15,16 @@ class Member extends StatefulWidget {
 class _MemberState extends State<Member> {
   final box = GetStorage();
 
-  late Future<VereinMemberInfoDTO?> _info;
-  late String? _selectedVerein;
-
   @override
   void initState() {
     super.initState();
-    _selectedVerein = box.read(selectedVereinKey);
-    _info = _selectedVerein != null ? fetchMemberInfo(_selectedVerein!) : Future.value(null);
   }
 
   @override
   Widget build(BuildContext context) {
+    var selectedVerein = box.read(selectedVereinKey);
     return FutureBuilder(
-      future: _info,
+      future: selectedVerein != null ? fetchMemberInfo(box.read(selectedVereinKey)!) : Future.value(null),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (hasFutureEntries(snapshot.requireData)) {
