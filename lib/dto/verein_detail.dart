@@ -1,3 +1,4 @@
+import 'package:zkmf2024_app/dto/ranking_list.dart';
 import 'package:zkmf2024_app/dto/verein_timetable_entry.dart';
 
 class VereinDetailDTO {
@@ -11,6 +12,7 @@ class VereinDetailDTO {
   final String? instagram;
   final String? websiteText;
   final List<VereinTimetableEntryDTO> timetableEntries;
+  final List<RankingListDTO> rankings;
 
   const VereinDetailDTO(
       {required this.id,
@@ -22,7 +24,8 @@ class VereinDetailDTO {
       required this.facebook,
       required this.instagram,
       required this.websiteText,
-      required this.timetableEntries});
+      required this.timetableEntries,
+      required this.rankings});
 
   factory VereinDetailDTO.fromJson(Map<String, dynamic> json) {
     return VereinDetailDTO(
@@ -37,6 +40,7 @@ class VereinDetailDTO {
         websiteText: json["websiteText"],
         timetableEntries: (json["timetableEntries"] as List)
             .map((e) => VereinTimetableEntryDTO.fromJson(e as Map<String, dynamic>))
-            .toList());
+            .toList(),
+        rankings: (json["rankings"] as List).map((e) => RankingListDTO.fromJson(e as Map<String, dynamic>)).toList());
   }
 }

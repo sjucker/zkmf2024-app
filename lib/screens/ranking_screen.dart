@@ -33,15 +33,7 @@ class _RankingScreenState extends State<RankingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FutureBuilder(
-            future: _ranking,
-            builder: (BuildContext context, AsyncSnapshot<RankingListDTO> snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.requireData.getDescription());
-              } else {
-                return const Text('');
-              }
-            }),
+        title: const Text('Rangliste'),
         actions: homeAction(context),
       ),
       body: FutureBuilder<RankingListDTO>(
@@ -51,7 +43,13 @@ class _RankingScreenState extends State<RankingScreen> {
             var requireData = snapshot.requireData;
             return ListView.separated(
                 itemBuilder: (context, index) {
-                  var entry = requireData.entries[index];
+                  if (index == 0) {
+                    return ListTile(
+                      title: Text(requireData.description),
+                      subtitle: requireData.status == "INTERMEDIATE" ? const Text("Zwischenrangliste") : Container(),
+                    );
+                  }
+                  var entry = requireData.entries[index - 1];
                   return ListTile(
                     leading: Text(
                       entry.rank.toString(),
@@ -63,9 +61,12 @@ class _RankingScreenState extends State<RankingScreen> {
                   );
                 },
                 separatorBuilder: (context, index) {
-                  return const Divider();
+                  return const Divider(
+                    color: silber,
+                  );
                 },
-                itemCount: requireData.entries.length);
+                // header row
+                itemCount: requireData.entries.length + 1);
           } else if (snapshot.hasError) {
             return const GeneralErrorWidget();
           } else {

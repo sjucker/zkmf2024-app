@@ -8,10 +8,12 @@ class RankingListDTO {
   final String? besetzungDescription;
   final String? categoryDescription;
   final LocationDTO location;
+  final String description;
+  final String status;
   final List<RankingListEntryDTO> entries;
 
   RankingListDTO(this.id, this.modulDescription, this.klasseDescription, this.besetzungDescription,
-      this.categoryDescription, this.location, this.entries);
+      this.categoryDescription, this.location, this.description, this.status, this.entries);
 
   factory RankingListDTO.fromJson(Map<String, dynamic> json) => RankingListDTO(
       json["id"],
@@ -20,9 +22,7 @@ class RankingListDTO {
       json["besetzungDescription"],
       json["categoryDescription"],
       LocationDTO.fromJson(json["location"]),
+      json["description"],
+      json["status"],
       (json["entries"] as List).map((e) => RankingListEntryDTO.fromJson(e as Map<String, dynamic>)).toList());
-
-  String getDescription() {
-    return [modulDescription, klasseDescription, besetzungDescription, categoryDescription].nonNulls.join(", ");
-  }
 }

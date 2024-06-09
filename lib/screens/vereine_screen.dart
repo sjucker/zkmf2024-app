@@ -19,6 +19,7 @@ class _VereineScreenState extends State<VereineScreen> {
   final box = GetStorage();
 
   late Future<List<VereinOverviewDTO>> _vereine;
+  late String? _selectedVerein;
 
   bool favoritesOnly = false;
 
@@ -26,6 +27,7 @@ class _VereineScreenState extends State<VereineScreen> {
   void initState() {
     super.initState();
     _vereine = fetchVereine();
+    _selectedVerein = box.read(selectedVereinKey);
   }
 
   @override
@@ -113,15 +115,20 @@ class _VereineScreenState extends State<VereineScreen> {
                                     offColor: Colors.white,
                                     onColor: gelb,
                                   ),
-                                  trailing: const Icon(
+                                  trailing: Icon(
                                     Icons.navigate_next_sharp,
-                                    color: Colors.white,
+                                    color: dto.identifier == _selectedVerein ? gelb : Colors.white,
                                   ),
                                   onTap: () {
                                     context.push('/vereine/${dto.identifier}');
                                   },
                                   title: Text(
                                     dto.name,
+                                    style: TextStyle(
+                                      color: dto.identifier == _selectedVerein ? gelb : Colors.white,
+                                      fontWeight:
+                                          dto.identifier == _selectedVerein ? FontWeight.bold : FontWeight.normal,
+                                    ),
                                   ),
                                 ))
                             .toList()),

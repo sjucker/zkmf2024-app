@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/titel.dart';
@@ -91,6 +92,7 @@ class _VereinScreenState extends State<VereinScreen> {
           style: TextStyle(fontSize: 10),
         ),
       ),
+      ...getRankings(vereinDetail),
       ListTile(
           title:
               Text("Dirigent/in: ${vereinDetail.direktionName}", style: const TextStyle(fontWeight: FontWeight.bold))),
@@ -135,6 +137,29 @@ class _VereinScreenState extends State<VereinScreen> {
       buildSocialMedia(vereinDetail),
       const RandomSponsor(),
     ];
+  }
+
+  List<Widget> getRankings(VereinDetailDTO vereinDetail) {
+    if (vereinDetail.rankings.isNotEmpty) {
+      return [
+        const ListTile(
+          title: Text("Ranglisten", style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        ...vereinDetail.rankings.map((e) => ListTile(
+              title: Text(e.description),
+              trailing: const Icon(
+                Icons.navigate_next_sharp,
+                color: Colors.white,
+              ),
+              onTap: () {
+                context.push('/ranglisten/${e.id}');
+              },
+            )),
+        const Divider(),
+      ];
+    } else {
+      return [];
+    }
   }
 
   Iterable<Widget> getProgramm(VereinTimetableEntryDTO dto) {

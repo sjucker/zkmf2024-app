@@ -36,8 +36,8 @@ class _RankingsScreen extends State<RankingsScreen> {
                 itemBuilder: (context, index) {
                   var requireData = snapshot.requireData[index];
                   return ListTile(
-                    title: Text(requireData.getDescription()),
-                    subtitle: Text(requireData.location.name),
+                    title: Text(requireData.description),
+                    subtitle: requireData.status == "INTERMEDIATE" ? const Text("Zwischenrangliste") : Container(),
                     trailing: const Icon(
                       Icons.navigate_next_sharp,
                       color: Colors.white,
