@@ -17,7 +17,7 @@ class KarteSchlierenScreen extends StatelessWidget {
       body: ClipRect(
         child: PhotoView(
           imageProvider:
-              const CachedNetworkImageProvider('${cloudFlareUrl}c9e73d88-7fea-4ec5-a274-4e10bd321200/public'),
+              const CachedNetworkImageProvider('${cloudFlareUrl}68b2d0d5-20a5-4148-fa7c-2f04feced200/public'),
           backgroundDecoration: const BoxDecoration(color: blau),
         ),
       ),
