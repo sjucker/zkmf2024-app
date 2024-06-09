@@ -17,7 +17,7 @@ class KarteUrdorfScreen extends StatelessWidget {
       body: ClipRect(
         child: PhotoView(
           imageProvider:
-              const CachedNetworkImageProvider('${cloudFlareUrl}e9b37972-3cb2-46f7-118b-cd6c780eda00/public'),
+              const CachedNetworkImageProvider('${cloudFlareUrl}9d44df48-2e32-4d20-472c-add81871ea00/public'),
           backgroundDecoration: const BoxDecoration(color: blau),
         ),
       ),
