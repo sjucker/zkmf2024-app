@@ -246,16 +246,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             e.name,
                           )))
                     ],
-                    onChanged: (value) {
+                    onChanged: (value) async {
+                      if (value != null) {
+                        // make sure user has granted permission
+                        await requestPermissionAndSubscribe(true);
+                      }
                       setState(() {
                         if (value != null) {
                           _box.write(selectedVereinKey, value);
                           member(value);
                         } else {
                           _box.remove(selectedVereinKey);
-                          if (_selectedVerein != null) {
-                            unmember(_selectedVerein!);
-                          }
+                        }
+                        if (_selectedVerein != null) {
+                          // unsubscribe from previous selection
+                          unmember(_selectedVerein!);
                         }
                         _selectedVerein = value;
                       });
