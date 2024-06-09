@@ -23,15 +23,15 @@ Future<T> fetch<T>(String endpoint, String cacheKey, T Function(String response)
   try {
     final response = await http.get(Uri.parse('$baseUrl$endpoint'));
     if (response.statusCode == 200) {
-      T result = mapper(utf8.decode(response.bodyBytes));
-      _box.write(cacheKey, result);
-      return result;
+      var body = utf8.decode(response.bodyBytes);
+      _box.write(cacheKey, body);
+      return mapper(body);
     }
     throw Exception("could not fetch from backend, try cache");
   } on Exception {
-    T cachedResult = _box.read(cacheKey);
-    if (cachedResult != null) {
-      return cachedResult;
+    String? cachedBody = _box.read(cacheKey);
+    if (cachedBody != null) {
+      return mapper(cachedBody);
     }
     throw Exception('could not fetch and not in cache either');
   }
