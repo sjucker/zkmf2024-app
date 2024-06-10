@@ -45,7 +45,10 @@ class _RankingScreenState extends State<RankingScreen> {
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return ListTile(
-                      title: Text(requireData.description),
+                      title: Text(
+                        requireData.description,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: gruen),
+                      ),
                       subtitle: requireData.status == "INTERMEDIATE" ? const Text("Zwischenrangliste") : Container(),
                     );
                   }
