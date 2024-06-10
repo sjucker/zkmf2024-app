@@ -55,12 +55,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Benachrichtigungen",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-          ),
+              padding: EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Text(
+                    "Benachrichtigungen",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: Tooltip(
+                      message: '''
+Falls Benachrichtigungen nicht in der App aktiviert werden können, bitte folgende Schritte vornehmen:
+- iOS: Einstellungen -> Mitteilungen -> Mitteilungsstil -> ZKMF2024 App -> Mitteilungen erlauben
+- Android: Einstellungen -> Apps -> ZKMF2024 App -> Benachrichtigungen: Benachrichtigungen aktivieren
+''',
+                      triggerMode: TooltipTriggerMode.tap,
+                      showDuration: Duration(seconds: 20),
+                      margin: EdgeInsets.all(10),
+                      child: Icon(
+                        Icons.info_outline_rounded,
+                        color: gruen,
+                      ),
+                    ),
+                  )
+                ],
+              )),
           FutureBuilder(
               future: _notificationSettings,
               builder: (context, snapshot) {
@@ -110,7 +130,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   }
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                     content: Text(
-                                        'Benachrichtigungen konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellungen vornehmen'),
+                                      'Benachrichtigungen konnten nicht aktiviert werden, bitte Änderungen in den Systemeinstellungen vornehmen.',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     backgroundColor: rot,
                                   ));
                                 }
@@ -137,12 +159,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: gruen,
           ),
           const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Ortungsdienste",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-          ),
+              padding: EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Text(
+                    "Ortungsdienste",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: Tooltip(
+                      message: '''
+Falls Ortungsdienste nicht in der App aktiviert werden können, bitte folgende Schritte vornehmen:
+- iOS: Einstellungen -> Datenschutz & Sicherheit -> Ortungsdienste -> aktivieren (ZKMF2024 App: "beim Verwenden der App" oder "immer")
+- Android: Einstellungen -> Apps -> ZKMF2024 App -> Berechtigungen -> Standort:  Benachrichtigungen: "Zugriff nur während der Nutzung der App zulassen" oder "immer zulassen"
+''',
+                      triggerMode: TooltipTriggerMode.tap,
+                      showDuration: Duration(seconds: 20),
+                      margin: EdgeInsets.all(10),
+                      child: Icon(
+                        Icons.info_outline_rounded,
+                        color: gruen,
+                      ),
+                    ),
+                  )
+                ],
+              )),
           FutureBuilder(
             future: _locationSettings,
             builder: (context, snapshot) {
@@ -168,7 +210,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 }
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                   content: Text(
-                                      'Ortungsdienste konnten nicht aktiviert werden, bitte Änderungen in Systemeinstellungen vornehmen'),
+                                    'Ortungsdienste konnten nicht aktiviert werden, bitte Änderungen in den Systemeinstellungen vornehmen',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                   backgroundColor: rot,
                                 ));
                               }
@@ -212,7 +256,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.only(left: 8.0),
                   child: Tooltip(
                     message:
-                        'Nimmst du als Musikant/in am ZKMF2024 teil? Dann trage hier deinen Verein ein, um detaillierte Informationen und Benachrichtigungen zu deinem Programm zu erhalten.',
+                        'Nimmst du als Musikant/in am ZKMF2024 teil? Dann trage hier deinen Verein ein, um detaillierte Informationen und Benachrichtigungen zu deinem Programm zu erhalten.\nStelle sicher, dass du Benachrichtigungen aktiviert hast, damit wir dich über wichtige Änderungen informieren können.',
                     triggerMode: TooltipTriggerMode.tap,
                     showDuration: Duration(seconds: 10),
                     margin: EdgeInsets.all(10),

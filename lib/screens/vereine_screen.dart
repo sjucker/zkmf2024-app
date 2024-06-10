@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/verein_overview.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
@@ -25,11 +26,14 @@ class _VereineScreenState extends State<VereineScreen> {
   String? filterText;
   bool favoritesOnly = false;
 
+  late Future<PermissionStatus> _notificationSettings;
+
   @override
   void initState() {
     super.initState();
     _vereine = fetchVereine();
     _selectedVerein = box.read(selectedVereinKey);
+    _notificationSettings = Permission.notification.status;
   }
 
   @override
@@ -91,6 +95,41 @@ class _VereineScreenState extends State<VereineScreen> {
                               favoritesOnly ? Icons.star : Icons.star_outline,
                               color: gelb,
                             ))
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "⭐Markiere deine Favoriten, um 30 Min. vor deren Auftritt benachrichtigt zu werden.",
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        FutureBuilder(
+                          future: _notificationSettings,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              if (!snapshot.requireData.isGranted) {
+                                return InkWell(
+                                  child: const Text(
+                                    "Benachrichtigungen aktivieren",
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: gruen,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    context.push("/settings");
+                                  },
+                                );
+                              }
+                            }
+                            return Container();
+                          },
+                        )
                       ],
                     ),
                   ),
