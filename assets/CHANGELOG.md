@@ -6,8 +6,8 @@
 - Ranglisten
 - Spielplan-Filter verbessern
 - Karten-Navigation verbessern
-- Countdown
 - Verpflegung
+- Countdown
 
 ## [1.0.0+20]
 
