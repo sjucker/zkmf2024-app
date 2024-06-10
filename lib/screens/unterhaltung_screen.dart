@@ -16,9 +16,7 @@ class UnterhaltungScreen extends StatefulWidget {
 }
 
 class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
-  Map<String, bool> dayFilter = {
-    for (var element in UnterhaltungEntryType.values.map((e) => e.labelShort)) element: true
-  };
+  Map<String, bool> dayFilter = {};
   List<String> availableDays = UnterhaltungEntryType.values.map((e) => e.labelShort).toList();
 
   Map<String, bool> locationFilter = {};
@@ -45,6 +43,16 @@ class _UnterhaltungScreenState extends State<UnterhaltungScreen> {
               if (availableLocations.isEmpty) {
                 availableLocations = allData.expand((e) => e.entries.map((e) => e.location.name)).toSet().toList();
                 availableLocations.sort((a, b) => a.compareTo(b));
+              }
+              if (dayFilter.isEmpty) {
+                dayFilter = {
+                  for (var element in UnterhaltungEntryType.values.map((e) => e.labelShort))
+                    element: !allData.where((e) => e.type.labelShort == element).first.inPast
+                };
+                if (dayFilter.values.every((e) => !e)) {
+                  // if initially all are deselected (i.e., all in past), select all again, otherwise empty page
+                  dayFilter.updateAll((key, value) => true);
+                }
               }
               if (locationFilter.isEmpty) {
                 locationFilter = {for (var element in availableLocations) element: true};
