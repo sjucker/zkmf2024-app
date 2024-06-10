@@ -5,6 +5,7 @@
 - Vereinszugehörigkeit mit detailliertem Ablauf
 - Ranglisten
 - Spielplan-Filter verbessern
+- Karten-Navigation verbessern
 - Countdown
 - Verpflegung
 

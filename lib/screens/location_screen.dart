@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:maps_launcher/maps_launcher.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/service/geolocation.dart';
+import 'package:zkmf2024_app/service/maps.dart';
 import 'package:zkmf2024_app/widgets/cloudflare_image.dart';
 import 'package:zkmf2024_app/widgets/distance_to_location.dart';
 import 'package:zkmf2024_app/widgets/general_error.dart';
@@ -60,8 +60,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.map_sharp),
-                  onTap: () {
-                    MapsLauncher.launchCoordinates(requireData.latitude, requireData.longitude, requireData.name);
+                  onTap: () async {
+                    openMap(requireData);
                   },
                   title: const Text(
                     "Karte öffnen",
