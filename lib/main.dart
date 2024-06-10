@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/firebase_options.dart';
 import 'package:zkmf2024_app/screens/changelog_screen.dart';
@@ -85,7 +85,10 @@ void displayNotificationMessage(RemoteMessage message) {
         contentPadding: const EdgeInsets.all(10),
         children: [
           ListTile(
-            title: Text(message.notification?.body ?? ""),
+            title: Text(
+              message.notification?.body ?? "",
+              style: const TextStyle(fontSize: 12),
+            ),
           ),
           FilledButton(
               onPressed: () {
