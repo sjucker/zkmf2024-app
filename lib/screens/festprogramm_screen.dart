@@ -47,7 +47,7 @@ class _FestprogrammScreenState extends State<FestprogrammScreen> {
                 allData = snapshot.requireData;
                 if (availableDays.isEmpty) {
                   availableDays = allData.map((e) => e.day).toList();
-                  dayFilter = {for (var element in availableDays) element: true};
+                  dayFilter = {for (final (index, element) in availableDays.indexed) element: !allData[index].inPast};
                 }
                 if (availableLocations.isEmpty) {
                   availableLocations = allData.expand((e) => e.entries.map((e) => e.location)).toSet().toList();

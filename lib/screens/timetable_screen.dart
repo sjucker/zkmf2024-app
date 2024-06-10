@@ -160,7 +160,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
   void initFilters(List<TimetableDayOverviewDTO> requireData) {
     if (availableDays.isEmpty) {
       availableDays = requireData.map((e) => e.day).toList();
-      dayFilter = {for (var element in availableDays) element: true};
+      dayFilter = {for (final (index, element) in availableDays.indexed) element: !requireData[index].inPast};
     }
 
     if (availableLocations.isEmpty) {
