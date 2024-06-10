@@ -3,21 +3,24 @@ import 'dart:math';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-Future<Position> determineCurrentPosition() async {
+Future<Position?> determineCurrentPosition() async {
   var serviceEnabled = await Permission.location.serviceStatus.isEnabled;
   if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
+    // location services are disabled
+    return Future.value(null);
   }
 
   var permission = await Permission.location.status;
   if (permission == PermissionStatus.permanentlyDenied) {
-    return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+    // location permissions are permanently denied, we cannot request permissions
+    return Future.value(null);
   }
 
   permission = await Permission.location.request();
 
   if (permission == PermissionStatus.denied) {
-    return Future.error('Location permissions are denied');
+    // location permissions are denied
+    return Future.value(null);
   }
 
   // When we reach here, permissions are granted and we can

@@ -18,7 +18,7 @@ class LocationsScreen extends StatefulWidget {
 
 class _LocationsScreenState extends State<LocationsScreen> {
   late Future<List<LocationDTO>> _locations;
-  late Future<Position> _currentPosition;
+  late Future<Position?> _currentPosition;
 
   @override
   void initState() {
