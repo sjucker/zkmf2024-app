@@ -208,7 +208,7 @@
 				526353D86959D2730A8194F7 /* [CP] Embed Pods Frameworks */,
 				9021ED5B676A00FE77899A15 /* [CP] Copy Pods Resources */,
 				4B8677FD72E3BA0B20D34B99 /* [firebase_crashlytics] Crashlytics Upload Symbols */,
-				587BB705A95B152FADC1F354 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
+				63F4D8655C9F44AF00E81CBE /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
 			);
 			buildRules = (
 			);
@@ -360,7 +360,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		587BB705A95B152FADC1F354 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
+		63F4D8655C9F44AF00E81CBE /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
