@@ -15,8 +15,8 @@ class VereinMemberInfoDTO {
           .map((e) => TimetableOverviewEntryDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       json["lunchTime"],
-      LocationDTO.fromJson(json["instrumentenDepot"]),
-      LocationDTO.fromJson(json["instrumentenDepotParademusik"]),
+      json["instrumentenDepot"] != null ? LocationDTO.fromJson(json["instrumentenDepot"]) : null,
+      json["instrumentenDepotParademusik"] != null ? LocationDTO.fromJson(json["instrumentenDepotParademusik"]) : null,
     );
   }
 }
