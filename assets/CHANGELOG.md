@@ -3,6 +3,7 @@
 ## [1.2.1+28]
 
 - Filter-Dialog verbessern
+- Bugfix Detailansicht
 
 ## [1.2.0+27]
 

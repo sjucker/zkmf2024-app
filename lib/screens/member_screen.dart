@@ -68,7 +68,10 @@ class _MemberScreenState extends State<MemberScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold, color: gruen),
                     )),
                     location(snapshot.requireData.instrumentenDepot),
-                    location(snapshot.requireData.instrumentenDepotParademusik),
+                    location(snapshot.requireData.instrumentenDepot?.id !=
+                            snapshot.requireData.instrumentenDepotParademusik?.id
+                        ? snapshot.requireData.instrumentenDepotParademusik
+                        : null),
                     const Divider(),
                     const ListTile(
                         title: Text(
