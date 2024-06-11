@@ -1,7 +1,7 @@
 name: zkmf2024_app
 description: "ZKMF2024 App"
 publish_to: 'none'
-version: 1.2.1+28
+version: 1.2.2+29
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
