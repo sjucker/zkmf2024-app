@@ -1,6 +1,10 @@
 # Changelog
 
-## [1.1.0+27]
+## [1.2.1+28]
+
+- Filter-Dialog verbessern
+
+## [1.2.0+27]
 
 - Vereinszugehörigkeit mit detailliertem Ablauf
 - Ranglisten

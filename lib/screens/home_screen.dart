@@ -75,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Countdown(start: DateTime(2024, 6, 21, 17, 30)),
               const EmergencyAlert(
                 key: Key('home-emergency-alert'),
               ),
@@ -82,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 key: Key('home-ranking-available'),
               ),
               Member(key: memberKey),
-              Countdown(start: DateTime(2024, 6, 21, 17, 30)),
               SizedBox(
                 height: 290,
                 child: GridView(

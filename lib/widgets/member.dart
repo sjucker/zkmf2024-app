@@ -29,7 +29,7 @@ class _MemberState extends State<Member> {
         if (snapshot.hasData) {
           if (hasFutureEntries(snapshot.requireData)) {
             return Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(4),
                 child: TextButton(
                   onPressed: () {
                     context.push('/member');
