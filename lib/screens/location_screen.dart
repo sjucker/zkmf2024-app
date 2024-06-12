@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:zkmf2024_app/constants.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/service/backend_service.dart';
 import 'package:zkmf2024_app/service/geolocation.dart';
@@ -61,7 +62,16 @@ class _LocationScreenState extends State<LocationScreen> {
                 ListTile(
                   leading: const Icon(Icons.map_sharp),
                   onTap: () async {
-                    openMap(requireData);
+                    var opened = await openMap(requireData);
+                    if (!opened && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                          'Keine Karten-Applikation vorhanden, um Standort anzuzeigen.',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: rot,
+                      ));
+                    }
                   },
                   title: const Text(
                     "Karte öffnen",

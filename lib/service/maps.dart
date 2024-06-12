@@ -2,8 +2,12 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:zkmf2024_app/dto/location.dart';
 import 'package:zkmf2024_app/service/geolocation.dart';
 
-void openMap(LocationDTO location) async {
-  var mapType = await MapLauncher.isMapAvailable(MapType.google) ?? false ? MapType.google : MapType.apple;
+Future<bool> openMap(LocationDTO location) async {
+  var mapType = await getMapType();
+  if (mapType == null) {
+    return false;
+  }
+
   var currentPosition = await determineCurrentPosition();
   if (currentPosition != null) {
     await MapLauncher.showDirections(
@@ -20,4 +24,16 @@ void openMap(LocationDTO location) async {
       title: location.name,
     );
   }
+  return true;
+}
+
+Future<MapType?> getMapType() async {
+  if (await MapLauncher.isMapAvailable(MapType.google) ?? false) {
+    return MapType.google;
+  }
+  if (await MapLauncher.isMapAvailable(MapType.apple) ?? false) {
+    return MapType.apple;
+  }
+  final availableMaps = await MapLauncher.installedMaps;
+  return availableMaps.firstOrNull?.mapType;
 }
