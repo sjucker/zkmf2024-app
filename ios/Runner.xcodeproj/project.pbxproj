@@ -208,7 +208,7 @@
 				526353D86959D2730A8194F7 /* [CP] Embed Pods Frameworks */,
 				9021ED5B676A00FE77899A15 /* [CP] Copy Pods Resources */,
 				4B8677FD72E3BA0B20D34B99 /* [firebase_crashlytics] Crashlytics Upload Symbols */,
-				A629AFC4CCE22182C9974BA9 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
+				C52FE46CB64F724C44418431 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
 			);
 			buildRules = (
 			);
@@ -392,7 +392,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
-		A629AFC4CCE22182C9974BA9 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
+		C52FE46CB64F724C44418431 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
