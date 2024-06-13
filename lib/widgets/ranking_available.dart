@@ -52,4 +52,10 @@ class _RankingAvailableState extends State<RankingAvailable> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer?.cancel();
+  }
 }
