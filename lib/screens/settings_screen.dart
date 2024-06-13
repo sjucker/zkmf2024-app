@@ -276,40 +276,58 @@ Falls Ortungsdienste nicht in der App aktiviert werden können, bitte folgende S
                 var vereine = snapshot.requireData;
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: DropdownButton<String>(
-                    value: _selectedVerein,
-                    isExpanded: true,
-                    items: [
-                      const DropdownMenuItem<String>(
-                        value: null,
-                        child: Text('---'),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: DropdownButton<String>(
+                          value: _selectedVerein,
+                          isExpanded: true,
+                          items: [
+                            ...vereine.map((e) => DropdownMenuItem<String>(
+                                value: e.identifier,
+                                child: Text(
+                                  e.name,
+                                )))
+                          ],
+                          onChanged: (value) async {
+                            if (value != null) {
+                              // make sure user has granted permission
+                              await requestPermissionAndSubscribe(true);
+                            }
+                            setState(() {
+                              if (value != null) {
+                                _box.write(selectedVereinKey, value);
+                                member(value);
+                              } else {
+                                _box.remove(selectedVereinKey);
+                              }
+                              if (_selectedVerein != null) {
+                                // unsubscribe from previous selection
+                                unmember(_selectedVerein!);
+                              }
+                              _selectedVerein = value;
+                            });
+                          },
+                          iconEnabledColor: gruen,
+                        ),
                       ),
-                      ...vereine.map((e) => DropdownMenuItem<String>(
-                          value: e.identifier,
-                          child: Text(
-                            e.name,
-                          )))
+                      _selectedVerein != null
+                          ? IconButton(
+                              icon: const Icon(
+                                Icons.clear_outlined,
+                                color: gruen,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _box.remove(selectedVereinKey);
+                                  // unsubscribe from previous selection
+                                  unmember(_selectedVerein!);
+                                  _selectedVerein = null;
+                                });
+                              },
+                            )
+                          : Container()
                     ],
-                    onChanged: (value) async {
-                      if (value != null) {
-                        // make sure user has granted permission
-                        await requestPermissionAndSubscribe(true);
-                      }
-                      setState(() {
-                        if (value != null) {
-                          _box.write(selectedVereinKey, value);
-                          member(value);
-                        } else {
-                          _box.remove(selectedVereinKey);
-                        }
-                        if (_selectedVerein != null) {
-                          // unsubscribe from previous selection
-                          unmember(_selectedVerein!);
-                        }
-                        _selectedVerein = value;
-                      });
-                    },
-                    iconEnabledColor: gruen,
                   ),
                 );
               } else {
