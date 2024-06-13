@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.2.2+29]
+
 ## [1.2.1+28]
 
 - Filter-Dialog verbessern
