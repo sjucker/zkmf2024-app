@@ -29,6 +29,7 @@ class _RankingAvailableState extends State<RankingAvailable> {
       future: hasRankings(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.requireData) {
+          timer?.cancel();
           return Padding(
               padding: const EdgeInsets.all(4),
               child: TextButton(
