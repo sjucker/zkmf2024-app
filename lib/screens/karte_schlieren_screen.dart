@@ -16,8 +16,7 @@ class KarteSchlierenScreen extends StatelessWidget {
       ),
       body: ClipRect(
         child: PhotoView(
-          imageProvider:
-              const CachedNetworkImageProvider('${cloudFlareUrl}68b2d0d5-20a5-4148-fa7c-2f04feced200/public'),
+          imageProvider: const CachedNetworkImageProvider('https://www.zkmf2024.ch/karten/schlieren.jpg'),
           backgroundDecoration: const BoxDecoration(color: blau),
         ),
       ),

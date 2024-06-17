@@ -17,7 +17,7 @@ class KarteUrdorfScreen extends StatelessWidget {
       body: ClipRect(
         child: PhotoView(
           imageProvider:
-              const CachedNetworkImageProvider('${cloudFlareUrl}b3a8bf80-1479-4847-6c93-e06e3430d700/public'),
+              const CachedNetworkImageProvider('https://www.zkmf2024.ch/karten/urdorf.jpg'),
           backgroundDecoration: const BoxDecoration(color: blau),
         ),
       ),
