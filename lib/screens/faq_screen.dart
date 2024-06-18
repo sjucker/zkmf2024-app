@@ -54,7 +54,7 @@ neben Schulhaus Feld 1, [Im Embri 49](https://maps.app.goo.gl/2EH2iJPR5iYxyzxe7)
           children: [
             textBlock("""
 **Urdorf**: Musikhaus Bucher  
-beim Foyer Schulhaus Embri, [Im Embri 49](https://maps.app.goo.gl/2EH2iJPR5iYxyzxe7)
+beim Foyer der Zentrumshalle, [Birmensdorferstrasse 77](https://maps.app.goo.gl/9HtPD5pPM1nMW2SB9)
 
 **Schlieren**: Musikhaus Kubli, [Kirchgasse 6](https://maps.app.goo.gl/811fMmafLY3Gx6fp6)
                 """),
