@@ -62,10 +62,12 @@ An den Food-Ständen entscheiden die Standbetreiber über die akzeptierten Zahlu
           title: const Text("Instrumentendepots"),
           children: [
             textBlock("""
-Die Instrumentendepots in Schlieren sind von 07.30–17.00 Uhr geöffnet.  
+Die Instrumentendepots in **Schlieren** sind von 07.30–17.00 Uhr geöffnet.  
 Bei der Verschiebung nach Urdorf bitte die Instrumentenkoffer mitnehmen und wie folgt deponieren:
 * Schlieren (1D) -> Urdorf (3D) (Turnhalle Embri, Im Embri 49)
 * Schlieren (2D) -> Urdorf (5D) (Turnhalle Bahnhofstrasse, Bahnhofstrasse 50)
+
+Die Instrumentendepots in **Urdorf** sind am Samstag, 22.06. von 07.30–02.00 Uhr und am Sonntag, 23.06. ab 07.30 Uhr geöffnet.
 
 Die Depots sind bewacht. Für allfällige Schäden wird seitens der Organisatoren keine Haftung übernommen.
                 """),
