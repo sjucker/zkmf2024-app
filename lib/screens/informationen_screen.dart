@@ -28,16 +28,6 @@ class InformationenScreen extends StatelessWidget {
             title: const Text("Karte Festareal"),
           ),
           ListTile(
-            leading: const Icon(Icons.house_outlined),
-            trailing: const Icon(
-              Icons.navigate_next_sharp,
-            ),
-            onTap: () {
-              context.push('/wettspiellokale');
-            },
-            title: const Text("Wettspiellokale"),
-          ),
-          ListTile(
             leading: const Icon(Icons.quiz_outlined),
             trailing: const Icon(
               Icons.navigate_next_sharp,
@@ -46,6 +36,16 @@ class InformationenScreen extends StatelessWidget {
               context.push('/faq');
             },
             title: const Text("Gut zu wissen"),
+          ),
+          ListTile(
+            leading: const Icon(Icons.house_outlined),
+            trailing: const Icon(
+              Icons.navigate_next_sharp,
+            ),
+            onTap: () {
+              context.push('/wettspiellokale');
+            },
+            title: const Text("Wettspiellokale"),
           ),
           ListTile(
             leading: const Icon(Icons.restaurant_outlined),

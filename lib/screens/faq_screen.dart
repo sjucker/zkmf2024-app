@@ -26,6 +26,15 @@ neben Schulhaus Feld 1, [Im Embri 49](https://maps.app.goo.gl/2EH2iJPR5iYxyzxe7)
           ],
         ),
         ExpansionTile(
+          title: const Text("Bezahlung"),
+          children: [
+            textBlock("""
+In den Festzelten werden Zahlungen mit **Bargeld** oder **Twint** akzeptiert. **Keine Karten**!  
+An den Food-Ständen entscheiden die Standbetreiber über die akzeptierten Zahlungsmittel.
+                """)
+          ],
+        ),
+        ExpansionTile(
           title: const Text("Helferbüros"),
           children: [
             textBlock("""
@@ -49,6 +58,19 @@ neben Schulhaus Feld 1, [Im Embri 49](https://maps.app.goo.gl/2EH2iJPR5iYxyzxe7)
         """),
           ],
         ),
+            ExpansionTile(
+              title: const Text("Instrumentendepots"),
+              children: [
+                textBlock("""
+Die Instrumentendepots in Schlieren sind von 07.30–17.00 Uhr geöffnet.  
+Bei der Verschiebung nach Urdorf bitte die Instrumentenkoffer mitnehmen und wie folgt deponieren:
+* Schlieren (1D) -> Urdorf (3D) (Turnhalle Embri, Im Embri 49)
+* Schlieren (2D) -> Urdorf (5D) (Turnhalle Bahnhofstrasse, Bahnhofstrasse 50)
+
+Die Depots sind bewacht. Für allfällige Schäden wird seitens der Organisatoren keine Haftung übernommen.
+                """),
+              ],
+            ),
         ExpansionTile(
           title: const Text("Instrumentenreparatur"),
           children: [
@@ -148,6 +170,12 @@ Lehrerzimmer, [Im Embri 49](https://maps.app.goo.gl/zMdBL8j2252KatFBA)
         """),
           ],
         ),
+        ExpansionTile(title: const Text("Rangverkündigung"), children: [
+          textBlock("""
+* Samstag, 22.06.2024, 17.30 Uhr, Zentrumshalle Urdorf
+* Sonntag, 23.06.2024, 18.00 Uhr, Festzelt Urdorf (mit Fahnenübergabe)
+    """)
+        ]),
         ExpansionTile(title: const Text("Toiletten"), children: [
           textBlock("""
 * Urdorf: Schulhaus Feld 2 (Toilettenwagen), Marschmusikstrecke (Toitoi)  
