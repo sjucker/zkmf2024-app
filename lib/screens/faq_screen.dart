@@ -86,7 +86,7 @@ beim Foyer der Zentrumshalle, [Birmensdorferstrasse 77](https://maps.app.goo.gl/
           title: const Text("Notenständer"),
           children: [
             textBlock("""
-In allen Einspiel- und Wettspiel Lokalen sind genügen Notenständer vorhaben und müssen nicht mitgebracht werden.
+Notenständer sind in allen Einspiel- und Wettspiellokalen ausreichend vorhanden und müssen nicht mitgebracht werden.
                 """),
           ],
         ),
