@@ -58,10 +58,10 @@ An den Food-Ständen entscheiden die Standbetreiber über die akzeptierten Zahlu
         """),
           ],
         ),
-            ExpansionTile(
-              title: const Text("Instrumentendepots"),
-              children: [
-                textBlock("""
+        ExpansionTile(
+          title: const Text("Instrumentendepots"),
+          children: [
+            textBlock("""
 Die Instrumentendepots in Schlieren sind von 07.30–17.00 Uhr geöffnet.  
 Bei der Verschiebung nach Urdorf bitte die Instrumentenkoffer mitnehmen und wie folgt deponieren:
 * Schlieren (1D) -> Urdorf (3D) (Turnhalle Embri, Im Embri 49)
@@ -69,8 +69,8 @@ Bei der Verschiebung nach Urdorf bitte die Instrumentenkoffer mitnehmen und wie 
 
 Die Depots sind bewacht. Für allfällige Schäden wird seitens der Organisatoren keine Haftung übernommen.
                 """),
-              ],
-            ),
+          ],
+        ),
         ExpansionTile(
           title: const Text("Instrumentenreparatur"),
           children: [
@@ -79,6 +79,14 @@ Die Depots sind bewacht. Für allfällige Schäden wird seitens der Organisatore
 beim Foyer der Zentrumshalle, [Birmensdorferstrasse 77](https://maps.app.goo.gl/9HtPD5pPM1nMW2SB9)
 
 **Schlieren**: Musikhaus Kubli, [Kirchgasse 6](https://maps.app.goo.gl/811fMmafLY3Gx6fp6)
+                """),
+          ],
+        ),
+        ExpansionTile(
+          title: const Text("Notenständer"),
+          children: [
+            textBlock("""
+In allen Einspiel- und Wettspiel Lokalen sind genügen Notenständer vorhaben und müssen nicht mitgebracht werden.
                 """),
           ],
         ),
