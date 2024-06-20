@@ -157,8 +157,8 @@ Lehrerzimmer, [Im Embri 49](https://maps.app.goo.gl/zMdBL8j2252KatFBA)
 * Schlieren: Alter Jugendraum, Kirchplatz
 
 **Sanitätsposten (Samariterverein Altstetten-Albisrieden)**:
-* Urdorf: Kerzenziehraum unterhalb Turnhalle Bahnhofstrasse (beim Festzelt), Im Moos 37
-* Schlieren: Alter Jugendraum, Kirchplatz
+* Urdorf: Kerzenziehraum unterhalb Turnhalle Bahnhofstrasse (beim Festzelt), [Im Moos 37](https://maps.app.goo.gl/CgexeVkqC7FwEq4A7)
+* Schlieren: Altes Schulhaus, [Freiestrasse 10](https://maps.app.goo.gl/nmav1t3wPEUxGodb8), EG
 
 **Apotheken**:
 * Urdorf:
