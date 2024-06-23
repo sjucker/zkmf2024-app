@@ -59,6 +59,7 @@ class _RankingScreenState extends State<RankingScreen> {
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: getColor(entry)),
                     ),
                     title: Text(entry.vereinsName, style: TextStyle(fontSize: 16, color: getColor(entry))),
+                    subtitle: entry.additionalInfo != null ? Text(entry.additionalInfo!) : Container(),
                     trailing:
                         Text(entry.score.toStringAsFixed(2), style: TextStyle(fontSize: 16, color: getColor(entry))),
                   );
